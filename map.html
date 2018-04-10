@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta name="viewport" content="initial-scale=1.0,user-
-	scalable=no" />
+	<meta name="viewport" content="initial-scale=1.0,user-scalable=no" />
 	<style type="text/css">
 		html { height: 100% }
 		body { height: 100%; margin: 0; padding: 0 }
 		#map-canvas { height: 100% }
 	</style>
 	<script type="text/javascript"
-	src="https://maps.googleapis.com/maps/api/js?
-	key=YOUR_KEY_HERE&libraries=drawing"></script>
+        src="https://maps.googleapis.com/maps/api/js?AIzaSyBIf_yLNj5luUwsd0bMpnk-Rfxy0od_85o&libraries=drawing">
+        </script>
 
 	<script type="text/javascript">
             var map;
@@ -19,8 +18,8 @@
             // Add map
             var mapOptions =
             {
-            center: new google.maps.LatLng(40.705311, -74.2581939),
-            zoom: 6
+            center: new google.maps.LatLng(40.700209, -75.207931),
+            zoom: 16
             };
             map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
             // Add event listener
@@ -32,7 +31,7 @@
             // Add marker
             var marker = new google.maps.Marker(
             {
-            position: new google.maps.LatLng(40.705311, -74.2581939),
+            position: new google.maps.LatLng(40.700211, -75.205480),
             map: map,
             title: "Marker A",
             });
