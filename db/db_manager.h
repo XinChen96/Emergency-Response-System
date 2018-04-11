@@ -8,8 +8,8 @@
 
 class DB_Manager {
 public:
-    DB_Manager(QString);
-    DB_Manager() {}
+    DB_Manager(const QString&);
+    // DB_Manager() {}
     ~DB_Manager() {}
     void build_table();
 
@@ -17,7 +17,7 @@ public:
     virtual void create_row(QString, QString, QString, QString, int) {}
     virtual void update_value(QString, QString, QString, QString, int) {}
     virtual void update_value(QString, int) {}
-    virtual void create_row(QString, int) {}
+    virtual void create_row(QString) {}
     virtual void generate_sql_queries() {}
 
 protected:

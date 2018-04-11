@@ -4,8 +4,7 @@
 
 class User_DB : public DB_Manager {
 public:
-    User_DB(QString path) : DB_Manager(path) { generate_sql_queries(); }
-    User_DB() {}
+    User_DB(const QString& path) : DB_Manager(path) { generate_sql_queries(); }
     ~User_DB() {}
     // Later use polymorphism here, different types of User are implemented differently
     void create_row(QString, QString, QString, QString, int);

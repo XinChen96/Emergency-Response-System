@@ -4,11 +4,10 @@
 
 class Group_DB : public DB_Manager {
 public:
-    Group_DB(QString path) : DB_Manager(path) { generate_sql_queries(); }
-    Group_DB() {}
+    Group_DB(const QString& path) : DB_Manager(path) { generate_sql_queries(); }
     ~Group_DB() {}
     // Later use polymorphism here, different types of User are implemented differently
-    void create_row(QString, int);
+    void create_row(QString);
     void update_value(QString, int);
     void generate_sql_queries();
 };

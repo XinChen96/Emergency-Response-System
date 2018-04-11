@@ -6,16 +6,8 @@
 using namespace std;
 
 int main() {
-    DB_Manager *db;
-    //User_DB user_db(QString("../db.sqlite"));
-    Group_DB group_db(QString("../db.sqlite"));
-
-    //db = &user_db;
-    //db->build_table();
-    //db->create_row(QString("Ben"), QString("Fuller"), QString("benfuller"), QString("firemen"), 1);
-
-    db = &group_db;
+    DB_Manager *db = new Group_DB("../db.sqlite");
     db->build_table();
-    //db->create_row(QString("firemen"), 1);
+    db->create_row(QString("firemen"));
     return 0;
 }
