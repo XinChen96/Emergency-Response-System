@@ -5,6 +5,9 @@
 #include "QSqlQuery"
 #include "QVariant"
 #include <iostream>
+#include "../users/user.h"
+#include "../users/civilian.h"
+#include "../users/dbitem.h"
 
 class DB_Manager {
 public:
@@ -14,10 +17,8 @@ public:
     void build_table();
 
     // Replaced with polymorphic methods when group and user classes are created
-    virtual void create_row(QString, QString, QString, QString, int) {}
-    virtual void update_value(QString, QString, QString, QString, int) {}
-    virtual void update_value(QString, int) {}
-    virtual void create_row(QString) {}
+    virtual void create_row(DBItem&) {}
+    virtual void update_value(DBItem&) {}
     virtual void generate_sql_queries() {}
 
 protected:

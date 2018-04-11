@@ -11,10 +11,10 @@ void User_DB::generate_sql_queries() {
 }
 
 // Should later be replaced by create_row(User& user)
-void User_DB::create_row(QString first, QString last, QString username, QString role, int id) {
+void User_DB::create_row(User& user) {
     query = new QSqlQuery(db);
     query->prepare(insert_cmd);
-    query->bindValue(":firstName", first);
+    query->bindValue(":firstName", user.first_name);
     query->bindValue(":lastName", last);
     query->bindValue(":username", username);
     query->bindValue(":role", role);
@@ -25,7 +25,7 @@ void User_DB::create_row(QString first, QString last, QString username, QString 
     delete query; // Delete pointer
 }
 
-void User_DB::update_value(QString first, QString last, QString username, QString role, int id) {
+void User_DB::update_value(User &user) {
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
 
