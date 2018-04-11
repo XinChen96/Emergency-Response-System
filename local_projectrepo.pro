@@ -32,3 +32,8 @@ HEADERS += \
 
 FORMS += \
         mainwindow.ui
+
+QT += core gui webengine webenginewidgets
+
+RESOURCES += \
+    map_resource.qrc
