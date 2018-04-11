@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -26,6 +26,12 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QLabel" name="title">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <pointsize>20</pointsize>
@@ -38,9 +44,6 @@
             </property>
             <property name="text">
              <string>Emergency Response System
-
-
-
 Pfaffnick Unlimited </string>
             </property>
             <property name="alignment">
@@ -93,6 +96,22 @@ Pfaffnick Unlimited </string>
            </widget>
           </item>
           <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QPushButton" name="reg">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -111,16 +130,6 @@ Pfaffnick Unlimited </string>
       </widget>
       <widget class="QWidget" name="regForm">
        <layout class="QGridLayout" name="gridLayout">
-        <item row="3" column="2">
-         <widget class="QLineEdit" name="lineEdit"/>
-        </item>
-        <item row="3" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Email</string>
-          </property>
-         </widget>
-        </item>
         <item row="0" column="0" colspan="3">
          <widget class="QComboBox" name="identity">
           <item>
@@ -135,7 +144,17 @@ Pfaffnick Unlimited </string>
           </item>
          </widget>
         </item>
-        <item row="5" column="2" alignment="Qt::AlignRight">
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="lineEdit_2"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Email</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2" alignment="Qt::AlignRight">
          <widget class="QPushButton" name="submitReg">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -148,13 +167,6 @@ Pfaffnick Unlimited </string>
           </property>
          </widget>
         </item>
-        <item row="2" column="0" colspan="2">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Password</string>
-          </property>
-         </widget>
-        </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
@@ -162,13 +174,7 @@ Pfaffnick Unlimited </string>
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QLineEdit" name="lineEdit_3"/>
-        </item>
-        <item row="1" column="2">
-         <widget class="QLineEdit" name="lineEdit_2"/>
-        </item>
-        <item row="5" column="0" colspan="2">
+        <item row="4" column="0" colspan="2">
          <widget class="QPushButton" name="cancelReg">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -180,6 +186,9 @@ Pfaffnick Unlimited </string>
            <string>Cancel</string>
           </property>
          </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QLineEdit" name="lineEdit"/>
         </item>
        </layout>
       </widget>
