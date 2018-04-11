@@ -71,8 +71,3 @@ Thumbs.db
 *.dll
 *.exe
 
-
-googletest-master.tar
-._googletest-master
-/googletest-master
-*.sqlite
