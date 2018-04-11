@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
+    <width>515</width>
     <height>476</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidget">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -74,20 +74,6 @@ Pfaffnick Unlimited </string>
           </item>
           <item>
            <widget class="QLineEdit" name="enterUsername"/>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="passwordLayout">
-          <item>
-           <widget class="QLabel" name="password">
-            <property name="text">
-             <string>Password</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="enterPassword"/>
           </item>
          </layout>
         </item>
