@@ -16,13 +16,18 @@
             var map;
             function initialize()
             {
+
+
+
             // Add map
             var mapOptions =
             {
-            center: new google.maps.LatLng(40.700209, -75.207931),
+            center: new google.maps.LatLng(40, -75),
             zoom: 16
             };
             map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+
+
             // Add event listener
             google.maps.event.addListener(map, 'zoom_changed',
             function()
