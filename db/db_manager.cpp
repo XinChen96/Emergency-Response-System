@@ -11,15 +11,12 @@ DB_Manager::DB_Manager(const QString& path) {
     } else {
         std::cout << "Db connection okay." << std::endl;
     }
-
-    query = new QSqlQuery(db);
-    query->exec("CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL;");
-    delete query;
 }
 
 void DB_Manager::build_table() {
     query = new QSqlQuery(db);
 
+    std::cout << create_cmd.toStdString() << std::endl;
     query->exec(drop_cmd);   // drop existing table
     query->exec(create_cmd); // create table
 

@@ -13,3 +13,11 @@ HEADERS += \
     db_manager.h \
     user_db.h \
     group_db.h
+
+SOURCES += ../googletest-master/googletest/src/gtest-all.cc
+
+INCLUDEPATH +=  ../googletest-master                                   \
+                ../googletest-master/googletest                        \
+                ../googletest-master/googletest/include                \
+                ../googletest-master/googletest/include/gtest
+
