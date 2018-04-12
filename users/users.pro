@@ -1,10 +1,13 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-CONFIG -= qt
 
 SOURCES += main.cpp \
-    user.cpp
+    user.cpp \
+    civilian.cpp \
+    dbitem.cpp
 
 HEADERS += \
-    user.h
+    user.h \
+    civilian.h \
+    dbitem.h
