@@ -14,8 +14,10 @@
 	<script type="text/javascript">
 
             var map;
+
             function initialize()
             {
+
                   // Add map
                   var mapOptions =
                   {
@@ -36,9 +38,9 @@
                   // Add marker
                   var marker = new google.maps.Marker(
                   {
-                        position: new google.maps.LatLng(40.700211, -75.205480),
+                        position: new google.maps.LatLng(40.700209, -75.207931),
                         map: map,
-                        title: "Marker A",
+                        title: "Your Location",
                   });
 
                   google.maps.event.addListener(marker, 'click', function()
