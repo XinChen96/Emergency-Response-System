@@ -36,4 +36,7 @@ FORMS += \
 QT += core gui webengine webenginewidgets
 
 RESOURCES += \
-    map_resource.qrc
+    map_resource.qrc \
+    images.qrc
+
+DISTFILES +=

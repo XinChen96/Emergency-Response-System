@@ -5,9 +5,13 @@ CONFIG -= app_bundle
 SOURCES += main.cpp \
     user.cpp \
     civilian.cpp \
-    dbitem.cpp
+    dbitem.cpp \
+    responder.cpp \
+    planner.cpp
 
 HEADERS += \
     user.h \
     civilian.h \
-    dbitem.h
+    dbitem.h \
+    responder.h \
+    planner.h
