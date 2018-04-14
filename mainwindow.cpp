@@ -8,8 +8,31 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     QWebEngineView* webview = new QWebEngineView;
+
+    QWebEnginePage *page = webview->page();
+
+    connect(page, &QWebEnginePage::featurePermissionRequested,
+            [this, page](const QUrl &securityOrigin, QWebEnginePage::Feature feature) {
+        if (feature != QWebEnginePage::Geolocation)
+            return;
+
+        QMessageBox msgBox(this);
+        msgBox.setText(tr("%1 wants to know your location").arg(securityOrigin.host()));
+        msgBox.setInformativeText(tr("Do you want to send your current location to this website?"));
+        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
+        msgBox.setDefaultButton(QMessageBox::Yes);
+
+        if (msgBox.exec() == QMessageBox::Yes) {
+            page->setFeaturePermission(
+                securityOrigin, feature, QWebEnginePage::PermissionGrantedByUser);
+        } else {
+            page->setFeaturePermission(
+                securityOrigin, feature, QWebEnginePage::PermissionDeniedByUser);
+        }
+    });
+
     QUrl url = QUrl("qrc:/map.html");
-    webview->page()->load(url);
+    page->load(url);
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 }
