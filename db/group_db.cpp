@@ -1,4 +1,5 @@
 #include "group_db.h"
+#include "../users/responder.h"
 #include <iostream>
 
 void Group_DB::generate_sql_queries() {
@@ -10,26 +11,28 @@ void Group_DB::generate_sql_queries() {
     query = nullptr;
 }
 
-// Should later be replaced by create_row(User& user)
-void Group_DB::create_row(QString group) {
-    query = new QSqlQuery(db);
-    query->prepare(insert_cmd);
-    query->bindValue(":groupName", group);
-    query->exec();
 
-    delete query; // Delete pointer
-}
+// Todo: Create Group class
+// Should later be replaced by create_row(Group& g)
+//void Group_DB::create_row(Group& g) {
+//    query = new QSqlQuery(db);
+//    query->prepare(insert_cmd);
+//    query->bindValue(":groupName", r.group_name);
+//    query->exec();
 
-void Group_DB::update_value(QString group, int id) {
-    query = new QSqlQuery(db);
-    query->prepare(update_cmd);
+//    delete query; // Delete pointer
+//}
 
-    query->bindValue(":groupName", group);
-    query->bindValue(":id", id);
+//void Group_DB::update_value(QString group, int id) {
+//    query = new QSqlQuery(db);
+//    query->prepare(update_cmd);
 
-    query->exec();
+//    query->bindValue(":groupName", group);
+//    query->bindValue(":id", id);
 
-    delete query; // Delete pointer
-}
+//    query->exec();
+
+//    delete query; // Delete pointer
+//}
 
 

@@ -76,3 +76,4 @@ googletest-master.tar
 ._googletest-master
 /googletest-master
 *.sqlite
+build*

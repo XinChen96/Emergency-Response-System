@@ -1,8 +1,8 @@
 TEMPLATE = app
 CONFIG += console c++11
 CONFIG -= app_bundle
-QT += core                # this should be added
-QT += sql                 # this should be added
+QT += core
+QT += sql
 
 SOURCES += main.cpp \
     db_manager.cpp \

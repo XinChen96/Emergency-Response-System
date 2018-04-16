@@ -16,7 +16,6 @@ public:
     ~DB_Manager() {}
     void build_table();
 
-    // Replaced with polymorphic methods when group and user classes are created
     virtual void create_row(DBItem&) {}
     virtual void update_value(DBItem&) {}
     virtual void generate_sql_queries() {}

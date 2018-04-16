@@ -7,8 +7,8 @@ public:
     Group_DB(const QString& path) : DB_Manager(path) { generate_sql_queries(); }
     ~Group_DB() {}
     // Later use polymorphism here, different types of User are implemented differently
-    void create_row(DBItem&);
-    void update_value(DBItem&);
+//    void create_row(DBItem&);
+//    void update_value(DBItem&);
     void generate_sql_queries();
 };
 
