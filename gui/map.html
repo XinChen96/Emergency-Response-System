@@ -13,100 +13,102 @@
 
 	<script type="text/javascript">
 
-            var map;
-
-
             function initialize()
             {
-
-                  var lat = 0;
-                  var lng = 0;
-
-                  // Add map
-                  var mapOptions =
-                  {
-                        center: new google.maps.LatLng(40.700209, -75.207931),
-                        zoom: 16
-                  };
-
-                  map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
-
-
-                  // Add event listener
-                  google.maps.event.addListener(map, 'zoom_changed',
-                  function()
-                  {
-                        //alert(map.getZoom());
-                  });
-
                   navigator.geolocation.getCurrentPosition(function(position) {
+
+                        var map;
+                        var lat = 0;
+                        var lng = 0;
+
+                        //get custom marker icon
+                        var markerIcon = {
+                              url: 'http://image.flaticon.com/icons/svg/252/252025.svg',
+                              scaledSize: new google.maps.Size(40, 40),
+                              origin: new google.maps.Point(0, 0),
+                              anchor: new google.maps.Point(32,65),
+                              labelOrigin:  new google.maps.Point(20,-10),
+                        };
+
+                        //get current position
                         lat = position.coords.latitude;
                         lng = position.coords.longitude;
 
+                        //set up map options
                         mapOptions =
                         {
                               center: new google.maps.LatLng(lat, lng),
                               zoom: 16
                         };
 
+                        //initialize map
                         map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
-                        var markerLabel = 'You!';
-
-                        new google.maps.Marker({
+                        //add in marker
+                        var marker = new google.maps.Marker({
                               position: new google.maps.LatLng(lat, lng),
                               map: map,
                               title: "Current Location",
+                              icon: markerIcon,
                               label: {
-                                    text: markerLabel,
+                                    text: 'You are here.',
                                     color: "#eb3a44",
-                                    fontSize: "16px",
-                                    fontWeight: "bold",
+                                    fontSize: "16px"
                               }
                         });
 
                         //https://codepen.io/Khrystyna/pen/xRVOMP?editors=0010
-                  });
 
-                  var marker = new google.maps.Marker;
+                        // Add event listener
+                        google.maps.event.addListener(map, 'zoom_changed',
+                        function()
+                        {
+                              //alert(map.getZoom());
+                        });
+                        
+                        //add in clicking listener
+                        google.maps.event.addListener(marker, 'click', function()
+                        {
+                              map.panTo(marker.getPosition());
+                        });
+                        marker.setMap(map);
 
-                  google.maps.event.addListener(marker, 'click', function()
-                  {
-                        map.panTo(marker.getPosition());
-                  });
-                  marker.setMap(map);
+                        /* Optional functionality code
 
-                  // Add polyline
-                  var points = [ new google.maps.LatLng(39.8543, -73.2183),
-                  new google.maps.LatLng(41.705311, -75.2581939), new
-                  google.maps.LatLng(40.62388, -75.5483) ];
-                  var polyOptions =
-                  {
-                        path: points,
-                        strokeColor: '#FF0000',
-                        strokeOpacity: 1.0,strokeOpacity: 1.0,
-                        strokeWeight: 2
-                  };
+                        //Add polyline
+                        var points = [ new google.maps.LatLng(39.8543, -73.2183),
+                        new google.maps.LatLng(41.705311, -75.2581939), new
+                        google.maps.LatLng(40.62388, -75.5483) ];
+                        var polyOptions =
+                        {
+                              path: points,
+                              strokeColor: '#FF0000',
+                              strokeOpacity: 1.0,strokeOpacity: 1.0,
+                              strokeWeight: 2
+                        };
+                        historyPolyline = new google.maps.Polyline(polyOptions);
+                        historyPolyline.setMap(map);
 
-                  historyPolyline = new google.maps.Polyline(polyOptions);
-                  historyPolyline.setMap(map);
+                        // Add polygon
+                        var points = [ new google.maps.LatLng(37.314166, -75.432),new google.maps.LatLng(40.2653, -74.4325), new google.maps.LatLng(38.8288, -76.5483) ];
+                        var polygon = new google.maps.Polygon(
+                        {
+                              paths: points,
+                              fillColor: '#000000',
+                              fillOpacity: 0.2,
+                              strokeWeight: 3,
+                              strokeColor: '#fff000',
+                        });
+                        polygon.setMap(map);
 
-                  // Add polygon
-                  var points = [ new google.maps.LatLng(37.314166, -75.432),new google.maps.LatLng(40.2653, -74.4325), new google.maps.LatLng(38.8288, -76.5483) ];
-                  var polygon = new google.maps.Polygon(
-                  {
-                        paths: points,
-                        fillColor: '#000000',
-                        fillOpacity: 0.2,
-                        strokeWeight: 3,
-                        strokeColor: '#fff000',
-                  });
-                  polygon.setMap(map);
+                        End of optional code */
 
-                  // Setup drawing manager
-                  var drawingManager = new
-                  google.maps.drawing.DrawingManager();
-                  drawingManager.setMap(map);
+                        // Setup drawing manager
+                        var drawingManager = new
+                        google.maps.drawing.DrawingManager();
+                        drawingManager.setMap(map);
+
+                  }, function error(msg){alert('Please enable location access.');}, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
             }
 
             google.maps.event.addDomListener(window, 'load', initialize);
