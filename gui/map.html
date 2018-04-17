@@ -51,11 +51,21 @@
 
                         map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
+                        var markerLabel = 'You!';
+
                         new google.maps.Marker({
-                              position: new google.maps.LatLng(lat, lng ),
+                              position: new google.maps.LatLng(lat, lng),
                               map: map,
                               title: "Current Location",
+                              label: {
+                                    text: markerLabel,
+                                    color: "#eb3a44",
+                                    fontSize: "16px",
+                                    fontWeight: "bold",
+                              }
                         });
+
+                        //https://codepen.io/Khrystyna/pen/xRVOMP?editors=0010
                   });
 
                   var marker = new google.maps.Marker;
