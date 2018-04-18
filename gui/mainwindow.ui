@@ -24,7 +24,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -541,6 +541,9 @@
               <bold>true</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: white</string>
+            </property>
             <property name="text">
              <string>Options - Emergency Planner</string>
             </property>
@@ -677,6 +680,9 @@
               <bold>true</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: white</string>
+            </property>
             <property name="text">
              <string>Communication</string>
             </property>
@@ -690,7 +696,7 @@
         <item>
          <widget class="QTabWidget" name="tabWidget">
           <property name="currentIndex">
-           <number>1</number>
+           <number>2</number>
           </property>
           <widget class="QWidget" name="broadcast">
            <attribute name="title">
@@ -808,6 +814,9 @@
               <bold>true</bold>
              </font>
             </property>
+            <property name="styleSheet">
+             <string notr="true">color: white</string>
+            </property>
             <property name="text">
              <string>Emergency Protocol</string>
             </property>
@@ -819,7 +828,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTableWidget" name="triggerTable">
           <attribute name="horizontalHeaderDefaultSectionSize">
            <number>200</number>
           </attribute>
@@ -831,11 +840,6 @@
           <column>
            <property name="text">
             <string>Protocol Name</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Date Created</string>
            </property>
           </column>
          </widget>
@@ -886,6 +890,9 @@
               <weight>75</weight>
               <bold>true</bold>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white</string>
             </property>
             <property name="text">
              <string>Responder Group</string>

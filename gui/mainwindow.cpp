@@ -23,6 +23,8 @@ MainWindow::MainWindow(QWidget *parent) :
     page->load(url);
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
+
+    ui->triggerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 }
 
 MainWindow::~MainWindow()
