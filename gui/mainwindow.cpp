@@ -16,19 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
         if (feature != QWebEnginePage::Geolocation)
             return;
 
-        QMessageBox msgBox(this);
-        msgBox.setText(tr("%1<p align='center'>ATTENTION!<").arg(securityOrigin.host()));
-        msgBox.setInformativeText(tr("Do you wish to send your current location?"));
-        msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
-        msgBox.setDefaultButton(QMessageBox::Yes);
-
-        if (msgBox.exec() == QMessageBox::Yes) {
-            page->setFeaturePermission(
-                securityOrigin, feature, QWebEnginePage::PermissionGrantedByUser);
-        } else {
-            page->setFeaturePermission(
-                securityOrigin, feature, QWebEnginePage::PermissionDeniedByUser);
-        }
+        page->setFeaturePermission(securityOrigin, feature, QWebEnginePage::PermissionGrantedByUser);
     });
 
     QUrl url = QUrl("qrc:/map.html");
