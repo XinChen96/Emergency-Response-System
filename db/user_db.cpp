@@ -45,9 +45,14 @@ void User_DB::update_value(DBItem* u) {
     delete user;
 }
 
-//User* User_DB::select_civilian(int id) {
-//    User *user = new Civilian(id);
-//    return user;
-//}
+User* User_DB::select_civilian(int id) {
+    User *user;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT DISTINCT FROM users WHERE id=:id");
+    query->bindValue(":id", id);
+
+    user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString(), query->value(0).toInt());
+    return user;
+}
 
 
