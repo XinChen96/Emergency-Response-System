@@ -5,7 +5,7 @@
 class Planner: public User
 {
 public:
-    Planner(QString first, QString last, QString user, QString r, int id) : User(first, last, user, id) {}
+    Planner(QString first, QString last, QString user, int id) : User(first, last, user, Role::planner, id) {}
     ~Planner() {}
 };
 
