@@ -17,8 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
             return;
 
         QMessageBox msgBox(this);
-        msgBox.setText(tr("%1 wants to know your location").arg(securityOrigin.host()));
-        msgBox.setInformativeText(tr("Do you want to send your current location to this website?"));
+        msgBox.setText(tr("%1<p align='center'>ATTENTION!<").arg(securityOrigin.host()));
+        msgBox.setInformativeText(tr("Do you wish to send your current location?"));
         msgBox.setStandardButtons(QMessageBox::Yes | QMessageBox::No);
         msgBox.setDefaultButton(QMessageBox::Yes);
 
