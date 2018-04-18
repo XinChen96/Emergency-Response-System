@@ -5,6 +5,7 @@
 #include "user_db.h"
 #include "group_db.h"
 #include "../users/user.h"
+#include "../users/roles.h"
 
 // The fixture for testing class DBTest
 class DBTest : public ::testing::Test {
@@ -24,9 +25,9 @@ class DBTest : public ::testing::Test {
 TEST(InsertTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
     db->build_table();
-    DBItem *entry = new User(QString("Benny"), QString("Fuller"), QString("benfuller"), 1);
+    DBItem *entry = new Civilian(QString("Benny"), QString("Fuller"), QString("benfuller"), 1);
     db->create_row(entry); // Add entry
-
+    
 }
 
 

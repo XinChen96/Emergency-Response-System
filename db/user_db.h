@@ -9,7 +9,7 @@ public:
     void create_row(DBItem*);
     void update_value(DBItem*);
     void generate_sql_queries();
-    User* select_user(int);
+    DBItem* select_item(int);
 };
 
 #endif // USER_DB_H

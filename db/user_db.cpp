@@ -22,7 +22,6 @@ void User_DB::create_row(DBItem* u) {
     query->bindValue(":firstName", user->first_name);
     query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
-    //query->bindValue(":groupid", id);
 
     query->exec();
 
@@ -46,14 +45,9 @@ void User_DB::update_value(DBItem* u) {
     delete user;
 }
 
-// Select a user based on the id
-User* User_DB::select_user(int id) {
-    query->prepare("SELECT DISTINCT FROM users WHERE id=:id");
-    query->bindValue(":id", id);
-    User* user;
-
-    query->exec();
-    cout << query->size() << endl;
-}
+//User* User_DB::select_civilian(int id) {
+//    User *user = new Civilian(id);
+//    return user;
+//}
 
 
