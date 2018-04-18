@@ -15,7 +15,6 @@ DB_Manager::DB_Manager(const QString& path) {
 
 void DB_Manager::build_table() {
     query = new QSqlQuery(db);
-
     query->exec(drop_cmd);   // drop existing table
     query->exec(create_cmd); // create table
 

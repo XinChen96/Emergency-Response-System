@@ -1,0 +1,15 @@
+#ifndef MAINCONTROLLER_H
+#define MAINCONTROLLER_H
+#include "../db/db_manager.h"
+
+class MainController
+{
+public:
+    MainController();
+    ~MainController();
+
+    DB_Manager *db;
+    bool add_user();
+};
+
+#endif // MAINCONTROLLER_H

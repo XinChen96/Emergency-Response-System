@@ -14,4 +14,5 @@ HEADERS += \
     civilian.h \
     dbitem.h \
     responder.h \
-    planner.h
+    planner.h \
+    roles.h

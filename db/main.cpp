@@ -4,28 +4,28 @@
 #include "db_manager.h"
 #include "user_db.h"
 #include "group_db.h"
+#include "../users/user.h"
 
-// The fixture for testing class Foo.
+// The fixture for testing class DBTest
 class DBTest : public ::testing::Test {
+
     DBTest() {
     }
  protected:
   // If the constructor and destructor are not enough for setting up
   // and cleaning up each test, you can define the following methods:
   virtual void SetUp() {
-
   }
 
   virtual void TearDown() {
-    // Code here will be called immediately after each test (right
-    // before the destructor).
   }
 };
 
 TEST(InsertTest, TESTSIMPLE) {
-    DB_Manager *db;
-    db = new User_DB(QString("../db.sqlite"));
-    //db->create_row();
+    DB_Manager *db = new User_DB("../test.sqlite");
+    db->build_table();
+    DBItem *entry = new User(QString("Benny"), QString("Fuller"), QString("benfuller"), 1);
+    db->create_row(entry); // Add entry
 
 }
 
