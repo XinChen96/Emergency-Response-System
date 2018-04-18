@@ -15,7 +15,6 @@ void User_DB::generate_sql_queries() {
 
 void User_DB::create_row(DBItem* u) {
     User *user = (User*)(u);
-
     query = new QSqlQuery(db);
 
     query->prepare(insert_cmd);
@@ -48,11 +47,31 @@ void User_DB::update_value(DBItem* u) {
 User* User_DB::select_civilian(int id) {
     User *user;
     query = new QSqlQuery(db);
-    query->prepare("SELECT DISTINCT FROM users WHERE id=:id");
+    query->prepare("SELECT DISTINCT * FROM users WHERE id=:id");
     query->bindValue(":id", id);
-
-    user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString(), query->value(0).toInt());
+    query->exec();
+    user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+    user->id = query->value(0).toInt();
+    delete query;
     return user;
 }
 
+User* User_DB::select_civilian(QString username) {
+    User *user;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT DISTINCT * FROM users WHERE username=:user");
+    query->bindValue(":user", username);
+    query->exec();
+
+    if(query->next()) {
+        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+        user->id = query->value(0).toInt();
+        delete query;
+        return user;
+    } else {
+        cerr << "Entry does not exist." << endl;
+        delete query;
+        return nullptr;
+    }
+}
 
