@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     civilian.cpp \
     dbitem.cpp \
     responder.cpp \
-    planner.cpp
+    planner.cpp \
+    group.cpp
 
 HEADERS += \
     user.h \
@@ -15,4 +16,5 @@ HEADERS += \
     dbitem.h \
     responder.h \
     planner.h \
-    roles.h
+    roles.h \
+    group.h

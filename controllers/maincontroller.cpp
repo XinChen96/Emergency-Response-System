@@ -1,13 +1,13 @@
 #include "maincontroller.h"
+#include <iostream>
 
 MainController::MainController() {
-    //db = new DB_Manager("../db.sqlite"); // Todo: get specific file location for db
+    db_location += "../db.sqlite";
 }
 
 MainController::~MainController() {
-    //delete db;
 }
 
 bool MainController::add_user() {
-
+    //db = new User_DB(db_location);
 }

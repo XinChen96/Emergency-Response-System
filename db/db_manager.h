@@ -11,6 +11,7 @@
 class DB_Manager {
 public:
     DB_Manager(const QString&);
+    DB_Manager() {}
     ~DB_Manager() { db.close(); }
     void build_table();
 
