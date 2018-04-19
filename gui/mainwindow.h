@@ -6,8 +6,15 @@
 #include <QtWebEngineWidgets/QWebEngineView>
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QtWebEngineWidgets/QWebEngineSettings>
+#include "QtSql/QSqlDatabase"
+#include "QtSql/QSqlQuery"
+#include "QVariant"
 #include "../controllers/maincontroller.h"
 #include "../db/user_db.h"
+#include "../db/db_manager.h"
+#include "../users/user.h"
+#include "../users/dbitem.h"
+
 namespace Ui {
 class MainWindow;
 }
