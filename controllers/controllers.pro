@@ -6,7 +6,7 @@ QT += sql
 SOURCES += main.cpp \
     maincontroller.cpp\
     ../db/db_manager.cpp\
-    ../db/user_db.cpp\
+    ../db/user_db.cpp
 
 
 HEADERS += \

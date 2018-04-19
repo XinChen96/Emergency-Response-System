@@ -7,6 +7,7 @@
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QtWebEngineWidgets/QWebEngineSettings>
 #include "../controllers/maincontroller.h"
+#include "../db/user_db.h"
 namespace Ui {
 class MainWindow;
 }

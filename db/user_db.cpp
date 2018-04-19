@@ -3,6 +3,7 @@
 
 using namespace std;
 
+
 void User_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username) VALUES (:firstName, :lastName, :username);";

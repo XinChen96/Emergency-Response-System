@@ -1,10 +1,11 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
-#include "../db/db_manager.h"
+
+#include <iostream>
+#include <QString>
 #include "../db/user_db.h"
-#include "../users/user.h"
-#include "../users/civilian.h"
-#include "../users/dbitem.h"
+#include "../db/db_manager.h"
+
 
 
 class MainController
@@ -13,10 +14,11 @@ public:
     MainController();
     ~MainController();
 
-    DB_Manager *db;
-    bool add_user(QString,QString,QString);
-    QString db_location;
 
+    bool add_user(QString,QString,QString);
+private:
+    QString db_location;
+    DB_Manager *db;
 };
 
 #endif // MAINCONTROLLER_H
