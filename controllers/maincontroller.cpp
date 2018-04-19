@@ -2,12 +2,12 @@
 #include <iostream>
 
 MainController::MainController() {
-    db_location += "../db.sqlite";
+    //db_location += "../db.sqlite";
 }
 
 MainController::~MainController() {
 }
 
 bool MainController::add_user() {
-    //db = new User_DB(db_location);
+    DB_Manager *db = new User_DB("../db.sqlite");
 }
