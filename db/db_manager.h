@@ -11,8 +11,8 @@
 class DB_Manager {
 public:
     DB_Manager(const QString&);
-    DB_Manager() {}
-    ~DB_Manager() { db.close(); }
+    virtual ~DB_Manager() { db.close(); }
+
     void build_table();
 
     virtual void create_row(DBItem*) {}

@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    //ctrl = new MainController;
     QWebEngineView* webview = new QWebEngineView;
 
     QWebEnginePage *page = webview->page();
@@ -24,12 +24,15 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
+
     ui->triggerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    //delete ctrl;
 }
 
 //index 0 (login form) button navigation
@@ -50,9 +53,18 @@ void MainWindow::on_cancelReg_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
 }
-//go to loginForm by clicking submit
+//when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
+
+    firstNameReg = ui->enterFirstnameReg->text();
+    lastNameReg  = ui->enterLastnameReg->text();
+    usernameReg  = ui->enterUsername->text();
+    emailReg     = ui->enterEmailReg->text();
+
+   // ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
+
+    //go to loginForm
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -111,6 +123,7 @@ void MainWindow::on_backRGroup_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
 }
+
 
 
 
