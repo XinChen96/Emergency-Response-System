@@ -9,7 +9,7 @@ void User_DB::generate_sql_queries() {
     insert_cmd += "INSERT INTO users (firstName, lastName, username) VALUES (:firstName, :lastName, :username);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
-    update_cmd += "UPDATE users SET firstName=:first, lastName=:last, role=:role, username=:username WHERE id=:id;";
+    update_cmd += "UPDATE users SET firstName=:firstName, lastName=:lastName, username=:username;"; // WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS users;";
     query = nullptr;
 }
@@ -33,11 +33,11 @@ void User_DB::update_value(DBItem* u) {
     User *user = (User*)(u);
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
-
-    query->bindValue(":first", user->first_name);
-    query->bindValue(":last", user->last_name);
+cout<< "ssssssssssssssssss\n";
+    query->bindValue(":firstName", user->first_name);
+    query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
-    query->bindValue(":id", user->id);
+//    query->bindValue(":id", user->id);
 
     query->exec();
 

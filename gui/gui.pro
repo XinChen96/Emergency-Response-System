@@ -33,6 +33,7 @@ HEADERS += \
         mainwindow.h\
         ../controllers/maincontroller.h
 
+
 FORMS += \
         mainwindow.ui
 

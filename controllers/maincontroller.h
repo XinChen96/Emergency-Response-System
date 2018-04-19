@@ -3,7 +3,7 @@
 #include "QtSql/QSqlDatabase"
 #include "QtSql/QSqlQuery"
 #include "../db/user_db.h"
-
+#include "../db/db_manager.h"
 
 class MainController
 {

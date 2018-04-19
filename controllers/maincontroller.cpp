@@ -9,7 +9,8 @@ MainController::~MainController() {
 }
 
 bool MainController::add_user() {
-    DB_Manager *db = new User_DB("../db.sqlite");
+    //DB_Manager *db = new User_DB("../db.sqlite");
+    return true;
 }
 
 
