@@ -6,7 +6,7 @@
 #include <QtWebEngineWidgets/QWebEngineView>
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QtWebEngineWidgets/QWebEngineSettings>
-
+#include "../controllers/maincontroller.h"
 namespace Ui {
 class MainWindow;
 }
@@ -47,6 +47,15 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+    MainController *ctrl;
+
+    QString firstNameReg;
+    QString lastNameReg;
+    QString usernameReg;
+    QString emailReg;
+
+
 };
 
 #endif // MAINWINDOW_H

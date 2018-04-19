@@ -2,7 +2,7 @@
 #include <iostream>
 
 DB_Manager::DB_Manager(const QString& path) {
-    db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
+    db = QSqlDatabase::addDatabase("QSQLITE","ss"); // Create the db
     db.setDatabaseName(path); // Set it to the correct location
 
     if(!db.open()) {

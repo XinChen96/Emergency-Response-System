@@ -6,7 +6,9 @@
 
 class User : public DBItem {
 public:
+
     User(QString first, QString last, QString user, Role r) : DBItem(-1), first_name(first), last_name(last), username(user), role(r) {}
+
     User() : DBItem(-1) {}
     ~User() {}
 

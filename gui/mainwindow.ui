@@ -241,7 +241,7 @@
        </layout>
       </widget>
       <widget class="QWidget" name="regForm">
-       <layout class="QVBoxLayout" name="verticalLayout_12">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <spacer name="verticalSpacer_5">
           <property name="orientation">
@@ -300,6 +300,9 @@
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
             </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
             <property name="sizeHint" stdset="0">
              <size>
               <width>40</width>
@@ -309,72 +312,79 @@
            </spacer>
           </item>
           <item>
-           <layout class="QVBoxLayout" name="verticalLayout_4">
-            <item>
-             <widget class="QComboBox" name="identity">
-              <item>
-               <property name="text">
-                <string>Civilian</string>
-               </property>
-              </item>
-              <item>
-               <property name="text">
-                <string>Emergency Planner</string>
-               </property>
-              </item>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_7">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_9">
-              <item>
-               <widget class="QLineEdit" name="enterFirstnameReg">
-                <property name="placeholderText">
-                 <string>First name</string>
+           <widget class="QFrame" name="frameReg">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">QWidget[objectName=&quot;frameReg&quot;] { background-color:rgba(255, 255, 255, 64)}</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::StyledPanel</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QComboBox" name="identity">
+               <item>
+                <property name="text">
+                 <string>Civilian</string>
                 </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLineEdit" name="enterLastnameReg">
-                <property name="placeholderText">
-                 <string>Last Name</string>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Emergency Planner</string>
                 </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="enterUsernameReg">
-              <property name="placeholderText">
-               <string>Username</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="enterEmailReg">
-              <property name="placeholderText">
-               <string>Email</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_9">
+               <item>
+                <widget class="QLineEdit" name="enterFirstnameReg">
+                 <property name="placeholderText">
+                  <string>First name</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="enterLastnameReg">
+                 <property name="placeholderText">
+                  <string>Last Name</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="enterUsernameReg">
+               <property name="placeholderText">
+                <string>Username</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="enterEmailReg">
+               <property name="placeholderText">
+                <string>Email</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
           </item>
           <item>
            <spacer name="horizontalSpacer_5">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Expanding</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
