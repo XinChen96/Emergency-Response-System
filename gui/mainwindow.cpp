@@ -32,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    delete ctrl;
+    //delete ctrl;
 }
 
 //index 0 (login form) button navigation

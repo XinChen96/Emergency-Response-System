@@ -11,7 +11,7 @@ db_location = "../db.sqlite";
 }
 
 MainController::~MainController() {
-   // delete db;
+    delete db;
 }
 
 bool MainController::add_user(QString firstName, QString lastName, QString username)
