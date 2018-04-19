@@ -51,10 +51,15 @@ User* User_DB::select_civilian(int id) {
     query->prepare("SELECT DISTINCT * FROM users WHERE id=:id");
     query->bindValue(":id", id);
     query->exec();
-    user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
-    user->id = query->value(0).toInt();
-    delete query;
-    return user;
+    if(query->size() != -1) {
+        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+        delete query;
+        return user;
+    } else {
+        cerr << "Entry does not exist." << endl;
+        delete query;
+        return nullptr;
+    }
 }
 
 User* User_DB::select_civilian(QString username) {

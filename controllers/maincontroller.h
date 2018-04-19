@@ -1,11 +1,8 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
 
-#include <iostream>
-#include <QString>
 #include "../db/user_db.h"
 #include "../db/db_manager.h"
-
 
 
 class MainController
@@ -13,7 +10,6 @@ class MainController
 public:
     MainController();
     ~MainController();
-
 
     bool add_user(QString,QString,QString);
 private:

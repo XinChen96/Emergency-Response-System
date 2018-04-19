@@ -1,4 +1,5 @@
 #include "maincontroller.h"
+#include <iostream>
 
 MainController::MainController() {
 
@@ -22,3 +23,5 @@ bool MainController::add_user(QString firstName, QString lastName, QString usern
     //db->create_row(newuser);
     //return true;
 }
+
+
