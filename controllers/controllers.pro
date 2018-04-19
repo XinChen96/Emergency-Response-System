@@ -7,10 +7,12 @@ QT += sql
 SOURCES += main.cpp \
     maincontroller.cpp \
     ../db/user_db.cpp \
-    ../db/db_manager.cpp
+    ../db/db_manager.cpp \
+    simcontroller.cpp
 
 
 HEADERS += \
     maincontroller.h\
     ../db/db_manager.h\
-    ../db/user_db.h
+    ../db/user_db.h \
+    simcontroller.h
