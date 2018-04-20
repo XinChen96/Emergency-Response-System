@@ -42,6 +42,11 @@ private slots:
 
     //index 3 (Emergency planner's menu) button navigation
     void on_logoutEP_clicked();
+    void on_simulationsButton_clicked();
+    void on_backToSim_clicked();
+    void on_createBut_clicked();
+    void on_viewBut_clicked();
+    void on_backToSimPage_clicked();
     void on_backMapEP_clicked();
     void on_commEP_clicked();
     void on_protocolEP_clicked();
@@ -62,6 +67,7 @@ private:
     QString lastNameReg;
     QString usernameReg;
     QString emailReg;
+    QString simName;
 
 
 };

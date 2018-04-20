@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     dbitem.cpp \
     responder.cpp \
     planner.cpp \
-    group.cpp
+    group.cpp \
+    simulation.cpp
 
 HEADERS += \
     user.h \
@@ -18,4 +19,5 @@ HEADERS += \
     responder.h \
     planner.h \
     roles.h \
-    group.h
+    group.h \
+    simulation.h
