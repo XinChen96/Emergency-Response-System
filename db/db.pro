@@ -6,12 +6,14 @@ QT += sql
 SOURCES += main.cpp \
     db_manager.cpp \
     user_db.cpp \
-    group_db.cpp
+    group_db.cpp \
+    simulation_db.cpp
 
 HEADERS += \
     db_manager.h \
     user_db.h \
-    group_db.h
+    group_db.h \
+    simulation_db.h
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

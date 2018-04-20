@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
 
-CONFIG += ordered
+#CONFIG += ordered
 
-SUBDIRS = \
+SUBDIRS += \
             users       \
             db          \
             controllers \
