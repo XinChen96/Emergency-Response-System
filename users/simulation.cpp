@@ -1,19 +1,5 @@
 #include "simulation.h"
 
-Simulation::Simulation()
-{
-    //default constructor
-}
-
-/**
- * Constructor constructors the simulation object and defines the type of simulation
- *
- * @param type  type of simulation
- */
-Simulation::Simulation(int type) {
-    type_sim = type;
-}
-
 /** setters */
 
 /**
