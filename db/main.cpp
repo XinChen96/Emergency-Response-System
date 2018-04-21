@@ -65,7 +65,6 @@ TEST(InsertGroupTest, TESTSIMPLE) {
 TEST(InsertUserGroupTest, TESTSIMPLE) {
     DB_Manager *db_u = new User_DB("../test.sqlite");
     User* user = ((User_DB*)db_u)->select_user("firstlast"); // Select user
-    delete db_u;
 
     DB_Manager *db = new Group_DB("../test.sqlite");
     ((Group_DB*)db)->create_group_table(); // Creat group table
@@ -77,11 +76,15 @@ TEST(InsertUserGroupTest, TESTSIMPLE) {
     ((Group_DB*)db)->add_to_group(user, g);
 
     std::vector<User*> user_list = ((Group_DB*)db)->get_group_members(g);
-    ASSERT_EQ(user_list[0]->username, user->username);
+    for_each(user_list.begin(), user_list.end(), [user](User *u) {
+        ASSERT_EQ(u->username, user->username);
+    });
+
+    delete db_u;
+    delete db;
+    delete entry;
     delete g;
     delete user;
-    delete entry;
-    delete db;
 }
 
 
