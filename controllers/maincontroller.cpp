@@ -2,6 +2,9 @@
 #include <iostream>
 
 MainController::MainController() {
+    DB_Manager *db = new User_DB("../db.sqlite");
+    db->build_table();
+    delete db;
 }
 
 MainController::~MainController() {
@@ -9,8 +12,7 @@ MainController::~MainController() {
 }
 
 bool MainController::add_user() {
-    DB_Manager *db = new User_DB("../db.sqlite");
-    delete db;
+
 
     return true;
 }

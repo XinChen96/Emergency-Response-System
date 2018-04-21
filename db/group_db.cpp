@@ -6,6 +6,7 @@ using namespace std;
 
 void Group_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE);";
+    create_groups_cmd += "CREATE TABLE groups (FOREIGN KEY(group_id) REFERENCES groups(id);";
     insert_cmd += "INSERT INTO groups (groupName) VALUES (:groupName);";
 
     update_cmd += "UPDATE users SET groupName=:groupName WHERE id=:id;";
@@ -75,4 +76,14 @@ Group* Group_DB::select_group(QString name) {
         delete query;
         return nullptr;
     }
+}
+
+void Group_DB::create_group_table() {
+    query = new QSqlQuery(db);
+    query->exec(create_groups_cmd);
+    delete query;
+}
+
+void Group_DB::add_to_group(User* user, Group* group) {
+
 }
