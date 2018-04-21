@@ -1,5 +1,6 @@
 #ifndef USER_DB_H
 #define USER_DB_H
+
 #include "db_manager.h"
 
 class User_DB : public DB_Manager {

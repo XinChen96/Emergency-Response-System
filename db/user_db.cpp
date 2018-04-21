@@ -1,8 +1,6 @@
 #include "user_db.h"
 #include <iostream>
 #include <unistd.h>
-using namespace std;
-
 
 void User_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE);";
@@ -24,7 +22,7 @@ void User_DB::create_row(DBItem* u) {
     query->bindValue(":username", user->username);
 
     query->exec();
-    cout << "create row" <<endl;
+    std::cout << "create row" << std::endl;
 
 
     delete query;
@@ -54,19 +52,19 @@ void User_DB::print(){
     while (1) {
     sleep(5);
         QString first;// = query->value(0).toString();
-        cout << "first name" <<endl;
+        std::cout << "first name" << std::endl;
         QString last  = query->value(1).toString();
         QString user  = query->value(2).toString();
         query->bindValue(":firstName", first);
         //query->bindValue(":lastName", user->last_name);
         //query->bindValue(":username", user->username);
-        cout << first.toStdString()
+        std::cout << first.toStdString()
                   << "  "
                   << last.toStdString()
                   << "  "
                   << user.toStdString()
-                  << endl;
-        cout << "WHILe" <<endl;
+                  << std::endl;
+        std::cout << "WHILe" << std::endl;
     }
 
     query->last();
@@ -83,7 +81,7 @@ User* User_DB::select_civilian(int id) {
         delete query;
         return user;
     } else {
-        cerr << "Entry does not exist." << endl;
+        std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
     }
@@ -103,7 +101,7 @@ User* User_DB::select_civilian(QString username) {
 
         return user;
     } else {
-        cerr << "Entry does not exist." << endl;
+        std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
     }
