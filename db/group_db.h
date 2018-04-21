@@ -1,8 +1,11 @@
 #ifndef GROUP_DB_H
 #define GROUP_DB_H
+#include <vector>
 #include "db_manager.h"
 #include "../users/group.h"
 #include "../users/user.h"
+
+using namespace std;
 
 class Group_DB : public DB_Manager {
 public:
@@ -19,6 +22,7 @@ public:
 
     Group* select_group(int);
     Group* select_group(QString);
+    vector<User*> get_group_members(Group*);
 
     QString create_groups_cmd;
 };
