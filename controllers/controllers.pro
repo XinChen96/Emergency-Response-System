@@ -7,10 +7,10 @@ QT += sql
 SOURCES += main.cpp \
     maincontroller.cpp \
     ../db/user_db.cpp \
+
     ../db/db_manager.cpp\
 
     ../users/civilian.cpp
-
 
 
 HEADERS += \
@@ -20,3 +20,4 @@ HEADERS += \
     ../db/db_manager.h\
     ../users/user.h\
      ../users/civilian.h
+

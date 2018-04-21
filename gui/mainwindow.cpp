@@ -25,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->stackedWidget->setCurrentIndex(0);
 
 
+    //shut off editing of table
     ui->triggerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 }
@@ -111,6 +112,26 @@ void MainWindow::on_groupEP_clicked()
 void MainWindow::on_logoutEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_simulationsButton_clicked() {
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+void MainWindow::on_backToSim_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_createBut_clicked() {
+    ui->stackedWidget->setCurrentIndex(8);
+}
+
+void MainWindow::on_viewBut_clicked() {
+    simName = ui->selectSim->currentText();
+}
+
+void MainWindow::on_backToSimPage_clicked() {
+    ui->stackedWidget->setCurrentIndex(7);
 }
 
 
