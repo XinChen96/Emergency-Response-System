@@ -30,6 +30,7 @@ public:
     virtual void generate_sql_queries() {}
     virtual void print(){}
 
+
     QSqlDatabase database(){
         return db;
     }

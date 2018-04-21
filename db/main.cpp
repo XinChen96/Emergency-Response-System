@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <vector>
 #include "gtest/gtest.h"
 #include "db_manager.h"
 #include "user_db.h"
@@ -38,7 +38,7 @@ TEST(InsertUserTest, TESTSIMPLE) {
 TEST(UpdateUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
     db->build_table();
-    DBItem *anotherentry = new Civilian("Ben", "Last", "firstlast");
+    DBItem *anotherentry = new Civilian("Nimajneb", "Last", "firstlast");
     db->create_row(anotherentry); // Add entry
 
     QString Fuller("Fuller");
@@ -62,10 +62,19 @@ TEST(InsertGroupTest, TESTSIMPLE) {
     delete db;
 }
 
-TEST(CreateGroupsTable, TESTSIMPLE) {
+TEST(InsertUserGroupTest, TESTSIMPLE) {
     DB_Manager *db = new Group_DB("../test.sqlite");
-    ((Group_DB*)db)->create_group_table();
+    DB_Manager *db_u = new User_DB("../test.sqlite");
+    User* user = ((User_DB*)db)->select_civilian("firstlast"); // Select user
+    ((Group_DB*)db)->create_group_table(); // Creat group table
+    DBItem *entry = new Group("The Rad Group");
+    db->create_row(entry); // Add entry
 
+    Group* g = ((Group_DB*)db)->select_group("The Rad Group");
+    ((Group_DB*)db)->add_to_group(user, g);
+
+    std::vector<User*> user_list = ((Group_DB*)db)->get_group_members(g);
+    cout << user_list.size() << endl;
 }
 
 

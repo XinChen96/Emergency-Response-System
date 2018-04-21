@@ -6,7 +6,7 @@ using namespace std;
 
 void Group_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE);";
-    create_groups_cmd += "CREATE TABLE groups (FOREIGN KEY(group_id) REFERENCES groups(id);";
+    create_groups_cmd += "CREATE TABLE userGroups (id integer PRIMARY KEY, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
     insert_cmd += "INSERT INTO groups (groupName) VALUES (:groupName);";
 
     update_cmd += "UPDATE users SET groupName=:groupName WHERE id=:id;";
@@ -14,7 +14,7 @@ void Group_DB::generate_sql_queries() {
     query = nullptr;
 }
 
-
+// Adds a new group to the
 void Group_DB::create_row(DBItem* g) {
     Group *group = (Group*)(g);
 
@@ -85,5 +85,31 @@ void Group_DB::create_group_table() {
 }
 
 void Group_DB::add_to_group(User* user, Group* group) {
-
+    if(user->id != -1 && group->id != -1) {
+        query = new QSqlQuery(db);
+        query->prepare("INSERT INTO userGroups (userId, groupId) VALUES(:user, :group);");
+        query->bindValue(user->id, group->id);
+        query->exec();
+    } else {
+        cerr << "ID from database has not yet been assigned.";
+    }
 }
+
+vector<User*> Group_DB::get_group_members(Group* g) {
+    vector<User*> user_list;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT id, firstName, lastName, username, role FROM userGroup INNER JOIN users ON userGroup.user_id=users.id WHERE usersGroup.group_id=:id;");
+    query->bindValue(":id", g->id);
+    query->exec();
+    User* user;
+    while(query->next()) {
+        user = new User(query->value(1).toString(), query->value(2).toString(),query->value(3).toString(), ((Role)query->value(4).toInt()));
+        user->id = query->value(0).toInt();
+        user_list.push_back(user);
+        delete user;
+    }
+
+    return user_list;
+}
+
+
