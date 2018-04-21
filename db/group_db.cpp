@@ -24,7 +24,7 @@ void Group_DB::create_row(DBItem* g) {
     query->exec();
 
     delete query; // Delete pointer
-    delete group;
+   // delete group;
 }
 
 void Group_DB::update_value(DBItem* g) {

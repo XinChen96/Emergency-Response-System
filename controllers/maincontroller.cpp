@@ -1,16 +1,33 @@
 #include "maincontroller.h"
 
+
+
+
+MainController::MainController() {
+
+
+//dbPath = "../db/db.sqlite";
+//db_m = new User_DB(dbPath);
+std::cout << "Maincontroller: new userdb \n";
+//db_m->build_table();
+std::cout << "Maincontroller: build table \n";
+}
+
 MainController::MainController(QString path) {
 
-    // I don't think that we should declare the db up here, it should be instantiated every time it is needed
-    // The db and tables should be created during installation, and shouldn't be recreated every time the program runs
-    //db_m = new User_DB(dbPath);
-    // This should be the same as the query variable in the db classes
 
-    std::cout << "new userdb \n";
+// I don't think that we should declare the db up here, it should be instantiated every time it is needed
+// The db and tables should be created during installation, and shouldn't be recreated every time the program runs
+//db_m = new User_DB(path);
 
-    // For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
-    //db_m->build_table();
+// This should be the same as the query variable in the db classes
+std::cout << "Maincontroller: new userdb \n";
+//
+//For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
+//db_m->build_table();
+
+std::cout << "Maincontroller: build table \n";
+
 }
 
 
@@ -28,6 +45,7 @@ delete db_m;
 // Should return true if user is successfully added to the db, false otherwise
 bool MainController::add_user(QString firstName, QString lastName,QString username) {
     db_m = new User_DB(dbPath);
+
     User *newCivilian = new Civilian(firstName,lastName,username);
 
     std::cout << firstName.toStdString()
@@ -39,7 +57,9 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
 
     db_m->create_row(newCivilian);
     db_m->print();
-    std::cout << __PRETTY_FUNCTION__<<"\n";
+
+    delete newCivilian; // make sure you delete your pointers after you're done using them
+
     delete db_m;
     return true;
 }

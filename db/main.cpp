@@ -30,9 +30,8 @@ TEST(InsertUserTest, TESTSIMPLE) {
     db->create_row(anotherentry); // Add entry
     ASSERT_EQ(nullptr, ((User_DB*)db)->select_civilian("ralph")); // check if user does not exist
     ASSERT_EQ("firstlast", ((User_DB*)db)->select_civilian("firstlast")->username); // username is unique
-    //In user's create_row method, anotherentry ptr is already deleted,
-    //and deleting nullptr will cause a bug in macOS, so don't
-    //delete anotherentry;
+
+    delete anotherentry;
     delete db;
 }
 
@@ -47,9 +46,8 @@ TEST(UpdateUserTest, TESTSIMPLE) {
     anotherentry = new Civilian("Ben", "Fuller", "firstlast");
     db->update_value(anotherentry);
     ASSERT_EQ(Fuller, ((User_DB*)db)->select_civilian("firstlast")->last_name);
-    //In user's create_row method, anotherentry ptr is already deleted,
-    //and deleting nullptr will cause a bug in macOS, so don't
-    //delete anotherentry;
+
+    delete anotherentry;
     delete db;
 }
 
@@ -59,9 +57,8 @@ TEST(InsertGroupTest, TESTSIMPLE) {
     DBItem *entry = new Group("The Rad Group");
     db->create_row(entry); // Add entry
     ASSERT_EQ("The Rad Group", ((Group_DB*)db)->select_group("The Rad Group")->name); // username is unique
-    //In user's create_row method, entry ptr is already deleted,
-    //and deleting nullptr will cause a bug in macOS, so don't
-    //delete entry;
+
+    delete entry;
     delete db;
 }
 

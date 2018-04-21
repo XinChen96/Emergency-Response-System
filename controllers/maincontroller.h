@@ -16,6 +16,7 @@
 class MainController
 {
 public:
+    MainController();
     MainController(QString path);
     ~MainController();
 
