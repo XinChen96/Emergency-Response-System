@@ -41,9 +41,11 @@ MainWindow::~MainWindow()
 }
 
 //index 0 (login form) button navigation
-//go to map view by clicking login
+// Successful login should take you to the appropriate screen for your user type
+// Unsuccessful login should give you an alert and let you try again
 void MainWindow::on_login_clicked()
 {
+    if(ctrl->)
     ui->stackedWidget->setCurrentIndex(2);
 }
 //go to register form by clicking register
