@@ -16,7 +16,7 @@ void Simulation::set_name(QString value) {
  *
  * @param value latitude value of the emergency
  */
-void Simulation::set_lat(int value) {
+void Simulation::set_lat(double value) {
     lat = value;
 }
 
@@ -25,7 +25,7 @@ void Simulation::set_lat(int value) {
  *
  * @param value longitude value of the emergency
  */
-void Simulation::set_lng(int value) {
+void Simulation::set_lng(double value) {
     lng = value;
 }
 
@@ -34,7 +34,7 @@ void Simulation::set_lng(int value) {
  *
  * @param value radius of the emergency
  */
-void Simulation::set_radius(int value) {
+void Simulation::set_radius(double value) {
     radius = value;
 }
 

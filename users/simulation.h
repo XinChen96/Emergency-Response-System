@@ -21,7 +21,7 @@ public:
      * @param civ_value     number of civilians in emergency
      * @param trig_value    type of emergency
      */
-    Simulation(QString name_value, int type_value, int lat_value, int lng_value, int radius_value, int civ_value, int trig_value): DBItem(-1) {
+    Simulation(QString name_value, int type_value, double lat_value, double lng_value, double radius_value, int civ_value, int trig_value): DBItem(-1) {
         type_sim = type_value;
         name = name_value;
         lat = lat_value;
@@ -33,20 +33,20 @@ public:
 
     //setters
     void set_name(QString value);
-    void set_lat(int value);
-    void set_lng(int value);
-    void set_radius(int value);
+    void set_lat(double value);
+    void set_lng(double value);
+    void set_radius(double value);
     void set_civilians(int value);
     void set_trigger(int value);
 
     //variables used in all simulations
     int type_sim;
     QString name;
-    int lat;
-    int lng;
+    double lat;
+    double lng;
 
     //emergency planner / first responder simulation variables
-    int radius;
+    double radius;
     int num_civilians;
 
     //emergency planner / civilian simulation variables
