@@ -4,8 +4,10 @@
 #include "db_manager.h"
 #include "user_db.h"
 #include "group_db.h"
+#include "simulation_db.h"
 #include "../users/user.h"
 #include "../users/roles.h"
+#include "../users/simulation.h"
 
 // The fixture for testing class DBTest
 class DBTest : public ::testing::Test {
@@ -21,6 +23,18 @@ class DBTest : public ::testing::Test {
   virtual void TearDown() {
   }
 };
+
+TEST(InsertSimulationTest, TESTSIMPLE) {
+    DB_Manager *db = new Simulation_DB("../test.sqlite");
+    db->build_table();
+    Simulation* sim = new Simulation("Earthquake 1", 0, 40, -75, .005, 32, -1);
+    db->create_row(sim); // Add entry
+    //ASSERT_EQ(nullptr, ((User_DB*)db)->select_civilian("ralph")); // check if user does not exist
+    ASSERT_EQ("Earthquake 1", ((Simulation_DB*)db)->select_simulation("Earthquake 1")->name); // username is unique
+
+    delete sim;
+    delete db;
+}
 
 TEST(InsertUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
@@ -83,7 +97,6 @@ TEST(InsertUserGroupTest, TESTSIMPLE) {
     delete entry;
     delete db;
 }
-
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
