@@ -3,8 +3,8 @@
 
 MainController::MainController() {
 
-//dbPath = "/Users/chenxin/db.sqlite";
-    dbPath = "../db/db.sqlite";
+dbPath = "/Users/chenxin/db.sqlite";
+   // dbPath = "../db/db.sqlite";
 db_m = new User_DB(dbPath);
 std::cout << "new userdb \n";
 db_m->build_table();
@@ -23,7 +23,7 @@ delete db_m;
 
 // Should return true if user is successfully added to the db, false otherwise
 bool MainController::add_user(QString firstName, QString lastName,QString username) {
-    db = new User_DB(db_location);
+    db_m = new User_DB(dbPath);
     User *newCivilian = new Civilian(firstName,lastName,username);
 
     std::cout << firstName.toStdString()
@@ -37,7 +37,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     db_m->print();
     std::cout << __PRETTY_FUNCTION__<<"\n";
 
-    delete db;
+
     delete newCivilian; // make sure you delete your pointers after you're done using them
 
     return true;
