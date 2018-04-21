@@ -32,8 +32,9 @@ SOURCES += \
         ../db/db_manager.cpp\
         ../db/user_db.cpp\
         ../users/user.cpp\
-        ../users/civilian.cpp\
-        ../users/dbitem.cpp
+        ../users/dbitem.cpp\
+        ../users/simulation.cpp\
+        ../users/civilian.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -41,9 +42,9 @@ HEADERS += \
         ../db/db_manager.h\
         ../db/user_db.h\
         ../users/user.h\
+        ../users/dbitem.h\
+        ../users/simulation.h\
         ../users/civilian.h
-        ../users/dbitem.h
-
 
 FORMS += \
         mainwindow.ui

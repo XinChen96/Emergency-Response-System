@@ -45,4 +45,15 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     return true;
 }
 
+bool MainController::add_simulation(Simulation* sim) {
+    db_m = new Simulation_DB(dbPath);
+
+    db_m->create_row(sim);
+    //std::cout<<((User_DB*)db)->select_civilian("6666")->last_name.toStdString()<<std::endl;
+    //db->print();
+
+    delete db_m;
+    return true;
+}
+
 

@@ -129,6 +129,40 @@ void MainWindow::on_createBut_clicked() {
     ui->stackedWidget->setCurrentIndex(8);
 }
 
+void MainWindow::on_nextButton_clicked() {
+    QString simType = ui->simComboBox->currentText();
+
+    if (simType == "First Responder Simulation") {
+        ui->stackedWidget->setCurrentIndex(9);
+    } else if (simType == "Civilian Simulation") {
+
+    }
+}
+
+void MainWindow::on_backToSimPage2_clicked() {
+    ui->stackedWidget->setCurrentIndex(8);
+}
+
+void MainWindow::on_createSim1_clicked() {
+    ui->stackedWidget->setCurrentIndex(7);
+
+    //get all values from box
+    QString value1 = ui->lineEdit->text();
+    double value2 = ui->lineEdit2->text().toDouble();
+    double value3 = ui->lineEdit3->text().toDouble();
+    double value4 = ui->lineEdit4->text().toDouble();
+    int value5 = ui->lineEdit5->text().toInt();
+
+    Simulation* temp = new Simulation(value1, 0, value2, value3, value4, value5, -1);
+
+    //clear all box values
+    ui->lineEdit->clear();
+    ui->lineEdit2->clear();
+    ui->lineEdit3->clear();
+    ui->lineEdit4->clear();
+    ui->lineEdit5->clear();
+}
+
 void MainWindow::on_viewBut_clicked() {
     simName = ui->selectSim->currentText();
 }
