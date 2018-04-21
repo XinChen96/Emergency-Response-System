@@ -16,13 +16,14 @@ std::cout << "Maincontroller: build table \n";
 MainController::MainController(QString path) {
 
 
-     // I don't think that we should declare the db up here, it should be instantiated every time it is needed
-     // The db and tables should be created during installation, and shouldn't be recreated every time the program runs
+// I don't think that we should declare the db up here, it should be instantiated every time it is needed
+// The db and tables should be created during installation, and shouldn't be recreated every time the program runs
 //db_m = new User_DB(path);
 
 // This should be the same as the query variable in the db classes
 std::cout << "Maincontroller: new userdb \n";
-// For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
+//
+//For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
 //db_m->build_table();
 
 std::cout << "Maincontroller: build table \n";
