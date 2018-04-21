@@ -1,6 +1,6 @@
 #include "user_db.h"
 #include <iostream>
-
+#include <unistd.h>
 using namespace std;
 
 
@@ -24,6 +24,8 @@ void User_DB::create_row(DBItem* u) {
     query->bindValue(":username", user->username);
 
     query->exec();
+    cout << "create row" <<endl;
+
 
     delete query;
     delete user;
@@ -33,7 +35,7 @@ void User_DB::update_value(DBItem* u) {
     User *user = (User*)(u);
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
-cout<< "ssssssssssssssssss\n";
+
     query->bindValue(":firstName", user->first_name);
     query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
@@ -44,7 +46,32 @@ cout<< "ssssssssssssssssss\n";
     delete query;
     delete user;
 }
+void User_DB::print(){
+    query = new QSqlQuery(db);
+    query->first();
+    query->exec("SELECT * FROM users;");
 
+    while (1) {
+    sleep(5);
+        QString first;// = query->value(0).toString();
+        cout << "first name" <<endl;
+        QString last  = query->value(1).toString();
+        QString user  = query->value(2).toString();
+        query->bindValue(":firstName", first);
+        //query->bindValue(":lastName", user->last_name);
+        //query->bindValue(":username", user->username);
+        cout << first.toStdString()
+                  << "  "
+                  << last.toStdString()
+                  << "  "
+                  << user.toStdString()
+                  << endl;
+        cout << "WHILe" <<endl;
+    }
+
+    query->last();
+    delete query;
+}
 User* User_DB::select_civilian(int id) {
     User *user;
     query = new QSqlQuery(db);
@@ -73,6 +100,7 @@ User* User_DB::select_civilian(QString username) {
         user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
         user->id = query->value(0).toInt();
         delete query;
+
         return user;
     } else {
         cerr << "Entry does not exist." << endl;

@@ -12,6 +12,8 @@ public:
     void create_row(DBItem*);
     void update_value(DBItem*);
     void generate_sql_queries();
+    void print();
+
 
     User* select_civilian(int);
     User* select_civilian(QString);
