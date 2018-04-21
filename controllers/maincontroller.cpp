@@ -43,6 +43,7 @@ delete db_m;
 
 // Should return true if user is successfully added to the db, false otherwise
 bool MainController::add_user(QString firstName, QString lastName,QString username) {
+    db_m = new User_DB(dbPath);
 
     User *newCivilian = new Civilian(firstName,lastName,username);
 
