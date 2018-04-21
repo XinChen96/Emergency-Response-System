@@ -9,6 +9,9 @@
 #include "../db/db_manager.h"
 #include "../users/civilian.h"
 #include "../users/user.h"
+#include "../users/simulation.h"
+#include "../db/simulation_db.h"
+
 class MainController
 {
 public:
@@ -16,11 +19,16 @@ public:
     ~MainController();
 
     bool add_user(QString,QString,QString);
+    bool add_simulation(Simulation* sim);
     void print_db();
+
 private:
 
-    QString db_location;
-    DB_Manager *db;
+
+    QString dbPath;
+    DB_Manager *db_m;
+
+
 };
 
 #endif // MAINCONTROLLER_H

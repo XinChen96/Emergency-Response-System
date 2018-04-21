@@ -4,11 +4,11 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
-QT      += sql
+#QT      += core gui
+#QT      += sql
+#QT      += webengine webenginewidgets
 
-
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets core gui sql webengine webenginewidgets
 
 TARGET = gui
 TEMPLATE = app
@@ -32,7 +32,9 @@ SOURCES += \
         ../db/db_manager.cpp\
         ../db/user_db.cpp\
         ../users/user.cpp\
-        ../users/dbitem.cpp
+        ../users/dbitem.cpp\
+        ../users/simulation.cpp\
+        ../users/civilian.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -40,13 +42,14 @@ HEADERS += \
         ../db/db_manager.h\
         ../db/user_db.h\
         ../users/user.h\
-        ../users/dbitem.h
-
+        ../users/dbitem.h\
+        ../users/simulation.h\
+        ../users/civilian.h
 
 FORMS += \
         mainwindow.ui
 
-QT += core gui webengine webenginewidgets
+
 
 RESOURCES += \
     map_resource.qrc \

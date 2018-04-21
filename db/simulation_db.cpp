@@ -1,7 +1,7 @@
 #include "simulation_db.h"
 
 void Simulation_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, type_sim integer, lat integer, lng integer, radius integer, num_civilians integer, trigger integer);";
+    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, type_sim integer, lat double, lng double, radius double, num_civilians integer, trigger integer);";
     insert_cmd += "INSERT INTO simulations (name, type_sim, lat, lng, radius, num_civilians, trigger) VALUES (:name, :type_sim, :lat, :lng, :radius, :num_civilians, :trigger);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
@@ -53,8 +53,8 @@ void Simulation_DB::create_row(DBItem* u) {
 Simulation* Simulation_DB::select_simulation(QString name) {
     Simulation *sim;
     query = new QSqlQuery(db);
-    query->prepare("SELECT DISTINCT * FROM simulations WHERE name=:sim");
-    query->bindValue(":sim", name);
+    query->prepare("SELECT DISTINCT * FROM simulations WHERE name=:name");
+    query->bindValue(":name", name);
     query->exec();
 
     if(query->next()) {
