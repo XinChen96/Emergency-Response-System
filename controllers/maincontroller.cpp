@@ -2,40 +2,36 @@
 #include <iostream>
 
 MainController::MainController() {
-dbPath = "db.sqlite";
-db = new User_DB(dbPath);
+//dbPath = "/Users/chenxin/db.sqlite";
+    dbPath = "../db/db.sqlite";
+db_m = new User_DB(dbPath);
+std::cout << "new userdb \n";
+db_m->build_table();
+
+std::cout << __PRETTY_FUNCTION__<<"\n";
 }
 
 MainController::~MainController() {
-//delete db;
+ std::cout << __PRETTY_FUNCTION__<<"\n";
+delete db_m;
 }
-//void MainController::print_db(DB_Manager db){
-//    std::cout << "--------------------------------------" << std::endl;
-
-//    QSqlQuery query(db);
-
-//    query.exec("select title, cost from movies where cost < 100 and cost > 10;");
-
-//    while (query.next()) {
-//        QString title = query.value(0).toString();
-//        int         cost  = query.value(1).toInt();
-//        std::cout << title.toStdString()
-//                  << "  "
-//                  << cost
-//                  << std::endl;
-//    }
-
-//    query.last();
-//}
 
 bool MainController::add_user(QString firstName,QString lastName,QString username) {
 
-    User *newCivilian = new Civilian(firstName,lastName,username);
+    DBItem *newCivilian = new Civilian(firstName,lastName,username);
 
-    db->create_row(newCivilian);
-    //std::cout<<((User_DB*)db)->select_civilian("6666")->last_name.toStdString()<<std::endl;
-    db->print();
+    std::cout << firstName.toStdString()
+         << "  "
+         << lastName.toStdString()
+         << "  "
+         << username.toStdString()
+         << std::endl;
 
+    db_m->create_row(newCivilian);
+
+
+    db_m->print();
+std::cout << __PRETTY_FUNCTION__<<"\n";
     return true;
 }
 

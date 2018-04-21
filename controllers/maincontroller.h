@@ -20,7 +20,8 @@ public:
 private:
 
     QString dbPath;
-    DB_Manager *db;
+    DB_Manager *db_m;
+
 };
 
 #endif // MAINCONTROLLER_H

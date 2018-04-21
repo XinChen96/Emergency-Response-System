@@ -1,9 +1,15 @@
 #include <iostream>
-
+#include "maincontroller.h"
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    MainController* ctrl = new MainController();
+    //    QString first("ff");
+    //    QString last("ffff");
+    //    QString user("me");
+
+    //    ctrl->add_user(first,last,user);
+
     return 0;
 }

@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <iostream>
+#include <string>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QtWebEngineWidgets/QWebEngineView>
@@ -9,11 +11,14 @@
 #include "QtSql/QSqlDatabase"
 #include "QtSql/QSqlQuery"
 #include "QVariant"
+#include "QString"
 #include "../controllers/maincontroller.h"
 #include "../db/user_db.h"
 #include "../db/db_manager.h"
 #include "../users/user.h"
 #include "../users/dbitem.h"
+#include "../users/civilian.h"
+
 
 namespace Ui {
 class MainWindow;
