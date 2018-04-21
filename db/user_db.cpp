@@ -40,7 +40,6 @@ void User_DB::create_row(DBItem* u) {
     std::cout << __PRETTY_FUNCTION__<<"\n";
 
     delete query;
-    delete user;
 }
 
 void User_DB::update_value(DBItem* u) {

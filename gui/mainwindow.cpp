@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ctrl = new MainController;
+    ctrl = new MainController("/Users/chenxin/db.sqlite");
     QWebEngineView* webview = new QWebEngineView;
 
     QWebEnginePage *page = webview->page();
@@ -57,17 +57,19 @@ void MainWindow::on_cancelReg_clicked()
 //when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
-    ctrl = new MainController("../db.sqlite");
 
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
     emailReg     = ui->enterEmailReg->text();
-    //MainController *ctrl = new MainController();
-   // ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
+
+    ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
 
     //go to loginForm
     ui->stackedWidget->setCurrentIndex(0);
+
+
+
 
 
 }
