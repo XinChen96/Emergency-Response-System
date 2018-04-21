@@ -64,6 +64,9 @@ private slots:
     void on_pushButton_8_clicked();
     void on_backRGroup_clicked();
 
+    //other non GUI based class methods
+    void update_simulations();
+
 
 
 private:

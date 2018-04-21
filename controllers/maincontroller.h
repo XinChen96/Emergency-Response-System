@@ -20,6 +20,7 @@ public:
 
     bool add_user(QString,QString,QString);
     bool add_simulation(Simulation* sim);
+    Simulation* select_simulation(QString name);
     void print_db();
 
 private:

@@ -56,4 +56,13 @@ bool MainController::add_simulation(Simulation* sim) {
     return true;
 }
 
+Simulation* MainController::select_simulation(QString name) {
+    db_m = new Simulation_DB(dbPath);
+
+    Simulation* temp = ((Simulation_DB*)db_m)->select_simulation(name);
+
+    delete db_m;
+    return temp;
+}
+
 

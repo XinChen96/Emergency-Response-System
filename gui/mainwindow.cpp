@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ctrl = new MainController;
+    ctrl = new MainController("../db.sqlite");
     QWebEngineView* webview = new QWebEngineView;
 
     QWebEnginePage *page = webview->page();
@@ -57,7 +57,7 @@ void MainWindow::on_cancelReg_clicked()
 //when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
-    ctrl = new MainController("../db.sqlite");
+    //ctrl = new MainController("../db.sqlite");
 
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
@@ -155,6 +155,9 @@ void MainWindow::on_createSim1_clicked() {
 
     Simulation* temp = new Simulation(value1, 0, value2, value3, value4, value5, -1);
 
+    ctrl->add_simulation(temp);
+    ui->selectSim->addItem(value1);
+
     //clear all box values
     ui->lineEdit->clear();
     ui->lineEdit2->clear();
@@ -180,6 +183,10 @@ void MainWindow::on_pushButton_8_clicked()
 void MainWindow::on_backRGroup_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::update_simulations() {
+
 }
 
 
