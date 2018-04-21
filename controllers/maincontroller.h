@@ -6,11 +6,12 @@
 #include <iostream>
 #include <string>
 #include "../db/user_db.h"
+#include "../db/simulation_db.h"
 #include "../db/db_manager.h"
 #include "../users/civilian.h"
 #include "../users/user.h"
 #include "../users/simulation.h"
-#include "../db/simulation_db.h"
+
 
 class MainController
 {
@@ -19,7 +20,7 @@ public:
     ~MainController();
 
     bool add_user(QString,QString,QString);
-    bool add_simulation(Simulation* sim);
+    bool add_simulation(Simulation*);
     void print_db();
 
 private:

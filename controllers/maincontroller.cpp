@@ -5,9 +5,14 @@ MainController::MainController() {
 
 dbPath = "/Users/chenxin/db.sqlite";
    // dbPath = "../db/db.sqlite";
-db_m = new User_DB(dbPath);
+
+// I don't think that we should declare the db up here, it should be instantiated every time it is needed
+// The db and tables should be created during installation, and shouldn't be recreated every time the program runs
+//db_m = new User_DB(dbPath);
+// This should be the same as the query variable in the db classes
+
 std::cout << "new userdb \n";
-db_m->build_table();
+//db_m->build_table();
 
 std::cout << __PRETTY_FUNCTION__<<"\n";
 }
@@ -37,7 +42,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     db_m->print();
     std::cout << __PRETTY_FUNCTION__<<"\n";
 
-
+    delete db_m;
     delete newCivilian; // make sure you delete your pointers after you're done using them
 
     return true;
