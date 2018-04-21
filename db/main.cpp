@@ -66,18 +66,25 @@ TEST(InsertGroupTest, TESTSIMPLE) {
 }
 
 TEST(InsertUserGroupTest, TESTSIMPLE) {
-    DB_Manager *db = new Group_DB("../test.sqlite");
     DB_Manager *db_u = new User_DB("../test.sqlite");
-    User* user = ((User_DB*)db)->select_civilian("firstlast"); // Select user
+    User* user = ((User_DB*)db_u)->select_civilian("firstlast"); // Select user
+    delete db_u;
+
+    DB_Manager *db = new Group_DB("../test.sqlite");
     ((Group_DB*)db)->create_group_table(); // Creat group table
     DBItem *entry = new Group("The Rad Group");
     db->create_row(entry); // Add entry
 
     Group* g = ((Group_DB*)db)->select_group("The Rad Group");
+    ((Group_DB*)db)->create_group_table(); // Create the table usersGroup
     ((Group_DB*)db)->add_to_group(user, g);
 
     std::vector<User*> user_list = ((Group_DB*)db)->get_group_members(g);
-    cout << user_list.size() << endl;
+    ASSERT_EQ(user_list[0]->username, user->username);
+    delete g;
+    delete user;
+    delete entry;
+    delete db;
 }
 
 
