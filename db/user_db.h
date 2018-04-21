@@ -16,8 +16,8 @@ public:
     void print();
 
 
-    User* select_civilian(int);
-    User* select_civilian(QString);
+    User* select_user(int);
+    User* select_user(QString);
 };
 
 #endif // USER_DB_H

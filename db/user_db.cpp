@@ -79,11 +79,11 @@ void User_DB::print(){
         cout << "END" <<endl;
 
     }
-    //std::cout<<select_civilian("me")->last_name.toStdString()<< std::endl;
+    //std::cout<<select_user("me")->last_name.toStdString()<< std::endl;
     query->last();
     delete query;
 }
-User* User_DB::select_civilian(int id) {
+User* User_DB::select_user(int id) {
     User *user;
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE id=:id");
@@ -100,7 +100,7 @@ User* User_DB::select_civilian(int id) {
     }
 }
 
-User* User_DB::select_civilian(QString username) {
+User* User_DB::select_user(QString username) {
     User *user;
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE username=:user");
@@ -108,8 +108,20 @@ User* User_DB::select_civilian(QString username) {
     query->exec();
 
     if(query->next()) {
-        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
-        user->id = query->value(0).toInt();
+        switch (query->value(0).toInt()) {
+            case 0:
+                user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+                user->id = query->value(0).toInt();
+            break;
+            case 1:
+                user = new Responder(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+                user->id = query->value(0).toInt();
+            break;
+            case 2:
+                user = new Planner(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+                user->id = query->value(0).toInt();
+            break;
+        }
         delete query;
 
         return user;

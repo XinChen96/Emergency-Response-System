@@ -42,8 +42,8 @@ TEST(InsertUserTest, TESTSIMPLE) {
     DBItem *anotherentry = new Civilian("Ben", "Last", "firstlast");
     std::cout<<anotherentry->id<<std::endl;
     db->create_row(anotherentry); // Add entry
-    ASSERT_EQ(nullptr, ((User_DB*)db)->select_civilian("ralph")); // check if user does not exist
-    ASSERT_EQ("firstlast", ((User_DB*)db)->select_civilian("firstlast")->username); // username is unique
+    ASSERT_EQ(nullptr, ((User_DB*)db)->select_user("ralph")); // check if user does not exist
+    ASSERT_EQ("firstlast", ((User_DB*)db)->select_user("firstlast")->username); // username is unique
 
     delete anotherentry;
     delete db;
@@ -56,10 +56,10 @@ TEST(UpdateUserTest, TESTSIMPLE) {
     db->create_row(anotherentry); // Add entry
 
     QString Fuller("Fuller");
-    ASSERT_EQ("Last", ((User_DB*)db)->select_civilian("firstlast")->last_name);
+    ASSERT_EQ("Last", ((User_DB*)db)->select_user("firstlast")->last_name);
     anotherentry = new Civilian("Ben", "Fuller", "firstlast");
     db->update_value(anotherentry);
-    ASSERT_EQ(Fuller, ((User_DB*)db)->select_civilian("firstlast")->last_name);
+    ASSERT_EQ(Fuller, ((User_DB*)db)->select_user("firstlast")->last_name);
 
     delete anotherentry;
     delete db;
@@ -78,7 +78,7 @@ TEST(InsertGroupTest, TESTSIMPLE) {
 
 TEST(InsertUserGroupTest, TESTSIMPLE) {
     DB_Manager *db_u = new User_DB("../test.sqlite");
-    User* user = ((User_DB*)db_u)->select_civilian("firstlast"); // Select user
+    User* user = ((User_DB*)db_u)->select_user("firstlast"); // Select user
     delete db_u;
 
     DB_Manager *db = new Group_DB("../test.sqlite");
