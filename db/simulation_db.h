@@ -12,6 +12,7 @@ public:
     void update_value(DBItem*);
     void generate_sql_queries();
 
+    //selection methods
     Simulation* select_simulation(QString);
 };
 
