@@ -31,6 +31,7 @@ SOURCES += \
         ../controllers/maincontroller.cpp\
         ../db/db_manager.cpp\
         ../db/user_db.cpp\
+        ../db/simulation_db.cpp\
         ../users/user.cpp\
         ../users/dbitem.cpp\
         ../users/simulation.cpp\
@@ -42,6 +43,7 @@ HEADERS += \
         ../controllers/maincontroller.h\
         ../db/db_manager.h\
         ../db/user_db.h\
+        ..//db/simulation_db.h\
         ../users/user.h\
         ../users/dbitem.h\
         ../users/simulation.h\

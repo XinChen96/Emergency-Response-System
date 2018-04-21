@@ -16,7 +16,7 @@
 class MainController
 {
 public:
-    MainController();
+    MainController(QString path);
     ~MainController();
 
     bool add_user(QString,QString,QString);
