@@ -2,7 +2,7 @@
 #include <iostream>
 
 DB_Manager::DB_Manager(const QString& path) {
-    std::cout << "called" << std::endl;
+    std::cerr << "called" << std::endl;
     db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
     db.setDatabaseName(path); // Set it to the correct location
 
@@ -21,3 +21,4 @@ void DB_Manager::build_table() {
 
     delete query;
 }
+

@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //ctrl = new MainController;
+    ctrl = new MainController;
     QWebEngineView* webview = new QWebEngineView;
 
     QWebEnginePage *page = webview->page();
@@ -63,7 +63,7 @@ void MainWindow::on_submitReg_clicked()
     usernameReg  = ui->enterUsername->text();
     emailReg     = ui->enterEmailReg->text();
 
-   // ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
+    ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
 
     //go to loginForm
     ui->stackedWidget->setCurrentIndex(0);
