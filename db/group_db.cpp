@@ -6,7 +6,7 @@ using namespace std;
 
 void Group_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE);";
-    create_groups_cmd += "CREATE TABLE userGroups (id integer PRIMARY KEY, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
+    create_groups_cmd += "CREATE TABLE userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
     insert_cmd += "INSERT INTO groups (groupName) VALUES (:groupName);";
 
     update_cmd += "UPDATE users SET groupName=:groupName WHERE id=:id;";
@@ -68,7 +68,7 @@ Group* Group_DB::select_group(QString name) {
 
     if(query->next()) {
         group = new Group(query->value(1).toString());
-        group->id = query->value(1).toInt();
+        group->id = query->value(0).toInt();
         delete query;
         return group;
     } else {
@@ -87,7 +87,7 @@ void Group_DB::create_group_table() {
 void Group_DB::add_to_group(User* user, Group* group) {
     if(user->id != -1 && group->id != -1) {
         query = new QSqlQuery(db);
-        query->prepare("INSERT INTO userGroups (userId, groupId) VALUES(:user, :group);");
+        query->prepare("INSERT INTO userGroups (user_id, group_id) VALUES(:user, :group);");
         query->bindValue(user->id, group->id);
         query->exec();
     } else {
@@ -98,7 +98,7 @@ void Group_DB::add_to_group(User* user, Group* group) {
 vector<User*> Group_DB::get_group_members(Group* g) {
     vector<User*> user_list;
     query = new QSqlQuery(db);
-    query->prepare("SELECT id, firstName, lastName, username, role FROM userGroup INNER JOIN users ON userGroup.user_id=users.id WHERE usersGroup.group_id=:id;");
+    query->prepare("SELECT users.id, firstName, lastName, username, role FROM userGroups INNER JOIN users ON userGroups.user_id=users.id WHERE userGroups.group_id=:id;");
     query->bindValue(":id", g->id);
     query->exec();
     User* user;
