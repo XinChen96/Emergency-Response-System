@@ -39,7 +39,7 @@ TEST(InsertUserTest, TESTSIMPLE) {
 TEST(UpdateUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
     db->build_table();
-    DBItem *anotherentry = new Civilian("Ben", "Last", "firstlast");
+    DBItem *anotherentry = new Civilian("Nimajneb", "Last", "firstlast");
     db->create_row(anotherentry); // Add entry
 
     QString Fuller("Fuller");
@@ -65,10 +65,9 @@ TEST(InsertGroupTest, TESTSIMPLE) {
     delete db;
 }
 
-TEST(CreateGroupsTable, TESTSIMPLE) {
+TEST(InsertUserGroupTest, TESTSIMPLE) {
     DB_Manager *db = new Group_DB("../test.sqlite");
     ((Group_DB*)db)->create_group_table();
-
 }
 
 

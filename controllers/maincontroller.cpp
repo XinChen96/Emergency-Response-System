@@ -1,14 +1,16 @@
 #include "maincontroller.h"
 
-
 MainController::MainController(QString path) {
 
-//dbPath = "/Users/chenxin/db.sqlite";
- dbPath = "../db/db.sqlite";
-db_m = new User_DB(path);
-std::cout << "Maincontroller: new userdb \n";
-db_m->build_table();
-std::cout << "Maincontroller: build table \n";
+    // I don't think that we should declare the db up here, it should be instantiated every time it is needed
+    // The db and tables should be created during installation, and shouldn't be recreated every time the program runs
+    //db_m = new User_DB(dbPath);
+    // This should be the same as the query variable in the db classes
+
+    std::cout << "new userdb \n";
+
+    // For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
+    //db_m->build_table();
 }
 
 
@@ -38,10 +40,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     db_m->create_row(newCivilian);
     db_m->print();
     std::cout << __PRETTY_FUNCTION__<<"\n";
-
-
-    //delete newCivilian; // make sure you delete your pointers after you're done using them
-
+    delete db_m;
     return true;
 }
 
