@@ -65,6 +65,12 @@ TEST(InsertGroupTest, TESTSIMPLE) {
     delete db;
 }
 
+TEST(CreateGroupsTable, TESTSIMPLE) {
+    DB_Manager *db = new Group_DB("../test.sqlite");
+    ((Group_DB*)db)->create_group_table();
+
+}
+
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

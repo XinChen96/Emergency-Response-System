@@ -53,8 +53,8 @@ void Simulation_DB::create_row(DBItem* u) {
 Simulation* Simulation_DB::select_simulation(QString name) {
     Simulation *sim;
     query = new QSqlQuery(db);
-    query->prepare("SELECT DISTINCT * FROM simulations WHERE name=:sim");
-    query->bindValue(":sim", name);
+    query->prepare("SELECT DISTINCT * FROM simulations WHERE name=:name");
+    query->bindValue(":name", name);
     query->exec();
 
     if(query->next()) {

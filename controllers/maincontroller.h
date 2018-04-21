@@ -19,8 +19,10 @@ public:
     void print_db();
 private:
 
+
     QString dbPath;
     DB_Manager *db_m;
+
 
 };
 

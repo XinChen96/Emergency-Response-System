@@ -10,10 +10,15 @@ public:
     ~Group_DB() {}
     Group* select_group(int);
     Group* select_group(QString);
+    void create_group_table();
+    void add_to_group(User*, Group*);
+
 
     void create_row(DBItem*);
     void update_value(DBItem*);
     void generate_sql_queries();
+
+    QString create_groups_cmd;
 };
 
 #endif // GROUP_DB_H

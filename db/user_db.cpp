@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 void User_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username) VALUES (:firstName, :lastName, :username);";
@@ -23,21 +22,23 @@ void User_DB::create_row(DBItem* u) {
     cout << user->last_name.toStdString() <<endl;
     cout << user->username.toStdString() <<endl;
     if(query->prepare(insert_cmd)){
-    cout << "create row" <<endl;
+        cout << "create_row:queryPrepare" <<endl;
     }else{
         cerr<< "create_row:queryPrepare failed"<<endl;
         qDebug() << query->lastError();
-}
+    }
     query->bindValue(":firstName", user->first_name);
     query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
 
+
     if(query->exec()){
-    cout << "create row" <<endl;
+        cout << "create row" <<endl;
     }else{
         cerr<< "create row failed"<<endl;
     }
-std::cout << __PRETTY_FUNCTION__<<"\n";
+    std::cout << __PRETTY_FUNCTION__<<"\n";
+
     delete query;
     delete user;
 }
@@ -63,6 +64,7 @@ void User_DB::print(){
 
     query->exec("SELECT * FROM users;");
 
+
     while (query->next()) {
         QString first = query->value(1).toString();
         QString last  = query->value(2).toString();
@@ -75,6 +77,7 @@ void User_DB::print(){
              << user.toStdString()
              << endl;
         cout << "END" <<endl;
+
     }
     //std::cout<<select_civilian("me")->last_name.toStdString()<< std::endl;
     query->last();
@@ -91,7 +94,7 @@ User* User_DB::select_civilian(int id) {
         delete query;
         return user;
     } else {
-        cerr << "Entry does not exist." << endl;
+        std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
     }
@@ -111,7 +114,7 @@ User* User_DB::select_civilian(QString username) {
 
         return user;
     } else {
-        cerr << "Entry does not exist." << endl;
+        std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
     }
