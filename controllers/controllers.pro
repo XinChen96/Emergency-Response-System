@@ -9,7 +9,9 @@ HEADERS += \
         ../db/db_manager.h \
         ../db/user_db.h \
         ../db/simulation_db.h \
+        ../users/roles.h \
         ../users/user.h \
+        ../users/planner.h \
         ../users/civilian.h \
         ../users/dbitem.h
 
@@ -20,6 +22,7 @@ SOURCES += \
         ../db/user_db.cpp \
         ../db/simulation_db.cpp \
         ../users/user.cpp \
+        ../users/planner.cpp \
         ../users/civilian.cpp \
         ../users/dbitem.cpp \
 

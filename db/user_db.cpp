@@ -18,9 +18,7 @@ void User_DB::create_row(DBItem* u) {
     User *user = (User*)(u);
 
     query = new QSqlQuery(db);
-    cout << user->first_name.toStdString() <<endl;
-    cout << user->last_name.toStdString() <<endl;
-    cout << user->username.toStdString() <<endl;
+
     if(query->prepare(insert_cmd)){
         cout << "create_row:queryPrepare" <<endl;
     }else{

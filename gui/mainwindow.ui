@@ -24,7 +24,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -365,13 +365,6 @@
               <widget class="QLineEdit" name="enterUsernameReg">
                <property name="placeholderText">
                 <string>Username</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="enterEmailReg">
-               <property name="placeholderText">
-                <string>Email</string>
                </property>
               </widget>
              </item>

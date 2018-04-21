@@ -15,10 +15,12 @@
 #include "../controllers/maincontroller.h"
 #include "../db/user_db.h"
 #include "../db/db_manager.h"
+#include "../users/roles.h"
 #include "../users/user.h"
 #include "../users/dbitem.h"
 #include "../users/simulation.h"
 #include "../users/civilian.h"
+#include "../users/planner.h"
 
 namespace Ui {
 class MainWindow;
@@ -69,6 +71,7 @@ private slots:
 
 
 
+
 private:
     Ui::MainWindow *ui;
 
@@ -77,8 +80,11 @@ private:
     QString firstNameReg;
     QString lastNameReg;
     QString usernameReg;
+    Role    roleReg;
     QString emailReg;
     QString simName;
+
+
 
 
 };

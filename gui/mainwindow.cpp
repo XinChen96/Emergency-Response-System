@@ -7,9 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ctrl = new MainController("/Users/chenxin/db.sqlite");
-
-    //ctrl = new MainController("../db.sqlite");
+    ctrl = new MainController();
 
     QWebEngineView* webview = new QWebEngineView;
 
@@ -61,15 +59,22 @@ void MainWindow::on_cancelReg_clicked()
 //when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
-
-
+    if(ui->identity->currentText() == "Civilian"){
+        roleReg = civilian;
+    }else if (ui->identity->currentText() == "Emergency Planner"){
+        roleReg = planner;
+    }else{
+        roleReg = NA;
+    }
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
-    emailReg     = ui->enterEmailReg->text();
+    //emailReg     = ui->enterEmailReg->text();
 
-    ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
-
+    ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
     //go to loginForm
     ui->stackedWidget->setCurrentIndex(0);
 
@@ -195,6 +200,8 @@ void MainWindow::on_backRGroup_clicked()
 void MainWindow::update_simulations() {
 
 }
+
+
 
 
 

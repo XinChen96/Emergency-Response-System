@@ -36,7 +36,7 @@ SOURCES += \
         ../users/dbitem.cpp\
         ../users/simulation.cpp\
         ../users/civilian.cpp\
-        ../db/simulation_db.h
+        ../users/planner.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -44,11 +44,12 @@ HEADERS += \
         ../db/db_manager.h\
         ../db/simultion_db.h\
         ../db/user_db.h\
-        ..//db/simulation_db.h\
         ../users/user.h\
         ../users/dbitem.h\
         ../users/simulation.h\
         ../users/civilian.h\
+        ../users/planner.cpp \
+        ../users/roles.h\
         ../db/simulation_db.h
 
 FORMS += \

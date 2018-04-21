@@ -8,7 +8,9 @@
 #include "../db/user_db.h"
 #include "../db/simulation_db.h"
 #include "../db/db_manager.h"
+#include "../users/roles.h"
 #include "../users/civilian.h"
+#include "../users/planner.h"
 #include "../users/user.h"
 #include "../users/simulation.h"
 
@@ -20,7 +22,7 @@ public:
     MainController(QString path);
     ~MainController();
 
-    bool add_user(QString,QString,QString);
+    bool add_user(QString,QString,QString,Role);
     bool add_simulation(Simulation*);
     Simulation* select_simulation(QString name);
     void print_db();
