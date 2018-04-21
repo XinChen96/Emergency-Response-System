@@ -45,7 +45,13 @@ MainWindow::~MainWindow()
 // Unsuccessful login should give you an alert and let you try again
 void MainWindow::on_login_clicked()
 {
-    if(ctrl->)
+    switch(ctrl->check_login(ui->login->text())) {
+    case 0: break; // civilian
+    case 1: break; // responder
+    case 2: break; // planner
+    case 3: break;
+            // No such user
+    }
     ui->stackedWidget->setCurrentIndex(2);
 }
 //go to register form by clicking register

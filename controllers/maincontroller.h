@@ -26,7 +26,7 @@ public:
     void print_db();
 
 
-    bool check_login(QString);
+    int check_login(QString);
 
 private:
 

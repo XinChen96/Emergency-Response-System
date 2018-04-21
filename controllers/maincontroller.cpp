@@ -84,14 +84,14 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
-// Returns true if the username is in the db
-bool MainController::check_login(QString username) {
+// Returns the users role if it exists, otherwise returns 3
+int MainController::check_login(QString username) {
     db_m = new User_DB(dbPath);
     User *u = ((User_DB*)db_m)->select_user(username);
     if(u != nullptr) {
-        switch(u->role): {
-            // Not all of these pages are made yet, but when they are, different people should see different things
-        }
+        return u->role;
+    } else {
+        return 3;
     }
 }
 
