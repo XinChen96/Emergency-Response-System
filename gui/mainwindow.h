@@ -53,6 +53,8 @@ private slots:
     void on_nextButton_clicked();
     void on_backToSimPage2_clicked();
     void on_createSim1_clicked();
+    void on_backToSimPage22_clicked();
+    void on_createSim2_clicked();
     void on_viewBut_clicked();
     void on_backToSimPage_clicked();
     void on_backMapEP_clicked();

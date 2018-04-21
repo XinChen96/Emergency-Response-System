@@ -14,7 +14,6 @@ void Simulation_DB::update_value(DBItem* u) {
     Simulation *sim = (Simulation*)(u);
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
-    std::cout<< "ssssssssssssssssss\n";
     query->bindValue(":name", sim->name);
     query->bindValue(":type_sim", sim->type_sim);
     query->bindValue(":lat", sim->lat);
@@ -22,12 +21,11 @@ void Simulation_DB::update_value(DBItem* u) {
     query->bindValue(":radius", sim->radius);
     query->bindValue(":num_civilians", sim->num_civilians);
     query->bindValue(":trigger", sim->trigger);;
-//    query->bindValue(":id", user->id);
 
     query->exec();
 
     delete query;
-    delete sim;
+    //delete sim;
 }
 
 void Simulation_DB::create_row(DBItem* u) {
@@ -47,7 +45,7 @@ void Simulation_DB::create_row(DBItem* u) {
     query->exec();
 
     delete query;
-    delete sim;
+    //delete sim;
 }
 
 Simulation* Simulation_DB::select_simulation(QString name) {

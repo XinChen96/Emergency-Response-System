@@ -7,9 +7,9 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ctrl = new MainController("/Users/chenxin/db.sqlite");
+    //ctrl = new MainController("/Users/chenxin/db.sqlite");
 
-    //ctrl = new MainController("../db.sqlite");
+    ctrl = new MainController("../db.sqlite");
 
     QWebEngineView* webview = new QWebEngineView;
 
@@ -150,7 +150,7 @@ void MainWindow::on_nextButton_clicked() {
     if (simType == "First Responder Simulation") {
         ui->stackedWidget->setCurrentIndex(9);
     } else if (simType == "Civilian Simulation") {
-
+        ui->stackedWidget->setCurrentIndex(10);
     }
 }
 
@@ -159,8 +159,6 @@ void MainWindow::on_backToSimPage2_clicked() {
 }
 
 void MainWindow::on_createSim1_clicked() {
-    ui->stackedWidget->setCurrentIndex(7);
-
     //get all values from box
     QString value1 = ui->lineEdit->text();
     double value2 = ui->lineEdit2->text().toDouble();
@@ -172,6 +170,30 @@ void MainWindow::on_createSim1_clicked() {
 
     ctrl->add_simulation(temp);
     ui->selectSim->addItem(value1);
+
+    ui->stackedWidget->setCurrentIndex(7);
+
+    //clear all box values
+    ui->lineEdit->clear();
+    ui->lineEdit2->clear();
+    ui->lineEdit3->clear();
+    ui->lineEdit4->clear();
+    ui->lineEdit5->clear();
+}
+
+void MainWindow::on_backToSimPage22_clicked() {
+    ui->stackedWidget->setCurrentIndex(8);
+}
+
+void MainWindow::on_createSim2_clicked() {
+    //get all values from box
+    QString value1 = ui->lineEdit->text();
+    double value2 = ui->lineEdit2->text().toDouble();
+    double value3 = ui->lineEdit3->text().toDouble();
+    double value4 = ui->lineEdit4->text().toDouble();
+    int value5 = ui->lineEdit5->text().toInt();
+
+    ui->stackedWidget->setCurrentIndex(7);
 
     //clear all box values
     ui->lineEdit->clear();
