@@ -2,6 +2,8 @@
 #include <iostream>
 #include <unistd.h>
 
+using namespace std;
+
 void User_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username) VALUES (:firstName, :lastName, :username);";
@@ -14,16 +16,28 @@ void User_DB::generate_sql_queries() {
 
 void User_DB::create_row(DBItem* u) {
     User *user = (User*)(u);
-    query = new QSqlQuery(db);
 
-    query->prepare(insert_cmd);
+    query = new QSqlQuery(db);
+    cout << user->first_name.toStdString() <<endl;
+    cout << user->last_name.toStdString() <<endl;
+    cout << user->username.toStdString() <<endl;
+    if(query->prepare(insert_cmd)){
+        cout << "create_row:queryPrepare" <<endl;
+    }else{
+        cerr<< "create_row:queryPrepare failed"<<endl;
+        qDebug() << query->lastError();
+    }
     query->bindValue(":firstName", user->first_name);
     query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
 
-    query->exec();
-    std::cout << "create row" << std::endl;
 
+    if(query->exec()){
+        cout << "create row" <<endl;
+    }else{
+        cerr<< "create row failed"<<endl;
+    }
+    std::cout << __PRETTY_FUNCTION__<<"\n";
 
     delete query;
     delete user;
@@ -34,7 +48,7 @@ void User_DB::update_value(DBItem* u) {
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
 
-    query->bindValue(":firstName", user->first_name);
+    query->bindValue(":firstName",user->first_name);
     query->bindValue(":lastName", user->last_name);
     query->bindValue(":username", user->username);
 //    query->bindValue(":id", user->id);
@@ -45,28 +59,27 @@ void User_DB::update_value(DBItem* u) {
     delete user;
 }
 void User_DB::print(){
+
     query = new QSqlQuery(db);
-    query->first();
+
     query->exec("SELECT * FROM users;");
 
-    while (1) {
-    sleep(5);
-        QString first;// = query->value(0).toString();
-        std::cout << "first name" << std::endl;
-        QString last  = query->value(1).toString();
-        QString user  = query->value(2).toString();
-        query->bindValue(":firstName", first);
-        //query->bindValue(":lastName", user->last_name);
-        //query->bindValue(":username", user->username);
-        std::cout << first.toStdString()
-                  << "  "
-                  << last.toStdString()
-                  << "  "
-                  << user.toStdString()
-                  << std::endl;
-        std::cout << "WHILe" << std::endl;
-    }
 
+    while (query->next()) {
+        QString first = query->value(1).toString();
+        QString last  = query->value(2).toString();
+        QString user  = query->value(3).toString();
+
+        cout << first.toStdString()
+             << "  "
+             << last.toStdString()
+             << "  "
+             << user.toStdString()
+             << endl;
+        cout << "END" <<endl;
+
+    }
+    //std::cout<<select_civilian("me")->last_name.toStdString()<< std::endl;
     query->last();
     delete query;
 }

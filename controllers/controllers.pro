@@ -11,11 +11,11 @@ SOURCES += main.cpp \
     ../users/civilian.cpp\
     ../users/simulation.cpp\
     ../db/simulation_db.cpp
+    ../users/user.cpp
 
 
 HEADERS += \
     maincontroller.h\
-    ../db/db_manager.h\
     ../db/user_db.h\
     ../db/db_manager.h\
     ../users/user.h\

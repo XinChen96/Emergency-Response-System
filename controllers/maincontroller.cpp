@@ -2,34 +2,55 @@
 #include <iostream>
 
 MainController::MainController() {
-    db_location += "../db.sqlite";
+
+dbPath = "/Users/chenxin/db.sqlite";
+   // dbPath = "../db/db.sqlite";
+db_m = new User_DB(dbPath);
+std::cout << "new userdb \n";
+db_m->build_table();
+
+std::cout << __PRETTY_FUNCTION__<<"\n";
 }
 
 MainController::~MainController() {
+
+ std::cout << __PRETTY_FUNCTION__<<"\n";
+delete db_m;
 }
+
+
+
 
 // Should return true if user is successfully added to the db, false otherwise
 bool MainController::add_user(QString firstName, QString lastName,QString username) {
-    db = new User_DB(db_location);
+    db_m = new User_DB(dbPath);
     User *newCivilian = new Civilian(firstName,lastName,username);
 
-    db->create_row(newCivilian);
-    //std::cout<<((User_DB*)db)->select_civilian("6666")->last_name.toStdString()<<std::endl;
-    db->print();
+    std::cout << firstName.toStdString()
+         << "  "
+         << lastName.toStdString()
+         << "  "
+         << username.toStdString()
+         << std::endl;
 
-    delete db;
+    db_m->create_row(newCivilian);
+    db_m->print();
+    std::cout << __PRETTY_FUNCTION__<<"\n";
+
+
     delete newCivilian; // make sure you delete your pointers after you're done using them
+
     return true;
 }
 
 bool MainController::add_simulation(Simulation* sim) {
-    db = new Simulation_DB(db_location);
+    db_m = new Simulation_DB(dbPath);
 
-    db->create_row(sim);
+    db_m->create_row(sim);
     //std::cout<<((User_DB*)db)->select_civilian("6666")->last_name.toStdString()<<std::endl;
     //db->print();
 
-    delete db;
+    delete db_m;
     return true;
 }
 

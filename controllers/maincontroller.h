@@ -24,8 +24,11 @@ public:
 
 private:
 
-    QString db_location;
-    DB_Manager *db;
+
+    QString dbPath;
+    DB_Manager *db_m;
+
+
 };
 
 #endif // MAINCONTROLLER_H
