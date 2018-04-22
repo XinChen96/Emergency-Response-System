@@ -27,7 +27,7 @@ class DBTest : public ::testing::Test {
 TEST(InsertSimulationTest, TESTSIMPLE) {
     DB_Manager *db = new Simulation_DB("../test.sqlite");
     db->build_table();
-    Simulation* sim = new Simulation("Earthquake 1", 0, 40, -75, .005, 32, -1);
+    Simulation* sim = new Simulation("Earthquake 1", 40.5, -75.2, .005, 32, 1);
     db->create_row(sim); // Add entry
     ASSERT_EQ("Earthquake 1", ((Simulation_DB*)db)->select_simulation("Earthquake 1")->name); // username is unique
 

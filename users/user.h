@@ -13,7 +13,21 @@ public:
         first_name = first;
         last_name  = last;
         username   = user;
-        role       = r;
+        role_num  = r;
+        switch(role_num){
+        case(civilian):
+            role = "Civilian";
+                    break;
+        case(planner):
+            role = "Emergency Planner";
+                    break;
+        case(responder):
+            role = "First Responder";
+            break;
+        case(NA):
+            role = "N/A";
+
+        }
     }
 
     User() : DBItem(-1) {}
@@ -22,7 +36,8 @@ public:
     QString first_name;
     QString last_name;
     QString username;
-    Role role;
+    QString role;
+    int role_num;
 };
 
 #endif // USER_H

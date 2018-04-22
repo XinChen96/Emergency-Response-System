@@ -7,9 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //ctrl = new MainController("/Users/chenxin/db.sqlite");
-
-    ctrl = new MainController("../db.sqlite");
+    ctrl = new MainController();
 
     QWebEngineView* webview = new QWebEngineView;
 
@@ -43,16 +41,40 @@ MainWindow::~MainWindow()
 //index 0 (login form) button navigation
 // Successful login should take you to the appropriate screen for your user type
 // Unsuccessful login should give you an alert and let you try again
+void MainWindow::login(){
+    switch(ctrl->check_role(ui->enterUsername->text())) {
+    case 0: // civilian
+        user = civilian;
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+        break;
+    case 1: // responder
+        user = responder;
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+        break;
+    case 2:// planner
+        user = planner;
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+        break;
+    case 3: //No such user
+        ui->enterUsername->clear();
+        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->loginAlert->setText("Username does not exist.\n Please try again.");
+        break;
+    }
+}
+void MainWindow::on_enterUsername_returnPressed()
+{
+    login();
+}
 void MainWindow::on_login_clicked()
 {
-    switch(ctrl->check_login(ui->login->text())) {
-    case 0: break; // civilian
-    case 1: break; // responder
-    case 2: break; // planner
-    case 3: break;
-            // No such user
-    }
-    ui->stackedWidget->setCurrentIndex(2);
+    login();
 }
 //go to register form by clicking register
 void MainWindow::on_reg_clicked()
@@ -70,23 +92,99 @@ void MainWindow::on_cancelReg_clicked()
 void MainWindow::on_submitReg_clicked()
 {
 
+//index 1 register form
+void MainWindow::reg(){
+    bool incomplete;
+    bool existed;
+    //get user identityt
+    if(ui->identity->currentText() == "Civilian"){
+        roleReg = civilian;
+    }else if (ui->identity->currentText() == "Emergency Planner"){
+        roleReg = planner;
+    }
 
+    //get user information
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
     emailReg     = ui->enterEmailReg->text();
 
-    ctrl->add_user(firstNameReg,lastNameReg,usernameReg);
+    if(ui->enterFirstnameReg->text().isEmpty()||
+       ui->enterLastnameReg->text().isEmpty()||
+       ui->enterUsernameReg->text().isEmpty()){
+        incomplete = true;
+    }else{
+        incomplete= false;
+    }
 
-    //go to loginForm
+    if(ctrl->check_role(usernameReg) != 3){
+        existed = true;
+    }else{
+        existed = false;
+    }
+
+    if(incomplete){
+        ui->regAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->regAlert->setText("User information is not completed.");
+    }else if (existed){
+        ui->regAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->regAlert->setText("Username already exists.");
+    }else{
+        ui->regAlert->setStyleSheet("");
+        ui->regAlert->setText("");
+
+        //add user information into user database
+        ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
+
+        //go to loginForm
+        ui->stackedWidget->setCurrentIndex(0);
+
+        //clear contents if register is submitted
+        ui->enterFirstnameReg->clear();
+        ui->enterLastnameReg->clear();
+        ui->enterUsernameReg->clear();
+    }
+}
+//when return is pressed in username box
+void MainWindow::on_enterUsernameReg_returnPressed()
+{
+    reg();
+}
+//when cancel button is clicked
+void MainWindow::on_cancelReg_clicked()
+{
+    //clear contents if register is cancelled
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
+    ui->regAlert->setStyleSheet("");
+    ui->regAlert->setText("");
+
+    //go to login form
     ui->stackedWidget->setCurrentIndex(0);
+}
+//when submit button is clicked
+void MainWindow::on_submitReg_clicked()
+{
+    reg();
 }
 
 //index 2 (map view) button navigation
 //go to menu by clicking menu
 void MainWindow::on_menu_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    switch(user){
+    case planner:
+        ui->stackedWidget->setCurrentIndex(3);
+        break;
+    case responder:
+        ui->stackedWidget->setCurrentIndex(13);
+        break;
+    case civilian:
+        ui->stackedWidget->setCurrentIndex(13);
+        ui->responderChannelG->setEnabled(false);
+        break;
+    }
 }
 //go to communication by clicking alert
 void MainWindow::on_alerts_clicked()
@@ -143,7 +241,7 @@ void MainWindow::on_backToSim_clicked() {
 }
 
 void MainWindow::on_createBut_clicked() {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(9);
 }
 
 void MainWindow::on_nextButton_clicked() {
@@ -157,7 +255,7 @@ void MainWindow::on_nextButton_clicked() {
 }
 
 void MainWindow::on_backToSimPage2_clicked() {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(7);
 }
 
 void MainWindow::on_createSim1_clicked() {
@@ -168,7 +266,7 @@ void MainWindow::on_createSim1_clicked() {
     double value4 = ui->lineEdit4->text().toDouble();
     int value5 = ui->lineEdit5->text().toInt();
 
-    Simulation* temp = new Simulation(value1, 0, value2, value3, value4, value5, -1);
+    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, -1);
 
     ctrl->add_simulation(temp);
     ui->selectSim->addItem(value1);
@@ -229,8 +327,13 @@ void MainWindow::update_simulations() {
 }
 
 
+void MainWindow::on_breakIn_clicked()
+{
+    user = planner;
+    ui->stackedWidget->setCurrentIndex(2);
+}
 
-
-
-
-
+void MainWindow::on_logoutG_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}

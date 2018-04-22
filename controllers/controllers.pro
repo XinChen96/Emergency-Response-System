@@ -11,6 +11,7 @@ HEADERS += \
         ../db/simulation_db.h \
         ../db/group_db.h \
         ../users/user.h \
+        ../users/planner.h \
         ../users/civilian.h \
         ../users/dbitem.h
 
@@ -22,6 +23,7 @@ SOURCES += \
         ../db/simulation_db.cpp \
         ../db/group_db.cpp \
         ../users/user.cpp \
+        ../users/planner.cpp \
         ../users/civilian.cpp \
         ../users/dbitem.cpp \
 

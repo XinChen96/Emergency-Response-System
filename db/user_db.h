@@ -14,6 +14,7 @@ public:
     void update_value(DBItem*);
     void generate_sql_queries();
     void print();
+    int get_role(QString);
 
 
     User* select_user(int);

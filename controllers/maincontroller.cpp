@@ -3,60 +3,45 @@
 MainController::MainController() {
 
 
-//dbPath = "../db/db.sqlite";
-//db_m = new User_DB(dbPath);
-std::cout << "Maincontroller: new userdb \n";
-//db_m->build_table();
-std::cout << "Maincontroller: build table \n";
-}
-
-MainController::MainController(QString path) {
-
-
-// I don't think that we should declare the db up here, it should be instantiated every time it is needed
-// The db and tables should be created during installation, and shouldn't be recreated every time the program runs
-//db_m = new User_DB(path);
-
-// This should be the same as the query variable in the db classes
-std::cout << "Maincontroller: new userdb \n";
-//
-//For now, we should manually create the table instead of using build_table() bc build_table deletes the old version
-//db_m->build_table();
-
-std::cout << "Maincontroller: build table \n";
+//   dbPath = "../db.sqlite";
+   dbPath = "/Users/chenxin/db.sqlite";
 
 }
-
-
-
 
 MainController::~MainController() {
 
- std::cout << __PRETTY_FUNCTION__<<"\n";
-delete db_m;
+    std::cout << __PRETTY_FUNCTION__<<"\n";
+    delete db_m;
 }
 
 
-
-
 // Should return true if user is successfully added to the db, false otherwise
-bool MainController::add_user(QString firstName, QString lastName,QString username) {
+
+bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
+
     db_m = new User_DB(dbPath);
 
-    User *newCivilian = new Civilian(firstName,lastName,username);
+    //db_m->build_table();
+    User* newUser;
+    if(role == civilian){
+        newUser = new Civilian(firstName,lastName,username);
+    }else if (role == planner){
+        newUser = new Planner(firstName,lastName,username);
+    }else{
+        newUser = new User(firstName,lastName,username,NA);
+    }
 
     std::cout << firstName.toStdString()
-         << "  "
-         << lastName.toStdString()
-         << "  "
-         << username.toStdString()
-         << std::endl;
+              << "  "
+              << lastName.toStdString()
+              << "  "
+              << username.toStdString()
+              << std::endl;
 
-    db_m->create_row(newCivilian);
+    db_m->create_row(newUser);
     db_m->print();
 
-    delete newCivilian; // make sure you delete your pointers after you're done using them
-
+    delete newUser;
     delete db_m;
     return true;
 }
@@ -82,12 +67,16 @@ Simulation* MainController::select_simulation(QString name) {
 }
 
 // Returns the users role if it exists, otherwise returns 3
-int MainController::check_login(QString username) {
+int MainController::check_role(QString username) {
     db_m = new User_DB(dbPath);
     User *u = ((User_DB*)db_m)->select_user(username);
     if(u != nullptr) {
-        return u->role;
+        std::cout<<"role_num"<< u->role_num<<std::endl;
+        delete db_m;
+        return u->role_num;
+
     } else {
+        delete db_m;
         return 3;
     }
 }
@@ -97,5 +86,6 @@ std::vector<Group*> MainController::get_groups() {
     db_m = new Group_DB(dbPath);
     return ((Group_DB*)db_m)->get_groups();
 }
+
 
 
