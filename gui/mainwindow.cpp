@@ -314,7 +314,7 @@ void MainWindow::on_viewBut_clicked() {
     //Get value from current box and add to it
     QString value0 = ui->label0->text() + " " + temp0;
     QString value1 = ui->label1->text() + " " + temp1;
-    QString value2 = ui->label2->text() + " " + temp2;
+    QString value2 = ui->label_15->text() + " " + temp2;
     QString value3 = ui->label3->text() + " " + temp3;
     QString value4 = ui->label4->text() + " " + temp4;
     QString value5 = ui->label5->text() + " " + temp5;
@@ -322,7 +322,7 @@ void MainWindow::on_viewBut_clicked() {
     //reset the values
     ui->label0->setText(value0);
     ui->label1->setText(value1);
-    ui->label2->setText(value2);
+    ui->label_15->setText(value2);
     ui->label3->setText(value3);
     ui->label4->setText(value4);
     ui->label5->setText(value5);
