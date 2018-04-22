@@ -29,7 +29,6 @@ TEST(InsertSimulationTest, TESTSIMPLE) {
     db->build_table();
     Simulation* sim = new Simulation("Earthquake 1", 0, 40, -75, .005, 32, -1);
     db->create_row(sim); // Add entry
-    //ASSERT_EQ(nullptr, ((User_DB*)db)->select_civilian("ralph")); // check if user does not exist
     ASSERT_EQ("Earthquake 1", ((Simulation_DB*)db)->select_simulation("Earthquake 1")->name); // username is unique
 
     delete sim;
@@ -39,8 +38,7 @@ TEST(InsertSimulationTest, TESTSIMPLE) {
 TEST(InsertUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
     db->build_table();
-    DBItem *anotherentry = new Civilian("Ben", "Last", "firstlast");
-    std::cout<<anotherentry->id<<std::endl;
+    DBItem *anotherentry = new Civilian("Uncle", "Last", "firstlast");
     db->create_row(anotherentry); // Add entry
     ASSERT_EQ(nullptr, ((User_DB*)db)->select_user("ralph")); // check if user does not exist
     ASSERT_EQ("firstlast", ((User_DB*)db)->select_user("firstlast")->username); // username is unique

@@ -1,8 +1,5 @@
 #include "maincontroller.h"
 
-
-
-
 MainController::MainController() {
 
 
@@ -93,6 +90,12 @@ int MainController::check_login(QString username) {
     } else {
         return 3;
     }
+}
+
+// Return a list of all the current groups
+std::vector<Group*> MainController::get_groups() {
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->get_groups();
 }
 
 

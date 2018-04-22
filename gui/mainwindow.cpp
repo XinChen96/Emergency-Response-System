@@ -80,11 +80,6 @@ void MainWindow::on_submitReg_clicked()
 
     //go to loginForm
     ui->stackedWidget->setCurrentIndex(0);
-
-
-
-
-
 }
 
 //index 2 (map view) button navigation
@@ -125,6 +120,13 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
+    // Time to populate the table
+    std::vector<Group*> group_list = ctrl->get_groups();
+
+    for(int i = 0; i < group_list.size(); ++i) {
+        ui->responder_table->setItem(i, 0, new QTableWidgetItem(group_list[i]->name));
+        ui->responder_table->setItem(i, 1, new QTableWidgetItem(group_list[i]->date));
+    }
 }
 
 void MainWindow::on_logoutEP_clicked()

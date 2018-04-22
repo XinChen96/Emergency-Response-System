@@ -23,6 +23,7 @@ public:
     Group* select_group(int);
     Group* select_group(QString);
     vector<User*> get_group_members(Group*);
+    vector<Group*> get_groups();
 
     QString create_groups_cmd;
 };

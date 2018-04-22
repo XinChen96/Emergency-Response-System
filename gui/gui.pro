@@ -31,25 +31,27 @@ SOURCES += \
         ../controllers/maincontroller.cpp\
         ../db/db_manager.cpp\
         ../db/user_db.cpp\
-        ../db/simulation_db.cpp\
         ../users/user.cpp\
         ../users/dbitem.cpp\
         ../users/simulation.cpp\
         ../users/civilian.cpp\
-        ../db/simulation_db.h
+        ../db/simulation_db.cpp \
+        ../users/group.cpp \
+        ../db/group_db.cpp
 
 HEADERS += \
         mainwindow.h\
         ../controllers/maincontroller.h\
         ../db/db_manager.h\
-        ../db/simultion_db.h\
+        ../db/simulation_db.h\
         ../db/user_db.h\
-        ..//db/simulation_db.h\
         ../users/user.h\
         ../users/dbitem.h\
         ../users/simulation.h\
         ../users/civilian.h\
-        ../db/simulation_db.h
+        ../db/simulation_db.h \
+        ../users/group.h \
+        ../db/group_db.h
 
 FORMS += \
         mainwindow.ui

@@ -5,9 +5,9 @@
 using namespace std;
 
 void Group_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE);";
-    create_groups_cmd += "CREATE TABLE userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
-    insert_cmd += "INSERT INTO groups (groupName) VALUES (:groupName);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE, date text);";
+    create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
+    insert_cmd += "INSERT INTO groups (groupName, date) VALUES (:groupName, DATE('now'));";
 
     update_cmd += "UPDATE users SET groupName=:groupName WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS groups;";
@@ -110,6 +110,22 @@ vector<User*> Group_DB::get_group_members(Group* g) {
     }
 
     return user_list;
+}
+
+vector<Group*> Group_DB::get_groups() {
+    vector<Group*> group_list;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT * FROM groups;");
+
+    Group *g;
+    while(query->next()) {
+        g = new Group(query->value(1).toString(), query->value(2).toString());
+        g->id = query->value(0).toInt();
+        group_list.push_back(g);
+        delete g;
+    }
+
+    return group_list;
 }
 
 

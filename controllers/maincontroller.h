@@ -4,6 +4,7 @@
 #include "QtSql/QSqlQuery"
 #include "QString"
 #include <iostream>
+#include <vector>
 #include <string>
 #include "../db/user_db.h"
 #include "../db/simulation_db.h"
@@ -11,6 +12,8 @@
 #include "../users/civilian.h"
 #include "../users/user.h"
 #include "../users/simulation.h"
+#include "../users/group.h"
+#include "../db/group_db.h"
 
 
 class MainController
@@ -24,6 +27,7 @@ public:
     bool add_simulation(Simulation*);
     Simulation* select_simulation(QString name);
     void print_db();
+    std::vector<Group*> get_groups();
 
 
     int check_login(QString);
