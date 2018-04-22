@@ -249,7 +249,7 @@ void MainWindow::on_createSim1_clicked() {
     double value4 = ui->lineEdit4->text().toDouble();
     int value5 = ui->lineEdit5->text().toInt();
 
-    Simulation* temp = new Simulation(value1, 0, value2, value3, value4, value5, -1);
+    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, -1);
 
     ctrl->add_simulation(temp);
     ui->selectSim->addItem(value1);

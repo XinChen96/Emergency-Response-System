@@ -1,8 +1,8 @@
 #include "simulation_db.h"
 
 void Simulation_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, type_sim integer, lat double, lng double, radius double, num_civilians integer, trigger integer);";
-    insert_cmd += "INSERT INTO simulations (name, type_sim, lat, lng, radius, num_civilians, trigger) VALUES (:name, :type_sim, :lat, :lng, :radius, :num_civilians, :trigger);";
+    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat double, lng double, radius double, num_civilians integer, trigger integer);";
+    insert_cmd += "INSERT INTO simulations (name, lat, lng, radius, num_civilians, trigger) VALUES (:name, :lat, :lng, :radius, :num_civilians, :trigger);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
     update_cmd += "UPDATE simulations SET name=:name, type_sim=:type_sim, lat=:lat, lng=:lng, radius=:radius, num_civilians=:num_civilians, trigger=:trigger;"; // WHERE id=:id;";
@@ -15,7 +15,6 @@ void Simulation_DB::update_value(DBItem* u) {
     query = new QSqlQuery(db);
     query->prepare(update_cmd);
     query->bindValue(":name", sim->name);
-    query->bindValue(":type_sim", sim->type_sim);
     query->bindValue(":lat", sim->lat);
     query->bindValue(":lng", sim->lng);
     query->bindValue(":radius", sim->radius);
@@ -34,7 +33,6 @@ void Simulation_DB::create_row(DBItem* u) {
 
     query->prepare(insert_cmd);
     query->bindValue(":name", sim->name);
-    query->bindValue(":type_sim", sim->type_sim);
     query->bindValue(":lat", sim->lat);
     query->bindValue(":lng", sim->lng);
     query->bindValue(":radius", sim->radius);
@@ -56,8 +54,8 @@ Simulation* Simulation_DB::select_simulation(QString name) {
     query->exec();
 
     if(query->next()) {
-        sim = new Simulation(query->value(1).toString(), query->value(2).toInt(), query->value(3).toInt(), query->value(4).toInt(),
-                             query->value(6).toInt(), query->value(6).toInt(), query->value(7).toInt());
+        sim = new Simulation(query->value(1).toString(), query->value(2).toDouble(), query->value(3).toDouble(), query->value(4).toDouble(),
+                             query->value(6).toInt(), query->value(6).toInt());
         sim->id = query->value(0).toInt();
 
         delete query;

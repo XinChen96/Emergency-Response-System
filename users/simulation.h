@@ -14,15 +14,13 @@ public:
      * Constructs the simulation object and defines the type of simulation
      *
      * @param name_value    name of simulation
-     * @param type_value    type of simulation
      * @param lat_value     latitude value of emergency
      * @param lng_value     longitude value of emergency
      * @param radius_value  radius of emgergency
      * @param civ_value     number of civilians in emergency
      * @param trig_value    type of emergency
      */
-    Simulation(QString name_value, int type_value, double lat_value, double lng_value, double radius_value, int civ_value, int trig_value): DBItem(-1) {
-        type_sim = type_value;
+    Simulation(QString name_value, double lat_value, double lng_value, double radius_value, int civ_value, int trig_value): DBItem(-1) {
         name = name_value;
         lat = lat_value;
         lng = lng_value;
@@ -40,7 +38,6 @@ public:
     void set_trigger(int value);
 
     //variables used in all simulations
-    int type_sim;
     QString name;
     double lat;
     double lng;
