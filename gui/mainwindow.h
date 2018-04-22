@@ -35,11 +35,13 @@ public:
     ~MainWindow();
 private slots:
 
-    //index 0 (login form) button navigation
+    //index 0 login form
+    void login();
+    void on_enterUsername_returnPressed();
     void on_login_clicked();
     void on_reg_clicked();
 
-    //index 1 (register form) button navigation
+    //index 1 register form
     void on_cancelReg_clicked();
     void on_submitReg_clicked();
 
@@ -73,6 +75,10 @@ private slots:
 
 
 
+
+
+
+    void on_breakIn_clicked();
 
 private:
     Ui::MainWindow *ui;

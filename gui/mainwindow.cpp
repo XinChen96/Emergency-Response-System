@@ -41,18 +41,31 @@ MainWindow::~MainWindow()
 //index 0 (login form) button navigation
 // Successful login should take you to the appropriate screen for your user type
 // Unsuccessful login should give you an alert and let you try again
-void MainWindow::on_login_clicked()
-{
-    switch(ctrl->check_login(ui->enterUsername->text())) {
-    case 0: break; // civilian
-    case 1: break; // responder
+void MainWindow::login(){
+    switch(ctrl->check_role(ui->enterUsername->text())) {
+    case 0: // civilian
+        break;
+    case 1: // responder
+        break;
     case 2:// planner
         ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
         break;
-    case 3: break; //NA
-            // No such user
+    case 3: //NA or No such user
+        ui->enterUsername->clear();
+        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->loginAlert->setText("Username does not exist.\n Please try again.");
+        break;
     }
-
+}
+void MainWindow::on_enterUsername_returnPressed()
+{
+    login();
+}
+void MainWindow::on_login_clicked()
+{
+    login();
 }
 //go to register form by clicking register
 void MainWindow::on_reg_clicked()
@@ -60,38 +73,69 @@ void MainWindow::on_reg_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-//index 1 (register form) button navigation
-//go to login form by clicking cancel
+//index 1 (register form): when cancel button is clicked
 void MainWindow::on_cancelReg_clicked()
 {
+    //clear contents if register is cancelled
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
+
+    //go to login form
     ui->stackedWidget->setCurrentIndex(0);
 }
-//when submit button is clicked
+//index 1 (register form): when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
+    bool incomplete;
+    bool existed;
+    //get user identityt
     if(ui->identity->currentText() == "Civilian"){
         roleReg = civilian;
     }else if (ui->identity->currentText() == "Emergency Planner"){
         roleReg = planner;
-    }else{
-        roleReg = NA;
     }
+
+    //get user information
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
-    //emailReg     = ui->enterEmailReg->text();
 
-    ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
-    ui->enterFirstnameReg->clear();
-    ui->enterLastnameReg->clear();
-    ui->enterUsernameReg->clear();
-    //go to loginForm
-    ui->stackedWidget->setCurrentIndex(0);
+    if(ui->enterFirstnameReg->text().isEmpty()||
+       ui->enterLastnameReg->text().isEmpty()||
+       ui->enterUsernameReg->text().isEmpty()){
+        incomplete = true;
+    }else{
+        incomplete= false;
+    }
 
+    if(ctrl->check_role(usernameReg) != 3){
+        existed = true;
+    }else{
+        existed = false;
+    }
 
+    if(incomplete){
+        ui->regAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->regAlert->setText("User information is not completed.");
+    }else if (existed){
+        ui->regAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->regAlert->setText("Username already exists.");
+    }else{
+        ui->regAlert->setStyleSheet("");
+        ui->regAlert->setText("");
 
+        //add user information into user database
+        ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
 
+        //go to loginForm
+        ui->stackedWidget->setCurrentIndex(0);
 
+        //clear contents if register is submitted
+        ui->enterFirstnameReg->clear();
+        ui->enterLastnameReg->clear();
+        ui->enterUsernameReg->clear();
+    }
 }
 
 //index 2 (map view) button navigation
@@ -241,3 +285,11 @@ void MainWindow::update_simulations() {
 
 
 
+
+
+
+
+void MainWindow::on_breakIn_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
+}

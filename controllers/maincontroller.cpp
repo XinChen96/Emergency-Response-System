@@ -7,7 +7,7 @@ MainController::MainController() {
 
 
     dbPath = "../db.sqlite";
-//    dbPath = "/Users/chenxin/db.sqlite";
+    //dbPath = "/Users/chenxin/db.sqlite";
 
 }
 
@@ -70,7 +70,7 @@ Simulation* MainController::select_simulation(QString name) {
 }
 
 // Returns the users role if it exists, otherwise returns 3
-int MainController::check_login(QString username) {
+int MainController::check_role(QString username) {
     db_m = new User_DB(dbPath);
     User *u = ((User_DB*)db_m)->select_user(username);
     if(u != nullptr) {
@@ -82,7 +82,7 @@ int MainController::check_login(QString username) {
         delete db_m;
         return 3;
     }
-
 }
+
 
 

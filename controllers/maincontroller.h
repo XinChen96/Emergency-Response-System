@@ -28,7 +28,7 @@ public:
     void print_db();
 
 
-    int check_login(QString);
+    int check_role(QString);
 
 private:
 
