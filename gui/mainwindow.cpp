@@ -296,13 +296,21 @@ void MainWindow::on_viewBut_clicked() {
 
     Simulation* sim = ctrl->select_simulation(simName); //get the database entry
 
+    //get value from db
+    QString temp0 = sim->name;
+    QString temp1 = QString::number(sim->lat);
+    QString temp2 = QString::number(sim->lng);
+    QString temp3 = QString::number(sim->radius);
+    QString temp4 = QString::number(sim->num_civilians);
+    QString temp5 = QString::number(sim->trigger);
+
     //Get value from current box and add to it
-    QString value0 = ui->label0->text() << " " << sim->name;
-    QString value1 = ui->label1->text() << " " << sim->lat;
-    QString value2 = ui->label2->text() << " " << sim->lng;
-    QString value3 = ui->label3->text() << " " << sim->radius;
-    QString value4 = ui->label4->text() << " " << sim->num_civilians;
-    QString value5 = ui->label5->text() << " " << sim->trigger;
+    QString value0 = ui->label0->text() + " " + temp0;
+    QString value1 = ui->label1->text() + " " + temp1;
+    QString value2 = ui->label2->text() + " " + temp2;
+    QString value3 = ui->label3->text() + " " + temp3;
+    QString value4 = ui->label4->text() + " " + temp4;
+    QString value5 = ui->label5->text() + " " + temp5;
 
     //reset the values
     ui->label0->setText(value0);
