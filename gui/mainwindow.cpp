@@ -27,9 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
-
-    //shut off editing of table
-    ui->triggerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //***
+    //TO ADD: add in all items to combo box from existing database
+    //***
 
 }
 
@@ -202,7 +202,7 @@ void MainWindow::on_commEP_clicked()
 
 void MainWindow::on_protocolEP_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(5);
+    ui->stackedWidget->setCurrentIndex(14);
 }
 
 void MainWindow::on_groupEP_clicked()
