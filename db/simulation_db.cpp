@@ -19,7 +19,7 @@ void Simulation_DB::update_value(DBItem* u) {
     query->bindValue(":lng", sim->lng);
     query->bindValue(":radius", sim->radius);
     query->bindValue(":num_civilians", sim->num_civilians);
-    query->bindValue(":trigger", sim->trigger);;
+    query->bindValue(":trigger", sim->trigger);
 
     query->exec();
 

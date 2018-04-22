@@ -82,16 +82,6 @@ void MainWindow::on_reg_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-//index 1 (register form) button navigation
-//go to login form by clicking cancel
-void MainWindow::on_cancelReg_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(0);
-}
-//when submit button is clicked
-void MainWindow::on_submitReg_clicked()
-{
-
 //index 1 register form
 void MainWindow::reg(){
     bool incomplete;
@@ -107,8 +97,6 @@ void MainWindow::reg(){
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
-    emailReg     = ui->enterEmailReg->text();
-
     if(ui->enterFirstnameReg->text().isEmpty()||
        ui->enterLastnameReg->text().isEmpty()||
        ui->enterUsernameReg->text().isEmpty()){
@@ -222,8 +210,8 @@ void MainWindow::on_groupEP_clicked()
     std::vector<Group*> group_list = ctrl->get_groups();
 
     for(int i = 0; i < group_list.size(); ++i) {
-        ui->responder_table->setItem(i, 0, new QTableWidgetItem(group_list[i]->name));
-        ui->responder_table->setItem(i, 1, new QTableWidgetItem(group_list[i]->date));
+        // ui->responder_table->setItem(i, 0, new QTableWidgetItem(group_list[i]->name));
+        // ui->responder_table->setItem(i, 1, new QTableWidgetItem(group_list[i]->date));
     }
 }
 
