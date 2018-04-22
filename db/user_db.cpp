@@ -104,50 +104,11 @@ User* User_DB::select_user(QString username) {
     query->bindValue(":user", username);
     //query->exec();
     if(query->exec()){
-        cout << "select row" <<endl;
+        cout << "select user" <<endl;
     }else{
-        cerr<< "select row failed"<<endl;
+        cerr<< "select user failed"<<endl;
         qDebug() << query->lastError();
     }
-        cout << username.toStdString()
-             << endl;
-
-//    if(query->next()) {
-
-//        QString first = query->value(1).toString();
-//        QString last  = query->value(2).toString();
-//        QString user2  = query->value(3).toString();
-//        cout << first.toStdString()
-//             << "  "
-//             << last.toStdString()
-//             << "  "
-//             << user2.toStdString()
-//             << endl;
-//
-
-//        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
-//        user->id = query->value(0).toInt();
-//        delete query;
-//        return user;
-//    } else {
-//        cerr << "Entry does not exist." << endl;
-//        delete query;
-//        return nullptr;
-//    }
-
-//}
-////    qDebug() << query->lastError();
-////    qDebug() << query->value(4);
-
-//    if(query->value(4).toString() == "Civilian"){
-//        role = civilian;
-//    }else if (query->value(4).toString() == "Emergency Planner"){
-//        role = planner;
-//    }else if (query->value(4).toString() == "First Responder"){
-//        role = responder;
-//    }else{
-//        role = NA;
-//    }
 
     if(query->next()) {
 
