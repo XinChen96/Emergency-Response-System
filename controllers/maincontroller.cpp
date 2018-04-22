@@ -1,11 +1,8 @@
 #include "maincontroller.h"
+#include <iostream>
 
 MainController::MainController() {
-
-
-//   dbPath = "../db.sqlite";
-   dbPath = "/Users/chenxin/db.sqlite";
-
+   dbPath = "../db.sqlite";
 }
 
 MainController::~MainController() {

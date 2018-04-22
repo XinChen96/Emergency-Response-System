@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -208,11 +209,17 @@ void MainWindow::on_groupEP_clicked()
     ui->stackedWidget->setCurrentIndex(6);
     // Time to populate the table
     std::vector<Group*> group_list = ctrl->get_groups();
+    std::vector<Group*>::iterator iter;
 
-    for(int i = 0; i < group_list.size(); ++i) {
-        // ui->responder_table->setItem(i, 0, new QTableWidgetItem(group_list[i]->name));
-        // ui->responder_table->setItem(i, 1, new QTableWidgetItem(group_list[i]->date));
+    int row = 0;
+    for(iter = group_list.begin(); iter != group_list.end(); ++iter) {
+        ui->responder_table->setItem(row, 0, new QTableWidgetItem((**iter).name));
+        ui->responder_table->setItem(row, 1, new QTableWidgetItem((**iter).date));
+        delete *iter;
+        ++row;
     }
+
+    // probably should delete them now?
 }
 
 void MainWindow::on_logoutEP_clicked()

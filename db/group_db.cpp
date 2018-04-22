@@ -116,15 +116,13 @@ vector<Group*> Group_DB::get_groups() {
     vector<Group*> group_list;
     query = new QSqlQuery(db);
     query->prepare("SELECT * FROM groups;");
-
+    query->exec();
     Group *g;
     while(query->next()) {
         g = new Group(query->value(1).toString(), query->value(2).toString());
         g->id = query->value(0).toInt();
         group_list.push_back(g);
-        delete g;
     }
-
     return group_list;
 }
 
