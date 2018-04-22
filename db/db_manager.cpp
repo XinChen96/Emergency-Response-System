@@ -13,10 +13,25 @@ DB_Manager::DB_Manager(const QString& path) {
         std::cout << "DB_Manager: Db connection okay." << std::endl;
     }
 
+
 }
 
+
+void DB_Manager::create_table(){
+    query = new QSqlQuery(db);
+
+    if(query->exec(create_cmd)) {
+        std::cout << "create_table: create table if not exist." << std::endl;
+    } else {
+        std::cerr << "create_table: could not create table." << std::endl;
+        qDebug()<<query->exec(drop_cmd);
+    }
+
+    delete query;
+}
 void DB_Manager::build_table() {
     query = new QSqlQuery(db);
+
     if(!query->exec(drop_cmd)) {
         std::cerr << "build_table: could not drop existing table." << std::endl;
         qDebug()<<query->exec(drop_cmd);
@@ -28,7 +43,7 @@ void DB_Manager::build_table() {
         std::cerr << "build_table: could not create table." << std::endl;
         qDebug()<<query->exec(drop_cmd);
     } else {
-        std::cout << "build_table: create table." << std::endl;
+        std::cout << "build_table: created table." << std::endl;
     }
 
     //query->exec(drop_cmd);   // drop existing table

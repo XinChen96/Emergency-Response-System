@@ -5,7 +5,9 @@
 
 class Emergency_DB : public DB_Manager {
 public:
-    Emergency_DB(const QString& path) : DB_Manager(path) { generate_sql_queries(); }
+    Emergency_DB(const QString& path) : DB_Manager(path) {
+        tableName = "emergencies";
+        generate_sql_queries(); }
 
     ~Emergency_DB() {}
     void create_row(DBItem*);

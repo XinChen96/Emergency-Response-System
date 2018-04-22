@@ -9,7 +9,9 @@ using namespace std;
 
 class Group_DB : public DB_Manager {
 public:
-    Group_DB(const QString& path) : DB_Manager(path) { generate_sql_queries(); }
+    Group_DB(const QString& path) : DB_Manager(path) {
+        tableName = "emergencies";
+        generate_sql_queries(); }
     ~Group_DB() {}
 
     void create_group_table();

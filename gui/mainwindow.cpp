@@ -85,8 +85,13 @@ void MainWindow::on_reg_clicked()
 
 //index 1 register form
 void MainWindow::reg() {
+
+    std::cout<< "reg: Registration started--------------\n";
+
+
     bool incomplete;
     bool existed;
+
     //get user identityt
     if(ui->identity->currentText() == "Civilian"){
         roleReg = civilian;
@@ -94,6 +99,7 @@ void MainWindow::reg() {
         roleReg = planner;
     }else if (ui->identity->currentText() == "First Responder"){
         roleReg = responder;
+    }
 
     //get user information
     firstNameReg = ui->enterFirstnameReg->text();
@@ -122,19 +128,27 @@ void MainWindow::reg() {
     }else{
         ui->regAlert->setStyleSheet("");
         ui->regAlert->setText("");
-    }
-        //add user information into user database
-        ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
 
-        //go to loginForm
-        ui->stackedWidget->setCurrentIndex(0);
+        //add user information into user database
+        if(ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg)){
+            std::cout<< "reg: user added\n";
+        }else{
+            std::cout<< "reg: add_user failed\n";
+        }
 
         //clear contents if register is submitted
         ui->enterFirstnameReg->clear();
         ui->enterLastnameReg->clear();
         ui->enterUsernameReg->clear();
+        std::cout<< "reg: Registration ended----------\n";
+
+        //go to loginForm
+        ui->stackedWidget->setCurrentIndex(0);
+
+
     }
 }
+
 //when return is pressed in username box
 void MainWindow::on_enterUsernameReg_returnPressed()
 {
@@ -156,6 +170,7 @@ void MainWindow::on_cancelReg_clicked()
 //when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
+
     reg();
 }
 
