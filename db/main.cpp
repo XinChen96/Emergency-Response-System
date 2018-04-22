@@ -5,9 +5,11 @@
 #include "user_db.h"
 #include "group_db.h"
 #include "simulation_db.h"
+#include "emergency_db.h"
 #include "../users/user.h"
 #include "../users/roles.h"
 #include "../users/simulation.h"
+#include "../users/emergency.h"
 
 // The fixture for testing class DBTest
 class DBTest : public ::testing::Test {
@@ -29,11 +31,23 @@ TEST(InsertSimulationTest, TESTSIMPLE) {
     db->build_table();
     Simulation* sim = new Simulation("Earthquake 1", 40.5, -75.2, .005, 32, 1);
     db->create_row(sim); // Add entry
-    ASSERT_EQ("Earthquake 1", ((Simulation_DB*)db)->select_simulation("Earthquake 1")->name); // username is unique
+    ASSERT_EQ("Earthquake 1", ((Simulation_DB*)db)->select_simulation("Earthquake 1")->name);
 
     delete sim;
     delete db;
 }
+
+TEST(InsertEmergencyTest, TESTSIMPLE) {
+    DB_Manager *db = new Emergency_DB("../test.sqlite");
+    db->build_table();
+    Emergency* em = new Emergency("Earthquake", "If inside stay there. If outside go into the open away from tall structures.");
+    db->create_row(em); // Add entry
+    ASSERT_EQ("Earthquake", ((Emergency_DB*)db)->select_emergency("Earthquake")->name);
+
+    delete em;
+    delete db;
+}
+
 
 TEST(InsertUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");

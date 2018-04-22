@@ -12,6 +12,7 @@
 #include "../users/responder.h"
 #include "../users/planner.h"
 #include "../users/simulation.h"
+#include "../users/emergency.h"
 
 #include "QString"
 
