@@ -92,7 +92,8 @@ void MainWindow::reg() {
         roleReg = civilian;
     }else if (ui->identity->currentText() == "Emergency Planner"){
         roleReg = planner;
-    }
+    }else if (ui->identity->currentText() == "First Responder"){
+        roleReg = responder;
 
     //get user information
     firstNameReg = ui->enterFirstnameReg->text();
@@ -121,7 +122,7 @@ void MainWindow::reg() {
     }else{
         ui->regAlert->setStyleSheet("");
         ui->regAlert->setText("");
-
+    }
         //add user information into user database
         ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
 

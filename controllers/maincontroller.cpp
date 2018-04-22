@@ -3,7 +3,7 @@
 
 MainController::MainController() {
    dbPath = "../db.sqlite";
-   dbPath = "/Users/chenxin/db.sqlite";
+  dbPath = "/Users/chenxin/db.sqlite";
 }
 
 MainController::~MainController() {
@@ -25,8 +25,8 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
         newUser = new Civilian(firstName,lastName,username);
     }else if (role == planner){
         newUser = new Planner(firstName,lastName,username);
-    }else{
-        newUser = new User(firstName,lastName,username,NA);
+    }else if (role == responder){
+        newUser = new Responder(firstName,lastName,username);
     }
 
     std::cout << firstName.toStdString()

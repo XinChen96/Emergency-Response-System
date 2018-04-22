@@ -134,7 +134,7 @@ User* User_DB::select_user(QString username) {
         return user;
     } else {
 
-        std::cerr << "User does not exist." << std::endl;
+        std::cout << "User does not exist." << std::endl;
         delete query;
         return nullptr;
     }
