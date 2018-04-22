@@ -95,6 +95,8 @@ void Group_DB::add_to_group(User* user, Group* group) {
     }
 }
 
+// Lists all the members of a certain group
+// Note: make sure you delete all the pointers as you iterate over the users in the group
 vector<User*> Group_DB::get_group_members(Group* g) {
     vector<User*> user_list;
     query = new QSqlQuery(db);
@@ -106,7 +108,6 @@ vector<User*> Group_DB::get_group_members(Group* g) {
         user = new User(query->value(1).toString(), query->value(2).toString(),query->value(3).toString(), ((Role)query->value(4).toInt()));
         user->id = query->value(0).toInt();
         user_list.push_back(user);
-        delete user;
     }
 
     return user_list;
@@ -116,15 +117,13 @@ vector<Group*> Group_DB::get_groups() {
     vector<Group*> group_list;
     query = new QSqlQuery(db);
     query->prepare("SELECT * FROM groups;");
-
+    query->exec();
     Group *g;
     while(query->next()) {
         g = new Group(query->value(1).toString(), query->value(2).toString());
         g->id = query->value(0).toInt();
         group_list.push_back(g);
-        delete g;
     }
-
     return group_list;
 }
 
