@@ -102,11 +102,11 @@ User* User_DB::select_user(QString username) {
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE username=:user");
     query->bindValue(":user", username);
-    //query->exec();
+
     if(query->exec()){
-        cout << "select user" <<endl;
+        cout << "select_user: select executed" <<endl;
     }else{
-        cerr<< "select user failed"<<endl;
+        cerr<< "select_user: select failed"<<endl;
         qDebug() << query->lastError();
     }
 
@@ -114,14 +114,17 @@ User* User_DB::select_user(QString username) {
 
     switch (get_role(query->value(4).toString())) {
         case 0:
+            std::cout << "Civilian user found" << std::endl;
             user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
             user->id = query->value(0).toInt();
             break;
         case 1:
+            std::cout << "First responder user found" << std::endl;
             user = new Responder(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
             user->id = query->value(0).toInt();
             break;
         case 2:
+            std::cout << "Emergency Planner user found" << std::endl;
             user = new Planner(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
             user->id = query->value(0).toInt();
             break;
@@ -131,7 +134,7 @@ User* User_DB::select_user(QString username) {
         return user;
     } else {
 
-        std::cerr << "Entry does not exist." << std::endl;
+        std::cerr << "User does not exist." << std::endl;
         delete query;
         return nullptr;
     }

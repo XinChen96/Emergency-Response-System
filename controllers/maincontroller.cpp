@@ -3,6 +3,7 @@
 
 MainController::MainController() {
    dbPath = "../db.sqlite";
+   dbPath = "/Users/chenxin/db.sqlite";
 }
 
 MainController::~MainController() {
