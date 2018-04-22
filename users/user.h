@@ -13,8 +13,8 @@ public:
         first_name = first;
         last_name  = last;
         username   = user;
-
-        switch(r){
+        role_num  = r;
+        switch(role_num){
         case(civilian):
             role = "Civilian";
                     break;
@@ -37,6 +37,7 @@ public:
     QString last_name;
     QString username;
     QString role;
+    int role_num;
 };
 
 #endif // USER_H

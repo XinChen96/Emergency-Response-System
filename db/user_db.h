@@ -14,10 +14,11 @@ public:
     void update_value(DBItem*);
     void generate_sql_queries();
     void print();
+    int get_role(QString);
 
 
-    User* select_civilian(int);
-    User* select_civilian(QString);
+    User* select_user(int);
+    User* select_user(QString);
 };
 
 #endif // USER_DB_H

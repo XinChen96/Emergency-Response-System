@@ -6,11 +6,9 @@
 MainController::MainController() {
 
 
-    dbPath = "../db.sqlite";
-    //db_m = new User_DB(dbPath);
-    //std::cout << "Maincontroller: new userdb \n";
-    //db_m->build_table();
-    //std::cout << "Maincontroller: build table \n";
+//    dbPath = "../db.sqlite";
+    dbPath = "/Users/chenxin/db.sqlite";
+
 }
 
 MainController::~MainController() {
@@ -21,9 +19,10 @@ MainController::~MainController() {
 
 
 // Should return true if user is successfully added to the db, false otherwise
+
 bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
 
-    db_m = new User_DB("../db.sqlite");
+    db_m = new User_DB(dbPath);
 
     //db_m->build_table();
     User* newUser;
@@ -34,6 +33,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     }else{
         newUser = new User(firstName,lastName,username,NA);
     }
+
     std::cout << firstName.toStdString()
               << "  "
               << lastName.toStdString()
@@ -53,7 +53,7 @@ bool MainController::add_simulation(Simulation* sim) {
     db_m = new Simulation_DB(dbPath);
 
     db_m->create_row(sim);
-    //std::cout<<((User_DB*)db)->select_civilian("6666")->last_name.toStdString()<<std::endl;
+    //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
     //db->print();
 
     delete db_m;
@@ -67,6 +67,22 @@ Simulation* MainController::select_simulation(QString name) {
 
     delete db_m;
     return temp;
+}
+
+// Returns the users role if it exists, otherwise returns 3
+int MainController::check_login(QString username) {
+    db_m = new User_DB(dbPath);
+    User *u = ((User_DB*)db_m)->select_user(username);
+    if(u != nullptr) {
+        std::cout<<"role_num"<< u->role_num<<std::endl;
+        delete db_m;
+        return u->role_num;
+
+    } else {
+        delete db_m;
+        return 3;
+    }
+
 }
 
 

@@ -74,14 +74,12 @@ void User_DB::print(){
              << "  "
              << user.toStdString()
              << endl;
-        cout << "END" <<endl;
-
     }
-    //std::cout<<select_civilian("me")->last_name.toStdString()<< std::endl;
+
     query->last();
     delete query;
 }
-User* User_DB::select_civilian(int id) {
+User* User_DB::select_user(int id) {
     User *user;
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE id=:id");
@@ -98,23 +96,97 @@ User* User_DB::select_civilian(int id) {
     }
 }
 
-User* User_DB::select_civilian(QString username) {
-    User *user;
+User* User_DB::select_user(QString username) {
+    User* user;
+    Role role;
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE username=:user");
     query->bindValue(":user", username);
-    query->exec();
+    //query->exec();
+    if(query->exec()){
+        cout << "select row" <<endl;
+    }else{
+        cerr<< "select row failed"<<endl;
+        qDebug() << query->lastError();
+    }
+        cout << username.toStdString()
+             << endl;
+
+//    if(query->next()) {
+
+//        QString first = query->value(1).toString();
+//        QString last  = query->value(2).toString();
+//        QString user2  = query->value(3).toString();
+//        cout << first.toStdString()
+//             << "  "
+//             << last.toStdString()
+//             << "  "
+//             << user2.toStdString()
+//             << endl;
+//
+
+//        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+//        user->id = query->value(0).toInt();
+//        delete query;
+//        return user;
+//    } else {
+//        cerr << "Entry does not exist." << endl;
+//        delete query;
+//        return nullptr;
+//    }
+
+//}
+////    qDebug() << query->lastError();
+////    qDebug() << query->value(4);
+
+//    if(query->value(4).toString() == "Civilian"){
+//        role = civilian;
+//    }else if (query->value(4).toString() == "Emergency Planner"){
+//        role = planner;
+//    }else if (query->value(4).toString() == "First Responder"){
+//        role = responder;
+//    }else{
+//        role = NA;
+//    }
 
     if(query->next()) {
-        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
-        user->id = query->value(0).toInt();
+
+    switch (get_role(query->value(4).toString())) {
+        case 0:
+            user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+            user->id = query->value(0).toInt();
+            break;
+        case 1:
+            user = new Responder(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+            user->id = query->value(0).toInt();
+            break;
+        case 2:
+            user = new Planner(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+            user->id = query->value(0).toInt();
+            break;
+        }
         delete query;
 
         return user;
     } else {
+
         std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
     }
 }
+    int User_DB::get_role(QString role_str){
+            Role role;
+            if(role_str == "Civilian"){
+                role = civilian;
+            }else if (role_str == "Emergency Planner"){
+                role = planner;
+            }else if (role_str == "First Responder"){
+                role = responder;
+            }else{
+                role = NA;
+            }
+        return role;
+    }
+
 

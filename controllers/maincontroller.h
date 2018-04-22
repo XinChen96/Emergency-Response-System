@@ -27,6 +27,9 @@ public:
     Simulation* select_simulation(QString name);
     void print_db();
 
+
+    int check_login(QString);
+
 private:
 
 

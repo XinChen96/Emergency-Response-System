@@ -9,6 +9,8 @@
 #include "../users/user.h"
 #include "../users/civilian.h"
 #include "../users/dbitem.h"
+#include "../users/responder.h"
+#include "../users/planner.h"
 #include "../users/simulation.h"
 
 #include "QString"
