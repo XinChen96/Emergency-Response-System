@@ -312,6 +312,7 @@ void MainWindow::update_simulations() {
 
 void MainWindow::on_breakIn_clicked()
 {
+    user = planner;
     ui->stackedWidget->setCurrentIndex(2);
 }
 
