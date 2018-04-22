@@ -42,6 +42,8 @@ private slots:
     void on_reg_clicked();
 
     //index 1 register form
+    void reg();
+    void on_enterUsernameReg_returnPressed();
     void on_cancelReg_clicked();
     void on_submitReg_clicked();
 
@@ -80,6 +82,8 @@ private slots:
 
     void on_breakIn_clicked();
 
+    void on_logoutG_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -91,7 +95,7 @@ private:
     Role    roleReg;
     QString emailReg;
     QString simName;
-
+    Role    user;
 
 
 

@@ -44,15 +44,24 @@ MainWindow::~MainWindow()
 void MainWindow::login(){
     switch(ctrl->check_role(ui->enterUsername->text())) {
     case 0: // civilian
-        break;
-    case 1: // responder
-        break;
-    case 2:// planner
+        user = civilian;
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
         break;
-    case 3: //NA or No such user
+    case 1: // responder
+        user = responder;
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+        break;
+    case 2:// planner
+        user = planner;
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+        break;
+    case 3: //No such user
         ui->enterUsername->clear();
         ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
         ui->loginAlert->setText("Username does not exist.\n Please try again.");
@@ -73,20 +82,9 @@ void MainWindow::on_reg_clicked()
     ui->stackedWidget->setCurrentIndex(1);
 }
 
-//index 1 (register form): when cancel button is clicked
-void MainWindow::on_cancelReg_clicked()
-{
-    //clear contents if register is cancelled
-    ui->enterFirstnameReg->clear();
-    ui->enterLastnameReg->clear();
-    ui->enterUsernameReg->clear();
 
-    //go to login form
-    ui->stackedWidget->setCurrentIndex(0);
-}
-//index 1 (register form): when submit button is clicked
-void MainWindow::on_submitReg_clicked()
-{
+//index 1 register form
+void MainWindow::reg(){
     bool incomplete;
     bool existed;
     //get user identityt
@@ -137,12 +135,44 @@ void MainWindow::on_submitReg_clicked()
         ui->enterUsernameReg->clear();
     }
 }
+//when return is pressed in username box
+void MainWindow::on_enterUsernameReg_returnPressed()
+{
+    reg();
+}
+//when cancel button is clicked
+void MainWindow::on_cancelReg_clicked()
+{
+    //clear contents if register is cancelled
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
+
+    //go to login form
+    ui->stackedWidget->setCurrentIndex(0);
+}
+//when submit button is clicked
+void MainWindow::on_submitReg_clicked()
+{
+    reg();
+}
 
 //index 2 (map view) button navigation
 //go to menu by clicking menu
 void MainWindow::on_menu_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(3);
+    switch(user){
+    case planner:
+        ui->stackedWidget->setCurrentIndex(3);
+        break;
+    case responder:
+        ui->stackedWidget->setCurrentIndex(13);
+        break;
+    case civilian:
+        ui->stackedWidget->setCurrentIndex(13);
+        ui->responderChannelG->setEnabled(false);
+        break;
+    }
 }
 //go to communication by clicking alert
 void MainWindow::on_alerts_clicked()
@@ -278,18 +308,12 @@ void MainWindow::update_simulations() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 void MainWindow::on_breakIn_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_logoutG_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
 }
