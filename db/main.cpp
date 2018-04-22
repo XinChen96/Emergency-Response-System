@@ -48,7 +48,6 @@ TEST(InsertEmergencyTest, TESTSIMPLE) {
     delete db;
 }
 
-
 TEST(InsertUserTest, TESTSIMPLE) {
     DB_Manager *db = new User_DB("../test.sqlite");
     db->build_table();
