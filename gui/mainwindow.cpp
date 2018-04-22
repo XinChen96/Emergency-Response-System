@@ -224,7 +224,7 @@ void MainWindow::on_backToSim_clicked() {
 }
 
 void MainWindow::on_createBut_clicked() {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(9);
 }
 
 void MainWindow::on_nextButton_clicked() {
@@ -238,7 +238,7 @@ void MainWindow::on_nextButton_clicked() {
 }
 
 void MainWindow::on_backToSimPage2_clicked() {
-    ui->stackedWidget->setCurrentIndex(8);
+    ui->stackedWidget->setCurrentIndex(7);
 }
 
 void MainWindow::on_createSim1_clicked() {

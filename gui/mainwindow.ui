@@ -24,7 +24,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>9</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -1297,7 +1297,7 @@
             <string notr="true">color: white</string>
            </property>
            <property name="text">
-            <string>Creator Page 2 of 2</string>
+            <string>Simulation Creator</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1327,7 +1327,7 @@
             <string notr="true">color:white</string>
            </property>
            <property name="text">
-            <string>Enter First Responder Simulation Details:</string>
+            <string>Enter Simulation Details:</string>
            </property>
           </widget>
          </item>
