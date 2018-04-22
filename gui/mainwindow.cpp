@@ -313,7 +313,7 @@ void MainWindow::on_viewBut_clicked() {
         QString temp2 = QString::number(sim->lng);
         QString temp3 = QString::number(sim->radius);
         QString temp4 = QString::number(sim->num_civilians);
-        QString temp5 = QString::number(sim->trigger);
+        QString temp5 = QString::number(sim->emergency_id);
 
         //Get value from current box and add to it
         QString value0 = ui->label0->text() + " " + temp0;
@@ -388,6 +388,7 @@ void MainWindow::on_createEm2_clicked() {
     //add to database and box
     ctrl->add_emergency(temp);
     ui->emCombo->addItem(value0);
+    ui->emSelect->addItem(value0);
 
     ui->stackedWidget->setCurrentIndex(14);
 
