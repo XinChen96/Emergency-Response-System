@@ -282,21 +282,7 @@ void MainWindow::on_backToSimPage22_clicked() {
 }
 
 void MainWindow::on_createSim2_clicked() {
-    //get all values from box
-    QString value1 = ui->lineEdit->text();
-    double value2 = ui->lineEdit2->text().toDouble();
-    double value3 = ui->lineEdit3->text().toDouble();
-    double value4 = ui->lineEdit4->text().toDouble();
-    int value5 = ui->lineEdit5->text().toInt();
 
-    ui->stackedWidget->setCurrentIndex(7);
-
-    //clear all box values
-    ui->lineEdit->clear();
-    ui->lineEdit2->clear();
-    ui->lineEdit3->clear();
-    ui->lineEdit4->clear();
-    ui->lineEdit5->clear();
 }
 
 void MainWindow::on_viewBut_clicked() {
@@ -363,4 +349,34 @@ void MainWindow::on_breakIn_clicked()
 void MainWindow::on_logoutG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_createEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(15);
+}
+
+void MainWindow::on_backToMenu_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_backToEView_clicked() {
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::on_createEm2_clicked() {
+    //Get value from value boxes
+    QString value0 = ui->enter1->text();
+    QString value1 = ui->enter2->textCursor().selectedText();
+
+    Emergency* temp = new Emergency(value0, value1);
+
+    //add to database and box
+    ctrl->add_emergency(temp);
+    ui->emCombo->addItem(value0);
+
+    ui->stackedWidget->setCurrentIndex(14);
+
+    //clear values
+    ui->enter1->clear();
+    ui->enter2->clear();
 }

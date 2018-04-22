@@ -64,6 +64,26 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
+bool MainController::add_emergency(Emergency* em) {
+    db_m = new Emergency_DB(dbPath);
+
+    db_m->create_row(em);
+    //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
+    //db->print();
+
+    delete db_m;
+    return true;
+}
+
+Emergency* MainController::select_emergency(QString name) {
+    db_m = new Emergency_DB(dbPath);
+
+    Emergency* temp = ((Emergency_DB*)db_m)->select_emergency(name);
+
+    delete db_m;
+    return temp;
+}
+
 // Returns the users role if it exists, otherwise returns 3
 int MainController::check_role(QString username) {
     db_m = new User_DB(dbPath);

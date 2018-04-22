@@ -38,7 +38,9 @@ SOURCES += \
         ../users/civilian.cpp\
         ../users/group.cpp \
         ../db/group_db.cpp \
-	../users/planner.cpp
+        ../users/planner.cpp \
+        ../users/emergency.cpp \
+        ../db/emergency_db.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -52,7 +54,9 @@ HEADERS += \
         ../users/simulation.h\
         ../users/civilian.h\
         ../users/planner.cpp \
-        ../users/roles.h\
+        ../users/roles.h \
+        ../users/emergency.h \
+        ../db/emergency_db.h
 
 FORMS += \
         mainwindow.ui

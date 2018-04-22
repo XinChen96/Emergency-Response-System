@@ -16,6 +16,8 @@
 #include "../users/simulation.h"
 #include "../users/group.h"
 #include "../db/group_db.h"
+#include "../db/emergency_db.h"
+#include "../users/emergency.h"
 
 
 class MainController
@@ -28,6 +30,8 @@ public:
     bool add_user(QString,QString,QString,Role);
     bool add_simulation(Simulation*);
     Simulation* select_simulation(QString name);
+    bool add_emergency(Emergency*);
+    Emergency* select_emergency(QString name);
     void print_db();
     std::vector<Group*> get_groups();
 

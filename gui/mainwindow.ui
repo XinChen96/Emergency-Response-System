@@ -2288,22 +2288,12 @@
         <property name="geometry">
          <rect>
           <x>140</x>
-          <y>180</y>
+          <y>190</y>
           <width>481</width>
           <height>131</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_5">
-         <item row="0" column="1">
-          <widget class="QLineEdit" name="enter1">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-         </item>
          <item row="0" column="0">
           <widget class="QLabel" name="label_18">
            <property name="font">
@@ -2316,16 +2306,6 @@
            </property>
            <property name="text">
             <string>Emergency Name:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLineEdit" name="enter2">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
            </property>
           </widget>
          </item>
@@ -2344,12 +2324,25 @@
            </property>
           </widget>
          </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="enter1">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QTextEdit" name="enter2"/>
+         </item>
         </layout>
        </widget>
        <widget class="QWidget" name="verticalLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>220</x>
           <y>360</y>
           <width>351</width>
           <height>61</height>

@@ -15,12 +15,14 @@
 #include "../controllers/maincontroller.h"
 #include "../db/user_db.h"
 #include "../db/db_manager.h"
+#include "../db/emergency_db.h"
 #include "../users/roles.h"
 #include "../users/user.h"
 #include "../users/dbitem.h"
 #include "../users/simulation.h"
 #include "../users/civilian.h"
 #include "../users/planner.h"
+#include "../users/emergency.h"
 
 namespace Ui {
 class MainWindow;
@@ -67,6 +69,10 @@ private slots:
     void on_commEP_clicked();
     void on_protocolEP_clicked();
     void on_groupEP_clicked();
+    void on_createEm_clicked();
+    void on_backToEView_clicked();
+    void on_createEm2_clicked();
+    void on_backToMenu_clicked();
 
     void on_backComm_clicked();
     void on_pushButton_8_clicked();
