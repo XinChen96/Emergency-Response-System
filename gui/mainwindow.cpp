@@ -147,6 +147,8 @@ void MainWindow::on_cancelReg_clicked()
     ui->enterFirstnameReg->clear();
     ui->enterLastnameReg->clear();
     ui->enterUsernameReg->clear();
+    ui->regAlert->setStyleSheet("");
+    ui->regAlert->setText("");
 
     //go to login form
     ui->stackedWidget->setCurrentIndex(0);
