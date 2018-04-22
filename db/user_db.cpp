@@ -5,7 +5,7 @@
 using namespace std;
 
 void User_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role integer NOT NULL);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role integer NOT NULL);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username, role) VALUES (:firstName, :lastName, :username, :role);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
@@ -62,7 +62,6 @@ void User_DB::print(){
 
     query->exec("SELECT * FROM users;");
 
-
     while (query->next()) {
         QString first = query->value(1).toString();
         QString last  = query->value(2).toString();
@@ -76,7 +75,6 @@ void User_DB::print(){
              << endl;
     }
 
-    query->last();
     delete query;
 }
 User* User_DB::select_user(int id) {

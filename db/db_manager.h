@@ -27,6 +27,7 @@ public:
                           }
 
     void build_table();
+    void create_table();//build table if not exist
 
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
@@ -43,10 +44,12 @@ protected:
     QString insert_cmd;
     QString update_cmd;
     QString drop_cmd;
-
+    QString tableName;
     QSqlQuery *query;
 
     QSqlDatabase db;
 };
+
+
 
 #endif // DB_MANAGER_H

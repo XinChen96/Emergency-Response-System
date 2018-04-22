@@ -2,8 +2,8 @@
 #include <iostream>
 
 MainController::MainController() {
-   dbPath = "../db.sqlite";
-  //dbPath = "/Users/chenxin/db.sqlite";
+  // dbPath = "../db.sqlite";
+  dbPath = "/Users/chenxin/db.sqlite";
 }
 
 MainController::~MainController() {
@@ -17,18 +17,6 @@ MainController::~MainController() {
 
 bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
 
-    db_m = new User_DB(dbPath);
-
-    //db_m->build_table();
-    User* newUser;
-    if(role == civilian){
-        newUser = new Civilian(firstName,lastName,username);
-    }else if (role == planner){
-        newUser = new Planner(firstName,lastName,username);
-    }else if (role == responder){
-        newUser = new Responder(firstName,lastName,username);
-    }
-
     std::cout << firstName.toStdString()
               << "  "
               << lastName.toStdString()
@@ -36,12 +24,51 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
               << username.toStdString()
               << std::endl;
 
-    db_m->create_row(newUser);
-    db_m->print();
+    db_m = new User_DB(dbPath);
+    db_m->create_table();
 
-    delete newUser;
-    delete db_m;
-    return true;
+    User* newUser;
+
+
+    if(role == civilian){
+        newUser = new Civilian(firstName,lastName,username);
+        db_m->create_row(newUser);
+        db_m->print();
+        delete newUser;
+        delete db_m;
+        return true;
+
+    }else if (role == planner){
+
+        newUser = new Planner(firstName,lastName,username);
+        db_m->create_row(newUser);
+        db_m->print();
+        delete newUser;
+        delete db_m;
+        return true;
+    }else if (role == responder){
+
+        newUser = new Responder(firstName,lastName,username);
+        db_m->create_row(newUser);
+        db_m->print();
+        delete newUser;
+        delete db_m;
+        return true;
+    }else{
+
+
+        db_m->print();
+        delete newUser;
+        delete db_m;
+        return false;
+    }
+
+
+
+
+
+
+
 }
 
 bool MainController::add_simulation(Simulation* sim) {
@@ -69,7 +96,7 @@ int MainController::check_role(QString username) {
     db_m = new User_DB(dbPath);
     User *u = ((User_DB*)db_m)->select_user(username);
     if(u != nullptr) {
-        std::cout<<"role_num"<< u->role_num<<std::endl;
+        std::cout<<"check_role: returned role_num is "<< u->role_num<<std::endl;
         delete db_m;
         return u->role_num;
 
