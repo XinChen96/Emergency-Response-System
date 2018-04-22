@@ -84,7 +84,7 @@ void MainWindow::on_reg_clicked()
 }
 
 //index 1 register form
-void MainWindow::reg(){
+void MainWindow::reg() {
     bool incomplete;
     bool existed;
     //get user identityt
@@ -299,7 +299,27 @@ void MainWindow::on_createSim2_clicked() {
 }
 
 void MainWindow::on_viewBut_clicked() {
-    simName = ui->selectSim->currentText();
+    QString simName = ui->selectSim->currentText();
+
+    Simulation* sim = ctrl->select_simulation(simName); //get the database entry
+
+    //Get value from current box and add to it
+    QString value0 = ui->label0->text() << " " << sim->name;
+    QString value1 = ui->label1->text() << " " << sim->lat;
+    QString value2 = ui->label2->text() << " " << sim->lng;
+    QString value3 = ui->label3->text() << " " << sim->radius;
+    QString value4 = ui->label4->text() << " " << sim->num_civilians;
+    QString value5 = ui->label5->text() << " " << sim->trigger;
+
+    //reset the values
+    ui->label0->setText(value0);
+    ui->label1->setText(value1);
+    ui->label2->setText(value2);
+    ui->label3->setText(value3);
+    ui->label4->setText(value4);
+    ui->label5->setText(value5);
+
+    ui->stackedWidget->setCurrentIndex(11); //set page
 }
 
 void MainWindow::on_backToSimPage_clicked() {

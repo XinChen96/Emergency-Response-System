@@ -94,11 +94,10 @@ private:
     QString usernameReg;
     Role    roleReg;
     QString emailReg;
-    QString simName;
     Role    user;
 
 
-
+//http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };
 
 #endif // MAINWINDOW_H
