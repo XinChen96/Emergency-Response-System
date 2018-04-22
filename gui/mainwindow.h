@@ -94,7 +94,6 @@ private:
     QString usernameReg;
     Role    roleReg;
     QString emailReg;
-    QString simName;
     Role    user;
 
 
