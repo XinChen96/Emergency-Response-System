@@ -10,6 +10,11 @@
     <height>483</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Helvetica</family>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -24,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>16</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -749,7 +754,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Delete Users</string>
+             <string>View/Delete Users</string>
             </property>
            </widget>
           </item>
@@ -2570,7 +2575,7 @@
              <string notr="true">color: white</string>
             </property>
             <property name="text">
-             <string>Delete User</string>
+             <string>View User</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2581,26 +2586,59 @@
         </item>
         <item>
          <widget class="QTabWidget" name="userTableTab">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
           <property name="currentIndex">
            <number>0</number>
           </property>
           <widget class="QWidget" name="civilianTableTab">
            <attribute name="title">
-            <string>Civilians</string>
+            <string>Civilian</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_17">
             <item>
-             <widget class="QTableView" name="civilianTableView"/>
+             <widget class="QTableView" name="civilianTableView">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+               </font>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
           <widget class="QWidget" name="responderTableTab">
            <attribute name="title">
-            <string>Responders</string>
+            <string>First Responder</string>
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_19">
             <item>
-             <widget class="QTableView" name="responderTableView"/>
+             <widget class="QTableView" name="responderTableView">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QWidget" name="plannerTableTab">
+           <attribute name="title">
+            <string>Emergency Planner</string>
+           </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_22">
+            <item>
+             <widget class="QTableView" name="plannerTableView">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+               </font>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>

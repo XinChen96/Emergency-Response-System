@@ -439,6 +439,8 @@ void MainWindow::on_createEm2_clicked() {
 void MainWindow::on_deleteEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(16);
+
+    //civilian table display
     civilianTable = new QSqlTableModel(this,ctrl->get_db());
     civilianTable->setTable("users");
     civilianTable->select();
@@ -453,6 +455,7 @@ void MainWindow::on_deleteEP_clicked()
     ui->civilianTableView->setModel(civilianTable);
     ui->civilianTableView->hideColumn(0); // don't show the ID
 
+    //responder table display
     responderTable = new QSqlTableModel(this,ctrl->get_db());
     responderTable->setTable("users");
     responderTable->select();
@@ -467,6 +470,21 @@ void MainWindow::on_deleteEP_clicked()
     ui->responderTableView->setModel(responderTable);
     ui->responderTableView->hideColumn(0); // don't show the ID
 
+    //planner table display
+    plannerTable = new QSqlTableModel(this,ctrl->get_db());
+    plannerTable->setTable("users");
+    plannerTable->select();
+
+    plannerTable->setFilter("role = 'Emergency Planner' ");
+    plannerTable->sort(3,Qt::AscendingOrder); //sort by username
+
+    plannerTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    plannerTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    plannerTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
+
+    ui->plannerTableView->setModel(plannerTable);
+    ui->plannerTableView->hideColumn(0); // don't show the ID
+
 
 
 }
@@ -475,4 +493,5 @@ void MainWindow::on_backDeleteUser_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
     delete civilianTable;
+    delete responderTable;
 }

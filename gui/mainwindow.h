@@ -106,6 +106,7 @@ private:
 
     QSqlTableModel *civilianTable;
     QSqlTableModel *responderTable;
+    QSqlTableModel *plannerTable;
 
     QString firstNameReg;
     QString lastNameReg;
