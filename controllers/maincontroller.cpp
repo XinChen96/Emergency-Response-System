@@ -1,6 +1,6 @@
 #include "maincontroller.h"
 #include <iostream>
-
+//bye ben
 MainController::MainController() {
    dbPath = "../db.sqlite";
   //dbPath = "/Users/chenxin/db.sqlite";
@@ -73,6 +73,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
 
 bool MainController::add_simulation(Simulation* sim) {
     db_m = new Simulation_DB(dbPath);
+    db_m->create_table();
 
     db_m->create_row(sim);
     //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
@@ -93,6 +94,7 @@ Simulation* MainController::select_simulation(QString name) {
 
 bool MainController::add_emergency(Emergency* em) {
     db_m = new Emergency_DB(dbPath);
+    db_m->create_table();
 
     db_m->create_row(em);
     //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;

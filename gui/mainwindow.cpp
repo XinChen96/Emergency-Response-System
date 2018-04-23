@@ -351,6 +351,8 @@ void MainWindow::on_viewBut_clicked() {
         ui->label5->setText(value5);
 
         ui->stackedWidget->setCurrentIndex(11); //set page
+
+        delete sim;
     }
 }
 
