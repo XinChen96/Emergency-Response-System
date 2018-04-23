@@ -58,7 +58,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
 
 
         db_m->print();
-        delete newUser;
+        //delete newUser;
         delete db_m;
         return false;
     }

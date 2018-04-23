@@ -91,12 +91,6 @@ private slots:
 
     void on_logoutG_clicked();
 
-    void on_add_group_clicked();
-
-    void on_back_to_group_btn_clicked();
-
-    void on_add_group_btn_clicked();
-
 private:
     Ui::MainWindow *ui;
 
