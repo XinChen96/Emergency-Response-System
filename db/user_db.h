@@ -1,6 +1,6 @@
 #ifndef USER_DB_H
 #define USER_DB_H
-
+#include <vector>
 #include "db_manager.h"
 
 class User_DB : public DB_Manager {
@@ -19,6 +19,8 @@ public:
 
     User* select_user(int);
     User* select_user(QString);
+    std::vector<User*> get_civilians();
+    std::vector<User*> get_responders();
 };
 
 #endif // USER_DB_H

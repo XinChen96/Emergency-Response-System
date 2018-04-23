@@ -40,7 +40,9 @@ SOURCES += \
         ../db/group_db.cpp \
         ../users/planner.cpp \
         ../users/emergency.cpp \
-        ../db/emergency_db.cpp
+        ../db/emergency_db.cpp \
+        ../db/response_db.cpp \
+        ../users/response.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -56,7 +58,9 @@ HEADERS += \
         ../users/planner.cpp \
         ../users/roles.h \
         ../users/emergency.h \
-        ../db/emergency_db.h
+        ../db/emergency_db.h \
+        ../db/response_db.h \
+        ../users/response.h
 
 FORMS += \
         mainwindow.ui

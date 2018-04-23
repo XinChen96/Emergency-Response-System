@@ -35,6 +35,8 @@ public:
     void print_db();
     std::vector<Group*> get_groups();
     void add_group(QString);
+    std::vector<User*> get_civilians();
+    std::vector<User*> get_responders();
 
 
     int check_role(QString);

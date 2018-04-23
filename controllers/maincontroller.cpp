@@ -140,5 +140,17 @@ void MainController::add_group(QString group_name) {
     db_m->create_row(g);
 }
 
+// Get a list of all the civilians
+std::vector<User*> MainController::get_civilians() {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_civilians();
+}
+
+// Get a list of all the responders
+std::vector<User*> MainController::get_responders() {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_responders();
+}
+
 
 
