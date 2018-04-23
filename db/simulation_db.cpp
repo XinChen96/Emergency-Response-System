@@ -55,7 +55,7 @@ Simulation* Simulation_DB::select_simulation(QString name) {
 
     if(query->next()) {
         sim = new Simulation(query->value(1).toString(), query->value(2).toDouble(), query->value(3).toDouble(), query->value(4).toDouble(),
-                             query->value(6).toInt(), query->value(6).toInt());
+                             query->value(5).toInt(), query->value(6).toInt());
         sim->id = query->value(0).toInt();
 
         delete query;
@@ -65,4 +65,20 @@ Simulation* Simulation_DB::select_simulation(QString name) {
         delete query;
         return nullptr;
     }
+}
+
+std::vector<QString> Simulation_DB::get_DBItems(){
+    query = new QSqlQuery(db);
+
+    query->exec("SELECT * FROM simulations;");
+
+    std::vector<QString> sims;
+
+    while (query->next()) {
+        sims.push_back(query->value(1).toString());
+    }
+
+    //delete query;
+
+    return sims;
 }

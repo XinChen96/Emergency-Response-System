@@ -1,6 +1,6 @@
 #include "maincontroller.h"
 #include <iostream>
-// Hi Joe
+
 MainController::MainController() {
    dbPath = "../db.sqlite";
   //dbPath = "/Users/chenxin/db.sqlite";
@@ -90,6 +90,16 @@ Simulation* MainController::select_simulation(QString name) {
     delete db_m;
     return temp;
 }
+
+std::vector<QString> MainController::get_Sim_DBItems() {
+    db_m = new Simulation_DB(dbPath);
+
+    std::vector<QString> temp = ((Simulation_DB*)db_m)->get_DBItems();
+
+    delete db_m;
+    return temp;
+}
+
 
 bool MainController::add_emergency(Emergency* em) {
     db_m = new Emergency_DB(dbPath);

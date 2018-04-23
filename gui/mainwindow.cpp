@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,6 +29,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //***
     //TO ADD: add in all items to combo box from existing database
     //***
+
+    std::vector<QString> sim_db = ctrl->get_Sim_DBItems();
+
+    for (int i = 0; i < sim_db.size(); i++) {
+        ui->selectSim->addItem(sim_db[i]);
+    }
 
 }
 
@@ -335,17 +340,19 @@ void MainWindow::on_viewBut_clicked() {
         QString temp5 = QString::number(sim->emergency_id);
 
         //Get value from current box and add to it
-        QString value0 = ui->label0->text() + " " + temp0;
-        QString value1 = ui->label1->text() + " " + temp1;
-        QString value2 = ui->label_15->text() + " " + temp2;
-        QString value3 = ui->label3->text() + " " + temp3;
-        QString value4 = ui->label4->text() + " " + temp4;
-        QString value5 = ui->label5->text() + " " + temp5;
+        QString value0 = temp0;
+        QString value1 = "Latitude of Emergency: " + temp1;
+        QString value2 = "Longitude of Emergency: " + temp2;
+        QString value3 = "Radius of Emergency " + temp3;
+        QString value4 = "Number of Civilians Involved: " + temp4;
+        QString value5 = "Type of Emergency " + temp5;
+
+        std::cout << value1.toStdString();
 
         //reset the values
         ui->label0->setText(value0);
-        ui->label1->setText(value1);
-        ui->label_15->setText(value2);
+        ui->labe1->setText(value1);
+        ui->label2->setText(value2);
         ui->label3->setText(value3);
         ui->label4->setText(value4);
         ui->label5->setText(value5);
@@ -357,6 +364,10 @@ void MainWindow::on_viewBut_clicked() {
 }
 
 void MainWindow::on_backToSimPage_clicked() {
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+void MainWindow:: on_backToSimPage23_clicked() {
     ui->stackedWidget->setCurrentIndex(7);
 }
 
