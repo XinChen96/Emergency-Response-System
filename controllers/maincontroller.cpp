@@ -64,7 +64,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     }
 
 
-
+    //lives will be saved
 
 
 
