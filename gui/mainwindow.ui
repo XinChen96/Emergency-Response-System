@@ -2554,6 +2554,12 @@
           </item>
           <item>
            <widget class="QLabel" name="deleteUserTitleLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
               <family>Helvetica</family>
@@ -2576,7 +2582,7 @@
         <item>
          <widget class="QTabWidget" name="userTableTab">
           <property name="currentIndex">
-           <number>1</number>
+           <number>0</number>
           </property>
           <widget class="QWidget" name="civilianTableTab">
            <attribute name="title">
@@ -2584,7 +2590,7 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_17">
             <item>
-             <widget class="QTableView" name="civilianTable"/>
+             <widget class="QTableView" name="civilianTableView"/>
             </item>
            </layout>
           </widget>
@@ -2594,7 +2600,7 @@
            </attribute>
            <layout class="QVBoxLayout" name="verticalLayout_19">
             <item>
-             <widget class="QTableView" name="responderTable"/>
+             <widget class="QTableView" name="responderTableView"/>
             </item>
            </layout>
           </widget>
@@ -2618,7 +2624,7 @@
           <item>
            <widget class="QPushButton" name="deleteUser">
             <property name="text">
-             <string>delete</string>
+             <string>Delete</string>
             </property>
            </widget>
           </item>

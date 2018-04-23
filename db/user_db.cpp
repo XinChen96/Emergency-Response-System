@@ -5,7 +5,7 @@
 using namespace std;
 
 void User_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role integer NOT NULL);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role text NOT NULL);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username, role) VALUES (:firstName, :lastName, :username, :role);";
 
     // Todo: When you update, you need to be able to choose which values you are updating

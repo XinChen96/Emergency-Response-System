@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <Qt>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QtWebEngineWidgets/QWebEngineView>
@@ -102,6 +103,9 @@ private:
     Ui::MainWindow *ui;
 
     MainController *ctrl;
+
+    QSqlTableModel *civilianTable;
+    QSqlTableModel *responderTable;
 
     QString firstNameReg;
     QString lastNameReg;

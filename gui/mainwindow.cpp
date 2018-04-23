@@ -30,17 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     //TO ADD: add in all items to combo box from existing database
     //***
 
-
-    QSqlTableModel *civilianTable = new QSqlTableModel(this,ctrl->get_db());
-    civilianTable->setTable("users");
-    civilianTable->select();
-    civilianTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
-    civilianTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
-    civilianTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
-    //civilianTable->sort();
-    ui->civilianTable->setModel(civilianTable);
-    ui->civilianTable->hideColumn(0); // don't show the ID
-
     std::vector<QString> sim_db = ctrl->get_Sim_DBItems();
 
     for (int i = 0; i < sim_db.size(); i++) {
@@ -450,9 +439,40 @@ void MainWindow::on_createEm2_clicked() {
 void MainWindow::on_deleteEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(16);
+    civilianTable = new QSqlTableModel(this,ctrl->get_db());
+    civilianTable->setTable("users");
+    civilianTable->select();
+
+    civilianTable->setFilter("role = 'Civilian' ");
+    civilianTable->sort(3,Qt::AscendingOrder); //sort by username
+
+    civilianTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    civilianTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    civilianTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
+
+    ui->civilianTableView->setModel(civilianTable);
+    ui->civilianTableView->hideColumn(0); // don't show the ID
+
+    responderTable = new QSqlTableModel(this,ctrl->get_db());
+    responderTable->setTable("users");
+    responderTable->select();
+
+    responderTable->setFilter("role = 'First Responder' ");
+    responderTable->sort(3,Qt::AscendingOrder); //sort by username
+
+    responderTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    responderTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    responderTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
+
+    ui->responderTableView->setModel(responderTable);
+    ui->responderTableView->hideColumn(0); // don't show the ID
+
+
+
 }
 
 void MainWindow::on_backDeleteUser_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+    delete civilianTable;
 }
