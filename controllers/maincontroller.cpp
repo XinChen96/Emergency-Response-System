@@ -64,7 +64,7 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
     }
 
 
-
+    // Lives will not be saved
 
 
 
