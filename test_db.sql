@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer 
 CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, trigger integer);
 
 /* Create civilians */
-INSERT INTO users (firstName, lastName, username, role) VALUES("Ben", "Fuller", "fullerb", 0);
+INSERT INTO users (firstName, lastName, username, role) VALUES("Ben", "Fuller", "fullerb", "Civilian");
 INSERT INTO users (firstName, lastName, username, role) VALUES("Joseph", "Teddick", "teddickj", 0);
 INSERT INTO users (firstName, lastName, username, role) VALUES("Chen", "Xin", "xinc", 0);
 INSERT INTO users (firstName, lastName, username, role) VALUES("Robert", "Jordan", "jordanr", 0);
