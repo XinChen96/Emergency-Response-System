@@ -1,9 +1,11 @@
 #include "maincontroller.h"
 #include <iostream>
-// Hi Joe
+
 MainController::MainController() {
    dbPath = "../db.sqlite";
-  //dbPath = "/Users/chenxin/db.sqlite";
+
+   dbPath = "/Users/chenxin/db.sqlite";
+
 }
 
 MainController::~MainController() {
@@ -94,6 +96,16 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
+std::vector<QString> MainController::get_Sim_DBItems() {
+    db_m = new Simulation_DB(dbPath);
+
+    std::vector<QString> temp = ((Simulation_DB*)db_m)->get_DBItems();
+
+    delete db_m;
+    return temp;
+}
+
+
 bool MainController::add_emergency(Emergency* em) {
     db_m = new Emergency_DB(dbPath);
 
@@ -141,6 +153,18 @@ void MainController::add_group(QString group_name) {
     db_m = new Group_DB(dbPath);
     DBItem* g = new Group(group_name);
     db_m->create_row(g);
+}
+
+// Get a list of all the civilians
+std::vector<User*> MainController::get_civilians() {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_civilians();
+}
+
+// Get a list of all the responders
+std::vector<User*> MainController::get_responders() {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_responders();
 }
 
 

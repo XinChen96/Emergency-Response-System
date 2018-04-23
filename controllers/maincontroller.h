@@ -35,7 +35,10 @@ public:
     Emergency* select_emergency(QString name);
     void print_db();
     std::vector<Group*> get_groups();
+    std::vector<QString> get_Sim_DBItems();
     void add_group(QString);
+    std::vector<User*> get_civilians();
+    std::vector<User*> get_responders();
 
 
     int check_role(QString);

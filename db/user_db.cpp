@@ -153,4 +153,33 @@ User* User_DB::select_user(QString username) {
         return role;
     }
 
+std::vector<User*> User_DB::get_civilians() {
+    std::vector<User*> user_list;
+    query = new QSqlQuery(db);
+    query->exec("SELECT * FROM users WHERE role='Civilian';");
+
+    User* user;
+    while(query->next()) {
+        user = new Civilian(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+        user->id = query->value(0).toInt();
+        user_list.push_back(user);
+    }
+
+    return user_list;
+}
+
+std::vector<User*> User_DB::get_responders() {
+    std::vector<User*> user_list;
+    query = new QSqlQuery(db);
+    query->exec("SELECT * FROM users WHERE role='First Responder';");
+
+    User* user;
+    while(query->next()) {
+        user = new Responder(query->value(1).toString(), query->value(2).toString(), query->value(3).toString());
+        user->id = query->value(0).toInt();
+        user_list.push_back(user);
+    }
+
+    return user_list;
+}
 

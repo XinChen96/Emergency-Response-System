@@ -1,5 +1,6 @@
 #include "db_manager.h"
 #include <iostream>
+#include <vector>
 
 DB_Manager::DB_Manager(const QString& path) {
     std::cerr << "DB_manager: called" << std::endl;
