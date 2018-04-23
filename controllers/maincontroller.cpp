@@ -131,6 +131,16 @@ Emergency* MainController::select_emergency(QString name) {
     return temp;
 }
 
+//gets an emergency item from the database
+Emergency* MainController::select_emergency(int id) {
+    db_m = new Emergency_DB(dbPath);
+
+    Emergency* temp = ((Emergency_DB*)db_m)->select_emergency(id);
+
+    delete db_m;
+    return temp;
+}
+
 //gets all emergency item names from the database
 std::vector<QString> MainController::get_Em_DBItems() {
     db_m = new Emergency_DB(dbPath);

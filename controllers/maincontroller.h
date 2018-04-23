@@ -33,6 +33,7 @@ public:
     Simulation* select_simulation(QString name);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
+    Emergency* select_emergency(int id);
     void print_db();
     std::vector<Group*> get_groups();
     std::vector<QString> get_Sim_DBItems();

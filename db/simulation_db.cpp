@@ -1,7 +1,7 @@
 #include "simulation_db.h"
 
 void Simulation_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, emergency_id integer, FOREIGN KEY (emergency_id) references emergencies(id)));";
+    create_cmd += "CREATE TABLE IF NOT EXISTS simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, emergency_id integer, FOREIGN KEY (emergency_id) REFERENCES emergencies(id));";
     insert_cmd += "INSERT INTO simulations (name, lat, lng, radius, num_civilians, emergency_id) VALUES (:name, :lat, :lng, :radius, :num_civilians, :emergency_id);";
 
     // Todo: When you update, you need to be able to choose which values you are updating

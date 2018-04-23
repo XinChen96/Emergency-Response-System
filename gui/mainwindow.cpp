@@ -295,8 +295,11 @@ void MainWindow::on_createSim1_clicked() {
     double value3 = ui->lineEdit3->text().toDouble();
     double value4 = ui->lineEdit4->text().toDouble();
     int value5 = ui->lineEdit5->text().toInt();
+    QString value6 = ui->emSelect->currentText();
 
-    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, -1);
+    Emergency* temp_em = ctrl->select_emergency(value6);
+
+    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, temp_em->id);
 
     ctrl->add_simulation(temp);
     ui->selectSim->addItem(value1);
@@ -309,6 +312,9 @@ void MainWindow::on_createSim1_clicked() {
     ui->lineEdit3->clear();
     ui->lineEdit4->clear();
     ui->lineEdit5->clear();
+
+    delete temp_em;
+    delete temp;
 }
 
 void MainWindow::on_backToSimPage22_clicked() {
@@ -346,15 +352,18 @@ void MainWindow::on_viewBut_clicked() {
         QString temp2 = QString::number(sim->lng);
         QString temp3 = QString::number(sim->radius);
         QString temp4 = QString::number(sim->num_civilians);
-        QString temp5 = QString::number(sim->emergency_id);
+        int temp_id = sim->emergency_id;
+
+        Emergency* temp_em = ctrl->select_emergency(temp_id);
+        QString temp5 = temp_em->name;
 
         //Get value from current box and add to it
-        QString value0 = temp0;
+        QString value0 = temp0 + ":";
         QString value1 = "Latitude of Emergency: " + temp1;
         QString value2 = "Longitude of Emergency: " + temp2;
-        QString value3 = "Radius of Emergency " + temp3;
+        QString value3 = "Radius of Emergency: " + temp3;
         QString value4 = "Number of Civilians Involved: " + temp4;
-        QString value5 = "Type of Emergency " + temp5;
+        QString value5 = "Type of Emergency: " + temp5;
 
         //reset the values
         ui->label0->setText(value0);
