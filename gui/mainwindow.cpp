@@ -31,6 +31,16 @@ MainWindow::MainWindow(QWidget *parent) :
     //TO ADD: add in all items to combo box from existing database
     //***
 
+    QSqlTableModel *civilianTable = new QSqlTableModel(this,ctrl->get_db());
+    civilianTable->setTable("users");
+    civilianTable->select();
+    civilianTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    civilianTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    civilianTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
+    civilianTable->sort();
+    ui->civilianTableView->setModel(civilianTable);
+    ui->civilianTableView->hideColumn(0); // don't show the ID
+    ui->civilianTableView->show();
 }
 
 MainWindow::~MainWindow()

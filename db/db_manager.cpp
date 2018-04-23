@@ -52,3 +52,7 @@ void DB_Manager::build_table() {
     delete query;
 }
 
+QSqlDatabase DB_Manager::get_db(){
+    return db;
+}
+

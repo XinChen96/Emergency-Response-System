@@ -8,6 +8,7 @@
 #include <QtWebEngineWidgets/QWebEngineView>
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QtWebEngineWidgets/QWebEngineSettings>
+#include <QSqlTableModel>
 #include "QtSql/QSqlDatabase"
 #include "QtSql/QSqlQuery"
 #include "QVariant"

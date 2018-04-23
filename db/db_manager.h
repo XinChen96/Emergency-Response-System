@@ -28,7 +28,7 @@ public:
 
     void build_table();
     void create_table();//build table if not exist
-
+    QSqlDatabase get_db();
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
     virtual void generate_sql_queries() {}

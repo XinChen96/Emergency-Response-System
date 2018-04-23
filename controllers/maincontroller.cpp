@@ -3,7 +3,7 @@
 // Hi Joe
 MainController::MainController() {
    dbPath = "../db.sqlite";
-  dbPath = "/Users/chenxin/db.sqlite";
+  //dbPath = "/Users/chenxin/db.sqlite";
 }
 
 MainController::~MainController() {
@@ -12,7 +12,10 @@ MainController::~MainController() {
     delete db_m;
 }
 
-
+QSqlDatabase MainController::get_db(){
+    db_m = new User_DB(dbPath);
+    return db_m->get_db();
+}
 // Should return true if user is successfully added to the db, false otherwise
 
 bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
