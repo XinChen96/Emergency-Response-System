@@ -352,7 +352,7 @@ void MainWindow::on_viewBut_clicked() {
         //reset the values
         ui->label0->setText(value0);
         ui->labe1->setText(value1);
-        ui->label2->setText(value2);
+        ui->label_15->setText(value2);
         ui->label3->setText(value3);
         ui->label4->setText(value4);
         ui->label5->setText(value5);
