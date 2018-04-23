@@ -30,10 +30,18 @@ MainWindow::MainWindow(QWidget *parent) :
     //TO ADD: add in all items to combo box from existing database
     //***
 
-    std::vector<QString> sim_db = ctrl->get_Sim_DBItems();
 
-    for (int i = 0; i < sim_db.size(); i++) {
+    std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
+
+    for (int i = 0; i < sim_db.size(); i++) { //adds them to combo boxes
         ui->selectSim->addItem(sim_db[i]);
+    }
+
+    std::vector<QString> em_db = ctrl->get_Em_DBItems(); //gets all emergency names from database
+
+    for (int i = 0; i < em_db.size(); i++) { //adds them to combo boxes
+        ui->emCombo->addItem(em_db[i]);
+        ui->emSelect->addItem(em_db[i]);
     }
 
 
@@ -348,8 +356,6 @@ void MainWindow::on_viewBut_clicked() {
         QString value4 = "Number of Civilians Involved: " + temp4;
         QString value5 = "Type of Emergency " + temp5;
 
-        std::cout << value1.toStdString();
-
         //reset the values
         ui->label0->setText(value0);
         ui->labe1->setText(value1);
@@ -420,12 +426,13 @@ void MainWindow::on_backToEView_clicked() {
 void MainWindow::on_createEm2_clicked() {
     //Get value from value boxes
     QString value0 = ui->enter1->text();
-    QString value1 = ui->enter2->textCursor().selectedText();
+    QString value1 = ui->enter2->toPlainText();
 
-    Emergency* temp = new Emergency(value0, value1);
+    Emergency* em = new Emergency(value0, value1);
+
+    ctrl->add_emergency(em);
 
     //add to database and box
-    ctrl->add_emergency(temp);
     ui->emCombo->addItem(value0);
     ui->emSelect->addItem(value0);
 

@@ -1,7 +1,7 @@
 #include "emergency_db.h"
 
 void Emergency_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS emergencies (id integer PRIMARY KEY, name text NOT NULL UNIQUE, public_response text NOT NULL);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS emergencies (id integer PRIMARY KEY, name text NOT NULL, public_response text NOT NULL);";
     insert_cmd += "INSERT INTO emergencies (name, public_response) VALUES (:name, :public_response);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
@@ -73,4 +73,20 @@ Emergency* Emergency_DB::select_emergency(int id) {
         delete query;
         return nullptr;
     }
+}
+
+std::vector<QString> Emergency_DB::get_DBItems(){
+    query = new QSqlQuery(db);
+
+    query->exec("SELECT * FROM emergencies;");
+
+    std::vector<QString> ems;
+
+    while (query->next()) {
+        ems.push_back(query->value(1).toString());
+    }
+
+    //delete query;
+
+    return ems;
 }
