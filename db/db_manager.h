@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <iostream>
+#include <vector>
 #include "../users/user.h"
 #include "../users/civilian.h"
 #include "../users/dbitem.h"
