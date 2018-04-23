@@ -30,6 +30,7 @@ public:
     Simulation* select_simulation(QString name);
     void print_db();
     std::vector<Group*> get_groups();
+    void add_group(QString);
 
 
     int check_role(QString);

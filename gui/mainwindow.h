@@ -74,6 +74,7 @@ private slots:
 
     //other non GUI based class methods
     void update_simulations();
+    void update_groups();
 
 
 
@@ -83,6 +84,12 @@ private slots:
     void on_breakIn_clicked();
 
     void on_logoutG_clicked();
+
+    void on_add_group_clicked();
+
+    void on_back_to_group_btn_clicked();
+
+    void on_add_group_btn_clicked();
 
 private:
     Ui::MainWindow *ui;

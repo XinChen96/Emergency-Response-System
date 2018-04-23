@@ -39,6 +39,23 @@ MainWindow::~MainWindow()
     //delete ctrl;
 }
 
+// Method to populate the groups displayed on the group page
+void MainWindow::update_groups() {
+    // Time to populate the table
+    std::vector<Group*> group_list = ctrl->get_groups();
+    std::vector<Group*>::iterator iter;
+
+    ui->responder_table->setRowCount(group_list.size());
+
+    int row = 0;
+    for(iter = group_list.begin(); iter != group_list.end(); ++iter) {
+        ui->responder_table->setItem(row, 0, new QTableWidgetItem((**iter).name));
+        ui->responder_table->setItem(row, 1, new QTableWidgetItem((**iter).date));
+        delete *iter;
+        ++row;
+    }
+}
+
 //index 0 (login form) button navigation
 // Successful login should take you to the appropriate screen for your user type
 // Unsuccessful login should give you an alert and let you try again
@@ -207,19 +224,7 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
-    // Time to populate the table
-    std::vector<Group*> group_list = ctrl->get_groups();
-    std::vector<Group*>::iterator iter;
-
-    int row = 0;
-    for(iter = group_list.begin(); iter != group_list.end(); ++iter) {
-        ui->responder_table->setItem(row, 0, new QTableWidgetItem((**iter).name));
-        ui->responder_table->setItem(row, 1, new QTableWidgetItem((**iter).date));
-        delete *iter;
-        ++row;
-    }
-
-    // probably should delete them now?
+    update_groups();
 }
 
 void MainWindow::on_logoutEP_clicked()
@@ -303,21 +308,21 @@ void MainWindow::on_viewBut_clicked() {
 
     Simulation* sim = ctrl->select_simulation(simName); //get the database entry
 
-    //Get value from current box and add to it
-    QString value0 = ui->label0->text() << " " << sim->name;
-    QString value1 = ui->label1->text() << " " << sim->lat;
-    QString value2 = ui->label2->text() << " " << sim->lng;
-    QString value3 = ui->label3->text() << " " << sim->radius;
-    QString value4 = ui->label4->text() << " " << sim->num_civilians;
-    QString value5 = ui->label5->text() << " " << sim->trigger;
+//    //Get value from current box and add to it
+//    QString value0 = ui->label0->text() << " " << sim->name;
+//    QString value1 = ui->label1->text() << " " << sim->lat;
+//    QString value2 = ui->label2->text() << " " << sim->lng;
+//    QString value3 = ui->label3->text() << " " << sim->radius;
+//    QString value4 = ui->label4->text() << " " << sim->num_civilians;
+//    QString value5 = ui->label5->text() << " " << sim->trigger;
 
-    //reset the values
-    ui->label0->setText(value0);
-    ui->label1->setText(value1);
-    ui->label2->setText(value2);
-    ui->label3->setText(value3);
-    ui->label4->setText(value4);
-    ui->label5->setText(value5);
+//    //reset the values
+//    ui->label0->setText(value0);
+//    ui->label1->setText(value1);
+//    ui->label2->setText(value2);
+//    ui->label3->setText(value3);
+//    ui->label4->setText(value4);
+//    ui->label5->setText(value5);
 
     ui->stackedWidget->setCurrentIndex(11); //set page
 }
@@ -351,4 +356,21 @@ void MainWindow::on_breakIn_clicked()
 void MainWindow::on_logoutG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_add_group_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::on_back_to_group_btn_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+    update_groups();
+}
+
+void MainWindow::on_add_group_btn_clicked()
+{
+    ctrl->add_group(ui->group_name_txt->text());
+    ui->group_name_txt->setText("");
 }

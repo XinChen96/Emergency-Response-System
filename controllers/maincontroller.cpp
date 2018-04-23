@@ -82,6 +82,14 @@ int MainController::check_role(QString username) {
 std::vector<Group*> MainController::get_groups() {
     db_m = new Group_DB(dbPath);
     return ((Group_DB*)db_m)->get_groups();
+    delete db_m;
+}
+
+// Add a group to the db
+void MainController::add_group(QString group_name) {
+    db_m = new Group_DB(dbPath);
+    DBItem* g = new Group(group_name);
+    db_m->create_row(g);
 }
 
 
