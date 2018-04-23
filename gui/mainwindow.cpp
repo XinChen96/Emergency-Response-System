@@ -423,3 +423,13 @@ void MainWindow::on_createEm2_clicked() {
     ui->enter1->clear();
     ui->enter2->clear();
 }
+
+void MainWindow::on_deleteEP_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(16);
+}
+
+void MainWindow::on_backDeleteUser_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
+}
