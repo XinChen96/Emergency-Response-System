@@ -77,6 +77,8 @@ void User_DB::print(){
 
     delete query;
 }
+
+
 User* User_DB::select_user(int id) {
     User *user;
     query = new QSqlQuery(db);

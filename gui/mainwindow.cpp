@@ -351,6 +351,7 @@ void MainWindow::on_viewBut_clicked() {
         ui->label5->setText(value5);
 
         ui->stackedWidget->setCurrentIndex(11); //set page
+
         delete sim;
     }
 }
@@ -421,4 +422,14 @@ void MainWindow::on_createEm2_clicked() {
     //clear values
     ui->enter1->clear();
     ui->enter2->clear();
+}
+
+void MainWindow::on_deleteEP_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(16);
+}
+
+void MainWindow::on_backDeleteUser_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(3);
 }

@@ -91,6 +91,10 @@ private slots:
 
     void on_logoutG_clicked();
 
+    void on_deleteEP_clicked();
+
+    void on_backDeleteUser_clicked();
+
 private:
     Ui::MainWindow *ui;
 
