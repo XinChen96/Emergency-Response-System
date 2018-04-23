@@ -4,7 +4,7 @@
 MainController::MainController() {
    dbPath = "../db.sqlite";
 
-   //dbPath = "/Users/chenxin/db.sqlite";
+   dbPath = "/Users/chenxin/db.sqlite";
 
 }
 
@@ -136,7 +136,7 @@ int MainController::check_role(QString username) {
         return u->role_num;
 
     } else {
-        delete db_m;
+       delete db_m;
         return 3;
     }
 }

@@ -3,7 +3,8 @@
 #include <vector>
 
 DB_Manager::DB_Manager(const QString& path) {
-    std::cerr << "DB_manager: called" << std::endl;
+    //std::cerr << "DB_manager: called" << std::endl;
+    std::cout << "DB_manager: called" << std::endl;
     db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
     db.setDatabaseName(path); // Set it to the correct location
 

@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->selectSim->addItem(sim_db[i]);
     }
 
-
+    //delete ctrl;
 }
 
 MainWindow::~MainWindow()
@@ -66,6 +66,7 @@ void MainWindow::update_groups() {
 // Successful login should take you to the appropriate screen for your user type
 // Unsuccessful login should give you an alert and let you try again
 void MainWindow::login(){
+    //ctrl = new MainController();
     switch(ctrl->check_role(ui->enterUsername->text())) {
     case 0: // civilian
         user = civilian;
@@ -91,6 +92,7 @@ void MainWindow::login(){
         ui->loginAlert->setText("Username does not exist.\n Please try again.");
         break;
     }
+    //delete ctrl;
 }
 void MainWindow::on_enterUsername_returnPressed()
 {
@@ -110,7 +112,7 @@ void MainWindow::on_reg_clicked()
 void MainWindow::reg() {
 
     std::cout<< "reg: Registration started--------------\n";
-
+    //ctrl = new MainController();
 
     bool incomplete;
     bool existed;
@@ -167,9 +169,8 @@ void MainWindow::reg() {
 
         //go to loginForm
         ui->stackedWidget->setCurrentIndex(0);
-
-
     }
+    //delete ctrl;
 }
 
 //when return is pressed in username box
@@ -441,6 +442,7 @@ void MainWindow::on_deleteEP_clicked()
     ui->stackedWidget->setCurrentIndex(16);
 
     //civilian table display
+
     civilianTable = new QSqlTableModel(this,ctrl->get_db());
     civilianTable->setTable("users");
     civilianTable->select();
@@ -454,8 +456,10 @@ void MainWindow::on_deleteEP_clicked()
 
     ui->civilianTableView->setModel(civilianTable);
     ui->civilianTableView->hideColumn(0); // don't show the ID
+    ui->civilianTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
 
     //responder table display
+
     responderTable = new QSqlTableModel(this,ctrl->get_db());
     responderTable->setTable("users");
     responderTable->select();
@@ -469,8 +473,11 @@ void MainWindow::on_deleteEP_clicked()
 
     ui->responderTableView->setModel(responderTable);
     ui->responderTableView->hideColumn(0); // don't show the ID
+    ui->responderTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+
 
     //planner table display
+
     plannerTable = new QSqlTableModel(this,ctrl->get_db());
     plannerTable->setTable("users");
     plannerTable->select();
@@ -484,6 +491,7 @@ void MainWindow::on_deleteEP_clicked()
 
     ui->plannerTableView->setModel(plannerTable);
     ui->plannerTableView->hideColumn(0); // don't show the ID
+    ui->plannerTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
 
 
 
@@ -494,4 +502,10 @@ void MainWindow::on_backDeleteUser_clicked()
     ui->stackedWidget->setCurrentIndex(3);
     delete civilianTable;
     delete responderTable;
+    delete plannerTable;
+}
+
+void MainWindow::on_deleteUser_clicked()
+{
+
 }
