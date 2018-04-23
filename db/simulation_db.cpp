@@ -1,11 +1,11 @@
 #include "simulation_db.h"
 
 void Simulation_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, trigger integer);";
-    insert_cmd += "INSERT INTO simulations (name, lat, lng, radius, num_civilians, trigger) VALUES (:name, :lat, :lng, :radius, :num_civilians, :trigger);";
+    create_cmd += "CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, emergency_id);";
+    insert_cmd += "INSERT INTO simulations (name, lat, lng, radius, num_civilians, emergency_id) VALUES (:name, :lat, :lng, :radius, :num_civilians, :emergency_id);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
-    update_cmd += "UPDATE simulations SET name=:name, type_sim=:type_sim, lat=:lat, lng=:lng, radius=:radius, num_civilians=:num_civilians, trigger=:trigger;"; // WHERE id=:id;";
+    update_cmd += "UPDATE simulations SET name=:name, type_sim=:type_sim, lat=:lat, lng=:lng, radius=:radius, num_civilians=:num_civilians, emergency_id=:emergency_id"; // WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS simulations;";
     query = nullptr;
 }
@@ -19,7 +19,7 @@ void Simulation_DB::update_value(DBItem* u) {
     query->bindValue(":lng", sim->lng);
     query->bindValue(":radius", sim->radius);
     query->bindValue(":num_civilians", sim->num_civilians);
-    query->bindValue(":trigger", sim->trigger);
+    query->bindValue(":emergency_id", sim->emergency_id);
 
     query->exec();
 
@@ -37,7 +37,7 @@ void Simulation_DB::create_row(DBItem* u) {
     query->bindValue(":lng", sim->lng);
     query->bindValue(":radius", sim->radius);
     query->bindValue(":num_civilians", sim->num_civilians);
-    query->bindValue(":trigger", sim->trigger);
+    query->bindValue(":emergency_id", sim->emergency_id);;
 
 
     query->exec();

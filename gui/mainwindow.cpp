@@ -27,9 +27,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
-
-    //shut off editing of table
-    ui->triggerTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //***
+    //TO ADD: add in all items to combo box from existing database
+    //***
 
 }
 
@@ -102,13 +102,20 @@ void MainWindow::on_reg_clicked()
 
 //index 1 register form
 void MainWindow::reg() {
+
+    std::cout<< "reg: Registration started--------------\n";
+
+
     bool incomplete;
     bool existed;
+
     //get user identityt
     if(ui->identity->currentText() == "Civilian"){
         roleReg = civilian;
     }else if (ui->identity->currentText() == "Emergency Planner"){
         roleReg = planner;
+    }else if (ui->identity->currentText() == "First Responder"){
+        roleReg = responder;
     }
 
     //get user information
@@ -140,17 +147,25 @@ void MainWindow::reg() {
         ui->regAlert->setText("");
 
         //add user information into user database
-        ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg);
-
-        //go to loginForm
-        ui->stackedWidget->setCurrentIndex(0);
+        if(ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg)){
+            std::cout<< "reg: user added\n";
+        }else{
+            std::cout<< "reg: add_user failed\n";
+        }
 
         //clear contents if register is submitted
         ui->enterFirstnameReg->clear();
         ui->enterLastnameReg->clear();
         ui->enterUsernameReg->clear();
+        std::cout<< "reg: Registration ended----------\n";
+
+        //go to loginForm
+        ui->stackedWidget->setCurrentIndex(0);
+
+
     }
 }
+
 //when return is pressed in username box
 void MainWindow::on_enterUsernameReg_returnPressed()
 {
@@ -172,6 +187,7 @@ void MainWindow::on_cancelReg_clicked()
 //when submit button is clicked
 void MainWindow::on_submitReg_clicked()
 {
+
     reg();
 }
 
@@ -218,7 +234,7 @@ void MainWindow::on_commEP_clicked()
 
 void MainWindow::on_protocolEP_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(5);
+    ui->stackedWidget->setCurrentIndex(14);
 }
 
 void MainWindow::on_groupEP_clicked()
@@ -306,25 +322,36 @@ void MainWindow::on_createSim2_clicked() {
 void MainWindow::on_viewBut_clicked() {
     QString simName = ui->selectSim->currentText();
 
-    Simulation* sim = ctrl->select_simulation(simName); //get the database entry
+    if (simName != nullptr) { //make sure an actual item is selected
 
-//    //Get value from current box and add to it
-//    QString value0 = ui->label0->text() << " " << sim->name;
-//    QString value1 = ui->label1->text() << " " << sim->lat;
-//    QString value2 = ui->label2->text() << " " << sim->lng;
-//    QString value3 = ui->label3->text() << " " << sim->radius;
-//    QString value4 = ui->label4->text() << " " << sim->num_civilians;
-//    QString value5 = ui->label5->text() << " " << sim->trigger;
+        Simulation* sim = ctrl->select_simulation(simName); //get the database entry
 
-//    //reset the values
-//    ui->label0->setText(value0);
-//    ui->label1->setText(value1);
-//    ui->label2->setText(value2);
-//    ui->label3->setText(value3);
-//    ui->label4->setText(value4);
-//    ui->label5->setText(value5);
+        //get value from db
+        QString temp0 = sim->name;
+        QString temp1 = QString::number(sim->lat);
+        QString temp2 = QString::number(sim->lng);
+        QString temp3 = QString::number(sim->radius);
+        QString temp4 = QString::number(sim->num_civilians);
+        QString temp5 = QString::number(sim->emergency_id);
 
-    ui->stackedWidget->setCurrentIndex(11); //set page
+        //Get value from current box and add to it
+        QString value0 = ui->label0->text() + " " + temp0;
+        QString value1 = ui->label1->text() + " " + temp1;
+        QString value2 = ui->label_15->text() + " " + temp2;
+        QString value3 = ui->label3->text() + " " + temp3;
+        QString value4 = ui->label4->text() + " " + temp4;
+        QString value5 = ui->label5->text() + " " + temp5;
+
+        //reset the values
+        ui->label0->setText(value0);
+        ui->label1->setText(value1);
+        ui->label_15->setText(value2);
+        ui->label3->setText(value3);
+        ui->label4->setText(value4);
+        ui->label5->setText(value5);
+
+        ui->stackedWidget->setCurrentIndex(11); //set page
+    }
 }
 
 void MainWindow::on_backToSimPage_clicked() {
@@ -358,19 +385,39 @@ void MainWindow::on_logoutG_clicked()
     ui->stackedWidget->setCurrentIndex(0);
 }
 
-void MainWindow::on_add_group_clicked()
-{
+void MainWindow::on_createEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(15);
+}
+
+//void MainWindow::on_back_to_group_btn_clicked()
+//{
+//    ui->stackedWidget->setCurrentIndex(6);
+//    update_groups();
+//}
+
+void MainWindow::on_backToMenu_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_backToEView_clicked() {
     ui->stackedWidget->setCurrentIndex(14);
 }
 
-void MainWindow::on_back_to_group_btn_clicked()
-{
-    ui->stackedWidget->setCurrentIndex(6);
-    update_groups();
-}
+void MainWindow::on_createEm2_clicked() {
+    //Get value from value boxes
+    QString value0 = ui->enter1->text();
+    QString value1 = ui->enter2->textCursor().selectedText();
 
-void MainWindow::on_add_group_btn_clicked()
-{
-    ctrl->add_group(ui->group_name_txt->text());
-    ui->group_name_txt->setText("");
+    Emergency* temp = new Emergency(value0, value1);
+
+    //add to database and box
+    ctrl->add_emergency(temp);
+    ui->emCombo->addItem(value0);
+    ui->emSelect->addItem(value0);
+
+    ui->stackedWidget->setCurrentIndex(14);
+
+    //clear values
+    ui->enter1->clear();
+    ui->enter2->clear();
 }

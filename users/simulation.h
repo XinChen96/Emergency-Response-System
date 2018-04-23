@@ -26,28 +26,16 @@ public:
         lng = lng_value;
         radius = radius_value;
         num_civilians = civ_value;
-        trigger = trig_value;
+        emergency_id = trig_value;
     }
-
-    //setters
-    void set_name(QString value);
-    void set_lat(double value);
-    void set_lng(double value);
-    void set_radius(double value);
-    void set_civilians(int value);
-    void set_trigger(int value);
 
     //variables used in all simulations
     QString name;
     double lat;
     double lng;
-
-    //emergency planner / first responder simulation variables
     double radius;
     int num_civilians;
-
-    //emergency planner / civilian simulation variables
-    int trigger;
+    int emergency_id;
 
 };
 

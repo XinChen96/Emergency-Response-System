@@ -13,7 +13,9 @@ SOURCES += main.cpp \
     ../users/responder.cpp\
     ../users/planner.cpp\
     ../users/dbitem.cpp\
-    ../users/simulation.cpp
+    ../users/simulation.cpp \
+    ../users/emergency.cpp \
+    emergency_db.cpp
 
 HEADERS += \
     db_manager.h \
@@ -26,7 +28,9 @@ HEADERS += \
     ../users/responder.h\
     ../users/planner.h\
     ../users/dbitem.h\
-    ../users/simulation.h
+    ../users/simulation.h \
+    ../users/emergency.h \
+    emergency_db.h
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

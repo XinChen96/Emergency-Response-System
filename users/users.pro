@@ -10,7 +10,8 @@ SOURCES += main.cpp \
     responder.cpp \
     planner.cpp \
     group.cpp \
-    simulation.cpp
+    simulation.cpp \
+    emergency.cpp
 
 HEADERS += \
     user.h \
@@ -20,4 +21,5 @@ HEADERS += \
     planner.h \
     roles.h \
     group.h \
-    simulation.h
+    simulation.h \
+    emergency.h
