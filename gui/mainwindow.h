@@ -66,7 +66,6 @@ private slots:
     void on_createSim2_clicked();
     void on_viewBut_clicked();
     void on_backToSimPage_clicked();
-    void on_backToSimPage23_clicked();
     void on_backMapEP_clicked();
     void on_commEP_clicked();
     void on_protocolEP_clicked();
@@ -92,6 +91,10 @@ private slots:
     void on_breakIn_clicked();
 
     void on_logoutG_clicked();
+
+    void on_deleteEP_clicked();
+
+    void on_backDeleteUser_clicked();
 
 private:
     Ui::MainWindow *ui;

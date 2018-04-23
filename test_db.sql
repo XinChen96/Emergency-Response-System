@@ -6,17 +6,17 @@ CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat
 
 /* Create civilians */
 INSERT INTO users (firstName, lastName, username, role) VALUES("Ben", "Fuller", "fullerb", "Civilian");
-INSERT INTO users (firstName, lastName, username, role) VALUES("Joseph", "Teddick", "teddickj", 0);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Chen", "Xin", "xinc", 0);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Robert", "Jordan", "jordanr", 0);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Paul", "Erdos", "erdosp", 0);
+INSERT INTO users (firstName, lastName, username, role) VALUES("Joseph", "Teddick", "teddickj", "Civilian");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Chen", "Xin", "xinc", "Civilian");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Robert", "Jordan", "jordanr", "Civilian");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Paul", "Erdos", "erdosp", "Civilian");
 
 /* Create responders */
-INSERT INTO users (firstName, lastName, username, role) VALUES("Ben", "Fuller", "benresponder", 1);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Joseph", "Teddick", "joeresponder", 1);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Chen", "Xin", "chenresponder", 1);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Robert", "Jordan", "robertresponder", 1);
-INSERT INTO users (firstName, lastName, username, role) VALUES("Paul", "Erdos", "paulresponder", 1);
+INSERT INTO users (firstName, lastName, username, role) VALUES("Ben", "Fuller", "benresponder", "First Responder");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Joseph", "Teddick", "joeresponder", "First Responder");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Chen", "Xin", "chenresponder", "First Responder");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Robert", "Jordan", "robertresponder", "First Responder");
+INSERT INTO users (firstName, lastName, username, role) VALUES("Paul", "Erdos", "paulresponder", "First Responder");
 
 /* Create groups for responders */
 INSERT INTO groups (groupName, date) VALUES("Police Group 1", DATE('now'));

@@ -24,7 +24,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>11</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -609,20 +609,25 @@
           <item>
            <widget class="QPushButton" name="backMapEP">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Back to Map</string>
+             <string>&lt; Back to Map</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLabel" name="optionsEP">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -704,7 +709,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="simulationsButton">
+         <widget class="QPushButton" name="groupEP">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
             <horstretch>0</horstretch>
@@ -712,27 +717,14 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Simulations</string>
+           <string>Add/Update Responder Group</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="recordEP">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Simulation Data</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="botEP">
+         <layout class="QHBoxLayout" name="simLayout">
           <item>
-           <widget class="QPushButton" name="setting">
+           <widget class="QPushButton" name="simulationsButton">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
               <horstretch>0</horstretch>
@@ -740,7 +732,37 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Setting</string>
+             <string>Simulations</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="recordEP">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Simulation Data</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="botEP">
+          <item>
+           <widget class="QPushButton" name="deleteEP">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Delete Users</string>
             </property>
            </widget>
           </item>
@@ -1476,7 +1498,7 @@
           <x>220</x>
           <y>420</y>
           <width>331</width>
-          <height>31</height>
+          <height>32</height>
          </rect>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -1702,7 +1724,7 @@
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>70</y>
+          <y>80</y>
           <width>741</width>
           <height>54</height>
          </rect>
@@ -1736,7 +1758,7 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_22">
          <item>
-          <widget class="QPushButton" name="backToSimPage23">
+          <widget class="QPushButton" name="backToSimPage2_2">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -1829,12 +1851,12 @@
             <string notr="true">color:white</string>
            </property>
            <property name="text">
-            <string>Type of Emergency:</string>
+            <string>Trigger:</string>
            </property>
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QLabel" name="labe1">
+          <widget class="QLabel" name="label1">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -1864,7 +1886,7 @@
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QLabel" name="label2">
+          <widget class="QLabel" name="label_15">
            <property name="font">
             <font>
              <pointsize>12</pointsize>

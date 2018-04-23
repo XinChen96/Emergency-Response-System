@@ -1,7 +1,7 @@
 #ifndef USER_H
 #define USER_H
 #include "QString"
-#include "../users/dbitem.h"
+#include "dbitem.h"
 #include "roles.h"
 
 class User : public DBItem {
