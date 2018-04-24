@@ -1,15 +1,33 @@
 #include <iostream>
-#include "maincontroller.h"
-using namespace std;
+#include <vector>
+#include "gtest/gtest.h"
+#include "server.h"
+#include "client.h"
 
-int main()
-{
-    MainController* ctrl = new MainController();
-        QString first("ff");
-        QString last("ffff");
-        QString user("me");
+// The fixture for testing class DBTest
+class ServerTest : public ::testing::Test {
 
-       ctrl->add_user(first,last,user,civilian);
+    ServerTest() {
+    }
+ protected:
+  // If the constructor and destructor are not enough for setting up
+  // and cleaning up each test, you can define the following methods:
+  virtual void SetUp() {
+  }
 
-    return 0;
+  virtual void TearDown() {
+  }
+};
+
+TEST(StartServerTest, TESTSIMPLE) {
+    Server *s = new Server();
+    Client *c = new Client();
+    c->request_new_message();
+    delete c;
+    delete s;
+}
+
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
