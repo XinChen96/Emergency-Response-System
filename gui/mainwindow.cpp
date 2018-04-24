@@ -520,6 +520,7 @@ void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTabl
     tableView->setModel(tableModel);
     tableView->hideColumn(0); // don't show the ID
     tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
 }
 
