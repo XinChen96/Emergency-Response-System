@@ -16,10 +16,12 @@ HEADERS += \
         ../users/planner.h \
         ../users/civilian.h \
         ../users/dbitem.h \
-    	server.h \
-        client.h \
         ../users/response.h \
-        ../db/response_db.h
+        ../db/response_db.h \
+        db_table.h \
+    	server.h \
+    	client.h
+
 
 SOURCES += \
         main.cpp \

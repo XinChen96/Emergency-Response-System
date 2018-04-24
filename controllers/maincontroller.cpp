@@ -5,7 +5,7 @@ MainController::MainController() {
    dbPath = "../db.sqlite";
 
    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-
+    std::cout << "MainController constructor" <<std::endl;
 }
 
 MainController::~MainController() {
@@ -14,9 +14,31 @@ MainController::~MainController() {
     delete db_m;
 }
 
-QSqlDatabase MainController::get_userDB(){
-    db_m = new User_DB(dbPath);
-    return db_m->get_db();
+QSqlDatabase MainController::get_DB(db_table table){
+    switch(table){
+    case 0:
+        db_m = new User_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 1:
+        db_m = new Group_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 2:
+        db_m = new Response_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 3:
+        db_m = new Simulation_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 4:
+        db_m = new Emergency_DB(dbPath);
+        return db_m->get_db();
+        break;
+
+    }
+
 }
 
 
@@ -71,16 +93,25 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
         return false;
     }
 
-
-    //lives will be saved
-
-
-
-
 }
 
+User* MainController::select_user(QString username){
+    db_m = new User_DB(dbPath);
+
+    User* user = ((User_DB*)db_m)->select_user(username);
+    delete db_m;
+    return user;
+}
+void MainController::delete_user(QString username){
+    db_m = new User_DB(dbPath);
+
+    db_m->delete_user(username);
+    delete db_m;
+}
+//adds a simulation to the database
 bool MainController::add_simulation(Simulation* sim) {
     db_m = new Simulation_DB(dbPath);
+    db_m->create_table();
 
     db_m->create_row(sim);
     //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
@@ -90,6 +121,7 @@ bool MainController::add_simulation(Simulation* sim) {
     return true;
 }
 
+//gets a simulation from the database
 Simulation* MainController::select_simulation(QString name) {
     db_m = new Simulation_DB(dbPath);
 
@@ -99,8 +131,20 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
+//gets all simulation item names currentcly in the database
+std::vector<QString> MainController::get_Sim_DBItems() {
+    db_m = new Simulation_DB(dbPath);
+
+    std::vector<QString> temp = ((Simulation_DB*)db_m)->get_DBItems();
+
+    delete db_m;
+    return temp;
+}
+
+//adds in an emergency item to the database
 bool MainController::add_emergency(Emergency* em) {
     db_m = new Emergency_DB(dbPath);
+    db_m->create_table();
 
     db_m->create_row(em);
     //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
@@ -110,10 +154,31 @@ bool MainController::add_emergency(Emergency* em) {
     return true;
 }
 
+//gets an emergency item from the database
 Emergency* MainController::select_emergency(QString name) {
     db_m = new Emergency_DB(dbPath);
 
     Emergency* temp = ((Emergency_DB*)db_m)->select_emergency(name);
+
+    delete db_m;
+    return temp;
+}
+
+//gets an emergency item from the database
+Emergency* MainController::select_emergency(int id) {
+    db_m = new Emergency_DB(dbPath);
+
+    Emergency* temp = ((Emergency_DB*)db_m)->select_emergency(id);
+
+    delete db_m;
+    return temp;
+}
+
+//gets all emergency item names from the database
+std::vector<QString> MainController::get_Em_DBItems() {
+    db_m = new Emergency_DB(dbPath);
+
+    std::vector<QString> temp = ((Emergency_DB*)db_m)->get_DBItems();
 
     delete db_m;
     return temp;
@@ -129,7 +194,7 @@ int MainController::check_role(QString username) {
         return u->role_num;
 
     } else {
-        delete db_m;
+       delete db_m;
         return 3;
     }
 }
@@ -160,5 +225,27 @@ std::vector<User*> MainController::get_civilians() {
 std::vector<User*> MainController::get_responders() {
     db_m = new User_DB(dbPath);
     return ((User_DB*)db_m)->get_responders();
-    delete db_m;
 }
+
+Group* MainController::select_group(QString name) {
+    db_m = new Group_DB(dbPath);
+
+    Group* temp = ((Group_DB*)db_m)->select_group(name);
+
+    delete db_m;
+    return temp;
+}
+
+//adds in an emergency item to the database
+bool MainController::add_response(Response* resp) {
+    db_m = new Response_DB(dbPath);
+    db_m->create_table();
+
+    db_m->create_row(resp);
+
+    delete db_m;
+    return true;
+}
+
+
+

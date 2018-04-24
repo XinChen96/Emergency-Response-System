@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "db_table.h"
 #include "../db/user_db.h"
 #include "../db/simulation_db.h"
 #include "../db/db_manager.h"
@@ -31,7 +32,7 @@ public:
 
     bool add_user(QString,QString,QString,Role);
     bool add_simulation(Simulation*);
-    QSqlDatabase get_userDB();
+    QSqlDatabase get_DB(db_table);
     void delete_user(QString);
     User*   select_user(QString);
     Simulation* select_simulation(QString name);
