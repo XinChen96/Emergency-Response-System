@@ -5,7 +5,7 @@ MainController::MainController() {
    dbPath = "../db.sqlite";
 
    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-
+    std::cout << "MainController constructor" <<std::endl;
 }
 
 MainController::~MainController() {
@@ -14,9 +14,31 @@ MainController::~MainController() {
     delete db_m;
 }
 
-QSqlDatabase MainController::get_userDB(){
-    db_m = new User_DB(dbPath);
-    return db_m->get_db();
+QSqlDatabase MainController::get_DB(db_table table){
+    switch(table){
+    case 0:
+        db_m = new User_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 1:
+        db_m = new Group_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 2:
+        db_m = new Response_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 3:
+        db_m = new Simulation_DB(dbPath);
+        return db_m->get_db();
+        break;
+    case 4:
+        db_m = new Emergency_DB(dbPath);
+        return db_m->get_db();
+        break;
+
+    }
+
 }
 
 

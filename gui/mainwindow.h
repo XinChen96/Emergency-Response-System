@@ -15,6 +15,7 @@
 #include "QtSql/QSqlQuery"
 #include "QVariant"
 #include "QString"
+#include "../controllers/db_table.h"
 #include "../controllers/maincontroller.h"
 #include "../db/user_db.h"
 #include "../db/db_manager.h"
@@ -144,7 +145,7 @@ private:
     QString usernameReg;
     Role    roleReg;
     QString emailReg;
-    Role    user;
+    Role    userRole;
     QString emergencyName;
     int group_ID;
 
