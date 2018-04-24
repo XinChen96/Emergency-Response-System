@@ -1,7 +1,7 @@
 #include "response_db.h"
 
 void Response_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS responses (id integer PRIMARY KEY, group_id integer, emergency_id integer, response text, FOREIGN KEY(group_id) REFERENCES(groups), FOREIGN KEY(emergency_id) REFERENCES emergencies(id)));";
+    create_cmd += "CREATE TABLE IF NOT EXISTS responses (id integer PRIMARY KEY, group_id integer, emergency_id integer, response text, FOREIGN KEY(group_id) REFERENCES(groups), FOREIGN KEY(emergency_id) REFERENCES emergencies(id));";
     insert_cmd += "INSERT INTO responses (group_id, emergency_id, response) VALUES (:group_id, :emergency_id, :response));";
 
     update_cmd += "UPDATE responses SET group_id=:group, emergency_id=:emergency, response=:response;";
