@@ -46,11 +46,12 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h\
+        ../controllers/db_table.h\
         ../controllers/maincontroller.h\
         ../db/db_manager.h\
         ../db/simulation_db.h\
         ../db/user_db.h\
-        ..//db/simulation_db.h\
+        ../db/simulation_db.h\
         ../users/user.h\
         ../users/dbitem.h\
         ../users/simulation.h\

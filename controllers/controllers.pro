@@ -16,7 +16,8 @@ HEADERS += \
         ../users/civilian.h \
         ../users/dbitem.h \
         ../user/response.h \
-        ../db/response_db.h
+        ../db/response_db.h \
+    db_table.h
 
 SOURCES += \
         main.cpp \

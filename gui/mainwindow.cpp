@@ -94,7 +94,7 @@ void MainWindow::on_enterUsername_returnPressed()
 void MainWindow::login(){
 
     if(ctrl->check_role(ui->enterUsername->text())!=3){
-        user = Role(ctrl->check_role(ui->enterUsername->text()));
+        userRole = Role(ctrl->check_role(ui->enterUsername->text()));
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
@@ -403,7 +403,7 @@ void MainWindow::update_simulations() {
 
 void MainWindow::on_breakIn_clicked()
 {
-    user = planner;
+    userRole = planner;
     ui->stackedWidget->setCurrentIndex(2);
 }
 
@@ -492,13 +492,57 @@ void MainWindow::on_backDeleteUser_clicked()
     //cannot delete here, error for too many deletes
     //delete allUserTableView;
 }
+void MainWindow::on_deleteUser_clicked()
+{
+    QString selectedUsername;
+    QString alert;
 
+    selectedUsername = readSelectedCell(3,ui->allUserTableView);
+
+    alert = readSelectedCell(4,ui->allUserTableView) + " " + selectedUsername +
+            " (" + readSelectedCell(1,ui->allUserTableView) + " " +
+            readSelectedCell(2,ui->allUserTableView) + ")" + " is deleted ";
+
+
+
+    ctrl->delete_user(selectedUsername);
+    on_reloadDeleteUser_clicked();
+    ui->deleteAlert->setText(alert);
+
+}
+void MainWindow::on_reloadDeleteUser_clicked()
+{
+
+    on_identityDeleteUser_currentIndexChanged(ui->identityDeleteUser->currentIndex());
+
+    //clear alert after reload
+    ui->deleteAlert->setText("");
+}
+void MainWindow::on_allUserTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "Delete " + readSelectedCell(4,ui->allUserTableView)
+                  + " "  + readSelectedCell(3,ui->allUserTableView)
+                  + " (" + readSelectedCell(1,ui->allUserTableView)
+                  + " "  +readSelectedCell(2,ui->allUserTableView)
+                  + ")?";
+    ui->deleteAlert->setText(alert);
+}
+QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
+{
+    //get selected row number
+    int selectedRow =selectedTable->selectionModel()->currentIndex().row();
+
+    //return the data in selected cell as QString
+    return selectedTable->model()->data(
+           selectedTable->model()->index(selectedRow,selectedCol)).
+            toString();
+}
 //only user table for now
 void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTableView* tableView){
 
     QString filterCmd;
 
-    tableModel = new QSqlTableModel(this,ctrl->get_userDB());
+    tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
     tableModel->setTable("users");
     tableModel->select();
     if(role != "all users"){
@@ -521,56 +565,7 @@ void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTabl
     //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
 }
 
-void MainWindow::on_deleteUser_clicked()
-{
-    QString selectedUsername;
-    QString alert;
 
-    selectedUsername = readSelectedCell(3,ui->allUserTableView);
-
-    alert = readSelectedCell(4,ui->allUserTableView) + " " + selectedUsername +
-            " (" + readSelectedCell(1,ui->allUserTableView) + " " +
-            readSelectedCell(2,ui->allUserTableView) + ")" + " is deleted ";
-
-
-
-    ctrl->delete_user(selectedUsername);
-    on_reloadDeleteUser_clicked();
-    ui->deleteAlert->setText(alert);
-
-}
-
-QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
-{
-    //get selected row number
-    int selectedRow =selectedTable->selectionModel()->currentIndex().row();
-
-    //return the data in selected cell as QString
-    return selectedTable->model()->data(
-           selectedTable->model()->index(selectedRow,selectedCol)).
-            toString();
-}
-
-
-void MainWindow::on_reloadDeleteUser_clicked()
-{
-
-    on_identityDeleteUser_currentIndexChanged(ui->identityDeleteUser->currentIndex());
-
-    //clear alert after reload
-    ui->deleteAlert->setText("");
-}
-
-
-void MainWindow::on_allUserTableView_clicked(const QModelIndex &index)
-{
-    QString alert = "Delete " + readSelectedCell(4,ui->allUserTableView)
-                  + " "  + readSelectedCell(3,ui->allUserTableView)
-                  + " (" + readSelectedCell(1,ui->allUserTableView)
-                  + " "  +readSelectedCell(2,ui->allUserTableView)
-                  + ")?";
-    ui->deleteAlert->setText(alert);
-}
 
 void MainWindow::on_setGroupRole_clicked() {
     //keep track of emergency name
