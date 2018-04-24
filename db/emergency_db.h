@@ -17,6 +17,8 @@ public:
     //selection methods
     Emergency* select_emergency(QString);
     Emergency* select_emergency(int);
+
+    std::vector<QString> get_DBItems();
 };
 
 #endif // EMERGENCY_DB_H

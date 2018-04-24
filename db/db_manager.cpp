@@ -2,7 +2,8 @@
 #include <iostream>
 
 DB_Manager::DB_Manager(const QString& path) {
-    std::cerr << "DB_manager: called" << std::endl;
+    //std::cerr << "DB_manager: called" << std::endl;
+    std::cout << "DB_manager: called" << std::endl;
     db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
     db.setDatabaseName(path); // Set it to the correct location
 
@@ -50,5 +51,9 @@ void DB_Manager::build_table() {
     //query->exec(create_cmd); // create table
     std::cout << __PRETTY_FUNCTION__<<"\n";
     delete query;
+}
+
+QSqlDatabase DB_Manager::get_db(){
+    return db;
 }
 

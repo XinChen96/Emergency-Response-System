@@ -5,12 +5,13 @@
 using namespace std;
 
 void User_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role integer NOT NULL);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role text NOT NULL);";
     insert_cmd += "INSERT INTO users (firstName, lastName, username, role) VALUES (:firstName, :lastName, :username, :role);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
     update_cmd += "UPDATE users SET firstName=:firstName, lastName=:lastName, username=:username, role=:role;"; // WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS users;";
+    delete_cmd += "DELETE FROM users WHERE username = :user;";
     query = nullptr;
 }
 
@@ -93,6 +94,24 @@ User* User_DB::select_user(int id) {
         std::cerr << "Entry does not exist." << std::endl;
         delete query;
         return nullptr;
+    }
+}
+
+void User_DB::delete_user(QString username) {
+    query = new QSqlQuery(db);
+    query->prepare(delete_cmd);
+    query->bindValue(":user", username);
+
+    if(query->exec()) {
+        std::cout <<"delete_user: User("
+                  << username.toStdString()
+                  <<") deleted"
+                  << std::endl;
+    } else {
+        std::cout << "delete_user: User("
+                  << username.toStdString()
+                  <<") delete failed"
+                 << std::endl;
     }
 }
 

@@ -1,7 +1,7 @@
 #include "simulation_db.h"
 
 void Simulation_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, emergency_id);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, emergency_id integer, FOREIGN KEY (emergency_id) REFERENCES emergencies(id));";
     insert_cmd += "INSERT INTO simulations (name, lat, lng, radius, num_civilians, emergency_id) VALUES (:name, :lat, :lng, :radius, :num_civilians, :emergency_id);";
 
     // Todo: When you update, you need to be able to choose which values you are updating
@@ -55,7 +55,7 @@ Simulation* Simulation_DB::select_simulation(QString name) {
 
     if(query->next()) {
         sim = new Simulation(query->value(1).toString(), query->value(2).toDouble(), query->value(3).toDouble(), query->value(4).toDouble(),
-                             query->value(6).toInt(), query->value(6).toInt());
+                             query->value(5).toInt(), query->value(6).toInt());
         sim->id = query->value(0).toInt();
 
         delete query;
@@ -65,4 +65,20 @@ Simulation* Simulation_DB::select_simulation(QString name) {
         delete query;
         return nullptr;
     }
+}
+
+std::vector<QString> Simulation_DB::get_DBItems(){
+    query = new QSqlQuery(db);
+
+    query->exec("SELECT * FROM simulations;");
+
+    std::vector<QString> sims;
+
+    while (query->next()) {
+        sims.push_back(query->value(1).toString());
+    }
+
+    //delete query;
+
+    return sims;
 }

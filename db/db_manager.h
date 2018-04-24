@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QSqlError>
 #include <iostream>
+#include <vector>
 #include "../users/user.h"
 #include "../users/civilian.h"
 #include "../users/dbitem.h"
@@ -28,9 +29,10 @@ public:
 
     void build_table();
     void create_table();//build table if not exist
-
+    QSqlDatabase get_db();
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
+    virtual void delete_user(QString) {}
     virtual void generate_sql_queries() {}
     virtual void print(){}
 
@@ -44,6 +46,7 @@ protected:
     QString insert_cmd;
     QString update_cmd;
     QString drop_cmd;
+    QString delete_cmd;
     QString tableName;
     QSqlQuery *query;
 

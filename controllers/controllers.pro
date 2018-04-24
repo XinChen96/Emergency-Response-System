@@ -3,7 +3,6 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 QT += core
 QT += sql
-QT += network
 
 HEADERS += \
         maincontroller.h \
@@ -16,8 +15,10 @@ HEADERS += \
         ../users/planner.h \
         ../users/civilian.h \
         ../users/dbitem.h \
-    server.h \
-    client.h
+    	server.h \
+    	client.h
+	../user/response.h \
+        ../db/response_db.h
 
 SOURCES += \
         main.cpp \
@@ -31,8 +32,10 @@ SOURCES += \
         ../users/planner.cpp \
         ../users/civilian.cpp \
         ../users/dbitem.cpp \
-    server.cpp \
-    client.cpp
+	../users/response.cpp \
+        ../db/response_db.cpp
+	server.cpp
+	client.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 
@@ -40,6 +43,5 @@ INCLUDEPATH +=  ../googletest-master                                   \
                 ../googletest-master/googletest                        \
                 ../googletest-master/googletest/include                \
                 ../googletest-master/googletest/include/gtest
-
 
 

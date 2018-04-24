@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +30,26 @@ MainWindow::MainWindow(QWidget *parent) :
     //TO ADD: add in all items to combo box from existing database
     //***
 
+
+    std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
+
+    for (int i = 0; i < sim_db.size(); i++) { //adds them to combo boxes
+        ui->selectSim->addItem(sim_db[i]);
+    }
+
+    std::vector<QString> em_db = ctrl->get_Em_DBItems(); //gets all emergency names from database
+
+    for (int i = 0; i < em_db.size(); i++) { //adds them to combo boxes
+        ui->emCombo->addItem(em_db[i]);
+        ui->emSelect->addItem(em_db[i]);
+    }
+
+    std::vector<Group*> gr_db = ctrl->get_groups(); //get all groups
+
+    for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
+        ui->selectGroup->addItem(gr_db[i]->name);
+    }
+
 }
 
 MainWindow::~MainWindow()
@@ -56,55 +75,67 @@ void MainWindow::update_groups() {
     }
 }
 
-//index 0 (login form) button navigation
-// Successful login should take you to the appropriate screen for your user type
-// Unsuccessful login should give you an alert and let you try again
-void MainWindow::login(){
-    switch(ctrl->check_role(ui->enterUsername->text())) {
-    case 0: // civilian
-        user = civilian;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 1: // responder
-        user = responder;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 2:// planner
-        user = planner;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 3: //No such user
-        ui->enterUsername->clear();
-        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
-        ui->loginAlert->setText("Username does not exist.\n Please try again.");
-        break;
-    }
-}
-void MainWindow::on_enterUsername_returnPressed()
-{
-    login();
-}
-void MainWindow::on_login_clicked()
-{
-    login();
-}
+//index 0 Login Form
 //go to register form by clicking register
 void MainWindow::on_reg_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
+void MainWindow::on_login_clicked()
+{
+    login();
+}
+void MainWindow::on_enterUsername_returnPressed()
+{
+    login();
+}
+// Successful login should take you to the appropriate screen for your user type
+// Unsuccessful login should give you an alert and let you try again
+void MainWindow::login(){
+
+    if(ctrl->check_role(ui->enterUsername->text())!=3){
+        user = Role(ctrl->check_role(ui->enterUsername->text()));
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+
+    }else{
+        ui->enterUsername->clear();
+        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->loginAlert->setText("Username does not exist.\n Please try again.");
+    }
+
+}
 
 //index 1 register form
+//when cancel button is clicked
+void MainWindow::on_cancelReg_clicked()
+{
+    //clear contents if register is cancelled
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
+    ui->regAlert->setStyleSheet("");
+    ui->regAlert->setText("");
+
+    //go to login form
+    ui->stackedWidget->setCurrentIndex(0);
+}
+//when submit button is clicked
+void MainWindow::on_submitReg_clicked()
+{
+
+    reg();
+}
+//when return is pressed in username box
+void MainWindow::on_enterUsernameReg_returnPressed()
+{
+    reg();
+}
 void MainWindow::reg() {
 
     std::cout<< "reg: Registration started--------------\n";
-
+    //ctrl = new MainController();
 
     bool incomplete;
     bool existed;
@@ -122,9 +153,10 @@ void MainWindow::reg() {
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
+
     if(ui->enterFirstnameReg->text().isEmpty()||
-       ui->enterLastnameReg->text().isEmpty()||
-       ui->enterUsernameReg->text().isEmpty()){
+            ui->enterLastnameReg->text().isEmpty()||
+            ui->enterUsernameReg->text().isEmpty()){
         incomplete = true;
     }else{
         incomplete= false;
@@ -148,9 +180,9 @@ void MainWindow::reg() {
 
         //add user information into user database
         if(ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg)){
-            std::cout<< "reg: user added\n";
+            std::cout<< "GUI: reg() user added\n";
         }else{
-            std::cout<< "reg: add_user failed\n";
+            std::cout<< "GUI: reg() add_user failed\n";
         }
 
         //clear contents if register is submitted
@@ -161,35 +193,10 @@ void MainWindow::reg() {
 
         //go to loginForm
         ui->stackedWidget->setCurrentIndex(0);
-
-
     }
 }
 
-//when return is pressed in username box
-void MainWindow::on_enterUsernameReg_returnPressed()
-{
-    reg();
-}
-//when cancel button is clicked
-void MainWindow::on_cancelReg_clicked()
-{
-    //clear contents if register is cancelled
-    ui->enterFirstnameReg->clear();
-    ui->enterLastnameReg->clear();
-    ui->enterUsernameReg->clear();
-    ui->regAlert->setStyleSheet("");
-    ui->regAlert->setText("");
 
-    //go to login form
-    ui->stackedWidget->setCurrentIndex(0);
-}
-//when submit button is clicked
-void MainWindow::on_submitReg_clicked()
-{
-
-    reg();
-}
 
 //index 2 (map view) button navigation
 //go to menu by clicking menu
@@ -246,6 +253,7 @@ void MainWindow::on_groupEP_clicked()
 void MainWindow::on_logoutEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->enterUsername->clear();
 }
 
 void MainWindow::on_simulationsButton_clicked() {
@@ -275,26 +283,36 @@ void MainWindow::on_backToSimPage2_clicked() {
 }
 
 void MainWindow::on_createSim1_clicked() {
-    //get all values from box
-    QString value1 = ui->lineEdit->text();
-    double value2 = ui->lineEdit2->text().toDouble();
-    double value3 = ui->lineEdit3->text().toDouble();
-    double value4 = ui->lineEdit4->text().toDouble();
-    int value5 = ui->lineEdit5->text().toInt();
+    QString value6 = ui->emSelect->currentText();
 
-    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, -1);
+    if (value6 != nullptr) {
 
-    ctrl->add_simulation(temp);
-    ui->selectSim->addItem(value1);
+        //get all values from box
+        QString value1 = ui->lineEdit->text();
+        double value2 = ui->lineEdit2->text().toDouble();
+        double value3 = ui->lineEdit3->text().toDouble();
+        double value4 = ui->lineEdit4->text().toDouble();
+        int value5 = ui->lineEdit5->text().toInt();
 
-    ui->stackedWidget->setCurrentIndex(7);
+        Emergency* temp_em = ctrl->select_emergency(value6);
 
-    //clear all box values
-    ui->lineEdit->clear();
-    ui->lineEdit2->clear();
-    ui->lineEdit3->clear();
-    ui->lineEdit4->clear();
-    ui->lineEdit5->clear();
+        Simulation* temp = new Simulation(value1, value2, value3, value4, value5, temp_em->id);
+
+        ctrl->add_simulation(temp);
+        ui->selectSim->addItem(value1);
+
+        ui->stackedWidget->setCurrentIndex(7);
+
+        //clear all box values
+        ui->lineEdit->clear();
+        ui->lineEdit2->clear();
+        ui->lineEdit3->clear();
+        ui->lineEdit4->clear();
+        ui->lineEdit5->clear();
+
+        delete temp_em;
+        delete temp;
+    }
 }
 
 void MainWindow::on_backToSimPage22_clicked() {
@@ -332,19 +350,22 @@ void MainWindow::on_viewBut_clicked() {
         QString temp2 = QString::number(sim->lng);
         QString temp3 = QString::number(sim->radius);
         QString temp4 = QString::number(sim->num_civilians);
-        QString temp5 = QString::number(sim->emergency_id);
+        int temp_id = sim->emergency_id;
+
+        Emergency* temp_em = ctrl->select_emergency(temp_id);
+        QString temp5 = temp_em->name;
 
         //Get value from current box and add to it
-        QString value0 = ui->label0->text() + " " + temp0;
-        QString value1 = ui->label1->text() + " " + temp1;
-        QString value2 = ui->label_15->text() + " " + temp2;
-        QString value3 = ui->label3->text() + " " + temp3;
-        QString value4 = ui->label4->text() + " " + temp4;
-        QString value5 = ui->label5->text() + " " + temp5;
+        QString value0 = temp0 + ":";
+        QString value1 = "Latitude of Emergency: " + temp1;
+        QString value2 = "Longitude of Emergency: " + temp2;
+        QString value3 = "Radius of Emergency: " + temp3;
+        QString value4 = "Number of Civilians Involved: " + temp4;
+        QString value5 = "Type of Emergency: " + temp5;
 
         //reset the values
         ui->label0->setText(value0);
-        ui->label1->setText(value1);
+        ui->labe1->setText(value1);
         ui->label_15->setText(value2);
         ui->label3->setText(value3);
         ui->label4->setText(value4);
@@ -357,6 +378,10 @@ void MainWindow::on_viewBut_clicked() {
 }
 
 void MainWindow::on_backToSimPage_clicked() {
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+void MainWindow:: on_backToSimPage23_clicked() {
     ui->stackedWidget->setCurrentIndex(7);
 }
 
@@ -385,6 +410,7 @@ void MainWindow::on_breakIn_clicked()
 void MainWindow::on_logoutG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->enterUsername->clear();
 }
 
 void MainWindow::on_createEm_clicked() {
@@ -408,12 +434,13 @@ void MainWindow::on_backToEView_clicked() {
 void MainWindow::on_createEm2_clicked() {
     //Get value from value boxes
     QString value0 = ui->enter1->text();
-    QString value1 = ui->enter2->textCursor().selectedText();
+    QString value1 = ui->enter2->toPlainText();
 
-    Emergency* temp = new Emergency(value0, value1);
+    Emergency* em = new Emergency(value0, value1);
+
+    ctrl->add_emergency(em);
 
     //add to database and box
-    ctrl->add_emergency(temp);
     ui->emCombo->addItem(value0);
     ui->emSelect->addItem(value0);
 
@@ -427,9 +454,183 @@ void MainWindow::on_createEm2_clicked() {
 void MainWindow::on_deleteEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(16);
+
+    //all users table display
+    display_tableview("all users",allUserTable,ui->allUserTableView);
+
+    ui->identityDeleteUser->setCurrentIndex(0);
 }
 
+
+void MainWindow::on_identityDeleteUser_currentIndexChanged(int index)
+{
+    switch(index){
+    case 0://all users
+        //all users table display
+        display_tableview("all users",allUserTable,ui->allUserTableView);
+        break;
+    case 1://civilian
+        //civlian table display
+        display_tableview("Civilian",allUserTable,ui->allUserTableView);
+        break;
+    case 2://first responder
+        //responder table display
+        display_tableview("First Responder",allUserTable,ui->allUserTableView);
+        break;
+    case 3://emergency planner
+        //planner table display
+        display_tableview("Emergency Planner",allUserTable,ui->allUserTableView);
+        break;
+    }
+}
+
+
+//index 16
 void MainWindow::on_backDeleteUser_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
+    //cannot delete here, error for too many deletes
+    //delete allUserTableView;
 }
+
+//only user table for now
+void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTableView* tableView){
+
+    QString filterCmd;
+
+    tableModel = new QSqlTableModel(this,ctrl->get_userDB());
+    tableModel->setTable("users");
+    tableModel->select();
+    if(role != "all users"){
+        filterCmd = "role = '" + role + "'";
+        tableModel->setFilter(filterCmd);
+    }else{
+        filterCmd = "";
+    }
+
+    tableModel->sort(3,Qt::AscendingOrder); //sort by username
+
+    tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
+
+    tableView->setModel(tableModel);
+    tableView->hideColumn(0); // don't show the ID
+    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
+}
+
+void MainWindow::on_deleteUser_clicked()
+{
+    QString selectedUsername;
+    QString alert;
+
+    selectedUsername = readSelectedCell(3,ui->allUserTableView);
+
+    alert = readSelectedCell(4,ui->allUserTableView) + " " + selectedUsername +
+            " (" + readSelectedCell(1,ui->allUserTableView) + " " +
+            readSelectedCell(2,ui->allUserTableView) + ")" + " is deleted ";
+
+
+
+    ctrl->delete_user(selectedUsername);
+    on_reloadDeleteUser_clicked();
+    ui->deleteAlert->setText(alert);
+
+}
+
+QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
+{
+    //get selected row number
+    int selectedRow =selectedTable->selectionModel()->currentIndex().row();
+
+    //return the data in selected cell as QString
+    return selectedTable->model()->data(
+           selectedTable->model()->index(selectedRow,selectedCol)).
+            toString();
+}
+
+
+void MainWindow::on_reloadDeleteUser_clicked()
+{
+
+    on_identityDeleteUser_currentIndexChanged(ui->identityDeleteUser->currentIndex());
+
+    //clear alert after reload
+    ui->deleteAlert->setText("");
+}
+
+
+void MainWindow::on_allUserTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "Delete " + readSelectedCell(4,ui->allUserTableView)
+                  + " "  + readSelectedCell(3,ui->allUserTableView)
+                  + " (" + readSelectedCell(1,ui->allUserTableView)
+                  + " "  +readSelectedCell(2,ui->allUserTableView)
+                  + ")?";
+    ui->deleteAlert->setText(alert);
+}
+
+void MainWindow::on_setGroupRole_clicked() {
+    //keep track of emergency name
+    emergencyName = ui->emCombo->currentText();
+
+    QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
+
+    //update text for next page
+    ui->selLabel->setText(temp);
+
+    ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_backToCreateEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::on_selectTheGroup_clicked() {
+    QString temp = ui->selectGroup->currentText(); //get value from combo box
+
+    Group* gr_temp = ctrl->select_group(temp);
+    group_ID = gr_temp->id;
+
+    QString temp2 = "Group \"" + gr_temp->name + "\" Roles for \"" + emergencyName + "\" Emergency:"; //set text in new window
+
+    ui->selLabel2->setText(temp2);
+
+    ui->stackedWidget->setCurrentIndex(18);
+
+    delete gr_temp;
+}
+
+void MainWindow::on_setRole_clicked() {
+    QString value = ui->enterRole->toPlainText(); //get role
+
+    Emergency* temp_em = ctrl->select_emergency(emergencyName);
+
+    int em_id = temp_em->id; //get id of emergency
+
+    Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
+
+    ctrl->add_response(temp_resp); //add to database
+
+    ui->enterRole->clear(); //clear box
+
+    ui->stackedWidget->setCurrentIndex(14);
+
+    delete temp_em;
+    delete temp_resp;
+}
+
+void MainWindow::on_backToCreateEm2_clicked() {
+    ui->stackedWidget->setCurrentIndex(17);;
+
+}
+
+
+
+
+
+
+
+

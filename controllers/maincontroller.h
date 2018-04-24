@@ -18,6 +18,8 @@
 #include "../db/group_db.h"
 #include "../db/emergency_db.h"
 #include "../users/emergency.h"
+#include "../users/response.h"
+#include "../db/response_db.h"
 
 
 class MainController
@@ -29,14 +31,22 @@ public:
 
     bool add_user(QString,QString,QString,Role);
     bool add_simulation(Simulation*);
+    QSqlDatabase get_userDB();
+    void delete_user(QString);
+    User*   select_user(QString);
     Simulation* select_simulation(QString name);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
+    Emergency* select_emergency(int id);
     void print_db();
     std::vector<Group*> get_groups();
+    std::vector<QString> get_Sim_DBItems();
+    std::vector<QString> get_Em_DBItems();
     void add_group(QString);
     std::vector<User*> get_civilians();
     std::vector<User*> get_responders();
+    Group* select_group(QString name);
+    bool add_response(Response*);
 
 
     int check_role(QString);

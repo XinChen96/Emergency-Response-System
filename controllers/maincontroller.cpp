@@ -1,9 +1,11 @@
 #include "maincontroller.h"
 #include <iostream>
-// Hi Joe
+
 MainController::MainController() {
    dbPath = "../db.sqlite";
-  //dbPath = "/Users/chenxin/db.sqlite";
+
+   //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+
 }
 
 MainController::~MainController() {
@@ -11,6 +13,12 @@ MainController::~MainController() {
     std::cout << __PRETTY_FUNCTION__<<"\n";
     delete db_m;
 }
+
+QSqlDatabase MainController::get_userDB(){
+    db_m = new User_DB(dbPath);
+    return db_m->get_db();
+}
+
 
 
 // Should return true if user is successfully added to the db, false otherwise
