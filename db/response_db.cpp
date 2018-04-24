@@ -1,8 +1,9 @@
 #include "response_db.h"
+#include <iostream>
 
 void Response_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE IF NOT EXISTS responses (id integer PRIMARY KEY, group_id integer, emergency_id integer, response text, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(emergency_id) REFERENCES emergencies(id));";
-    insert_cmd += "INSERT INTO responses (group_id, emergency_id, response) VALUES (:group_id, :emergency_id, :response));";
+    insert_cmd += "INSERT INTO responses (group_id, emergency_id, response) VALUES (:group_id, :emergency_id, :response);";
 
     update_cmd += "UPDATE responses SET group_id=:group, emergency_id=:emergency, response=:response;";
     drop_cmd += "DROP TABLE IF EXISTS responses;";
@@ -18,6 +19,8 @@ void Response_DB::create_row(DBItem* r) {
     query->bindValue(":group_id", response->group_id);
     query->bindValue(":emergency_id", response->emergency_id);
     query->bindValue(":response", response->emergency_response);
+    std::cout << "Here it is" << std::endl;
+
     query->exec();
 
     delete query; // Delete pointer
