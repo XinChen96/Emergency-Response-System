@@ -82,6 +82,12 @@ private slots:
     void on_pushButton_8_clicked();
     void on_backRGroup_clicked();
 
+    void on_setGroupRole_clicked();
+    void on_backToCreateEm_clicked();
+    void on_selectTheGroup_clicked();
+    void on_setRole_clicked();
+    void on_backToCreateEm2_clicked();
+
     //other non GUI based class methods
     void update_simulations();
     void update_groups();
@@ -96,10 +102,9 @@ private slots:
     void on_logoutG_clicked();
 
     void on_deleteEP_clicked();
-
+void  on_deleteUser_clicked();
     void on_backDeleteUser_clicked();
 
-    void on_deleteUser_clicked();
     
 private:
     Ui::MainWindow *ui;
@@ -116,6 +121,8 @@ private:
     Role    roleReg;
     QString emailReg;
     Role    user;
+    QString emergencyName;
+    int group_ID;
 
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/

@@ -37,12 +37,17 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->selectSim->addItem(sim_db[i]);
     }
 
- 
     std::vector<QString> em_db = ctrl->get_Em_DBItems(); //gets all emergency names from database
 
     for (int i = 0; i < em_db.size(); i++) { //adds them to combo boxes
         ui->emCombo->addItem(em_db[i]);
         ui->emSelect->addItem(em_db[i]);
+    }
+
+    std::vector<Group*> gr_db = ctrl->get_groups(); //get all groups
+
+    for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
+        ui->selectGroup->addItem(gr_db[i]->name);
     }
 
 }
@@ -177,6 +182,8 @@ void MainWindow::reg() {
 
         //go to loginForm
         ui->stackedWidget->setCurrentIndex(0);
+
+
     }
     //delete ctrl;
 }
@@ -261,6 +268,7 @@ void MainWindow::on_groupEP_clicked()
 void MainWindow::on_logoutEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->enterUsername->clear();
 }
 
 void MainWindow::on_simulationsButton_clicked() {
@@ -290,32 +298,36 @@ void MainWindow::on_backToSimPage2_clicked() {
 }
 
 void MainWindow::on_createSim1_clicked() {
-    //get all values from box
-    QString value1 = ui->lineEdit->text();
-    double value2 = ui->lineEdit2->text().toDouble();
-    double value3 = ui->lineEdit3->text().toDouble();
-    double value4 = ui->lineEdit4->text().toDouble();
-    int value5 = ui->lineEdit5->text().toInt();
     QString value6 = ui->emSelect->currentText();
 
-    Emergency* temp_em = ctrl->select_emergency(value6);
+    if (value6 != nullptr) {
 
-    Simulation* temp = new Simulation(value1, value2, value3, value4, value5, temp_em->id);
+        //get all values from box
+        QString value1 = ui->lineEdit->text();
+        double value2 = ui->lineEdit2->text().toDouble();
+        double value3 = ui->lineEdit3->text().toDouble();
+        double value4 = ui->lineEdit4->text().toDouble();
+        int value5 = ui->lineEdit5->text().toInt();
 
-    ctrl->add_simulation(temp);
-    ui->selectSim->addItem(value1);
+        Emergency* temp_em = ctrl->select_emergency(value6);
 
-    ui->stackedWidget->setCurrentIndex(7);
+        Simulation* temp = new Simulation(value1, value2, value3, value4, value5, temp_em->id);
 
-    //clear all box values
-    ui->lineEdit->clear();
-    ui->lineEdit2->clear();
-    ui->lineEdit3->clear();
-    ui->lineEdit4->clear();
-    ui->lineEdit5->clear();
+        ctrl->add_simulation(temp);
+        ui->selectSim->addItem(value1);
 
-    delete temp_em;
-    delete temp;
+        ui->stackedWidget->setCurrentIndex(7);
+
+        //clear all box values
+        ui->lineEdit->clear();
+        ui->lineEdit2->clear();
+        ui->lineEdit3->clear();
+        ui->lineEdit4->clear();
+        ui->lineEdit5->clear();
+
+        delete temp_em;
+        delete temp;
+    }
 }
 
 void MainWindow::on_backToSimPage22_clicked() {
@@ -413,6 +425,7 @@ void MainWindow::on_breakIn_clicked()
 void MainWindow::on_logoutG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
+    ui->enterUsername->clear();
 }
 
 void MainWindow::on_createEm_clicked() {
@@ -525,6 +538,7 @@ void MainWindow::on_backDeleteUser_clicked()
     delete plannerTable;
 }
 
+
 void MainWindow::on_deleteUser_clicked()
 {
     QString selectedUsername = readSelectedCell(3,ui->civilianTableView);
@@ -543,4 +557,58 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
     return selectedTable->model()->data(
            selectedTable->model()->index(selectedRow,selectedCol)).
            toString();
+}
+void MainWindow::on_setGroupRole_clicked() {
+    //keep track of emergency name
+    emergencyName = ui->emCombo->currentText();
+
+    QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
+
+    //update text for next page
+    ui->selLabel->setText(temp);
+
+    ui->stackedWidget->setCurrentIndex(17);
+}
+
+void MainWindow::on_backToCreateEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::on_selectTheGroup_clicked() {
+    QString temp = ui->selectGroup->currentText(); //get value from combo box
+
+    Group* gr_temp = ctrl->select_group(temp);
+    group_ID = gr_temp->id;
+
+    QString temp2 = "Group \"" + gr_temp->name + "\" Roles for \"" + emergencyName + "\" Emergency:"; //set text in new window
+
+    ui->selLabel2->setText(temp2);
+
+    ui->stackedWidget->setCurrentIndex(18);
+
+    delete gr_temp;
+}
+
+void MainWindow::on_setRole_clicked() {
+    QString value = ui->enterRole->toPlainText(); //get role
+
+    Emergency* temp_em = ctrl->select_emergency(emergencyName);
+
+    int em_id = temp_em->id; //get id of emergency
+
+    Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
+
+    ctrl->add_response(temp_resp); //add to database
+
+    ui->enterRole->clear(); //clear box
+
+    ui->stackedWidget->setCurrentIndex(14);
+
+    delete temp_em;
+    delete temp_resp;
+}
+
+void MainWindow::on_backToCreateEm2_clicked() {
+    ui->stackedWidget->setCurrentIndex(17);;
+
 }

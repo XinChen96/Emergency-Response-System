@@ -14,7 +14,9 @@ HEADERS += \
         ../users/user.h \
         ../users/planner.h \
         ../users/civilian.h \
-        ../users/dbitem.h
+        ../users/dbitem.h \
+        ../user/response.h \
+        ../db/response_db.h
 
 SOURCES += \
         main.cpp \
@@ -28,6 +30,8 @@ SOURCES += \
         ../users/planner.cpp \
         ../users/civilian.cpp \
         ../users/dbitem.cpp \
+        ../users/response.cpp \
+        ../db/response_db.cpp
 
 
 
