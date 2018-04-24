@@ -241,7 +241,9 @@ Group* MainController::select_group(QString name) {
 bool MainController::add_response(Response* resp) {
     db_m = new Response_DB(dbPath);
     db_m->create_table();
-
+    std::cout << resp->group_id << std::endl;
+    std::cout << resp->emergency_id << std::endl;
+    std::cout << resp->emergency_response.toStdString() << std::endl;
     db_m->create_row(resp);
 
     delete db_m;
