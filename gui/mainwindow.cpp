@@ -630,6 +630,9 @@ void MainWindow::on_reloadDeleteUser_clicked()
 
     //all users table display
     display_tableview("all users",allUserTable,ui->allUserTableView);
+
+    //clear alert after reload
+    ui->deleteAlert->setText("");
 }
 
 
