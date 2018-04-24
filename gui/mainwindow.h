@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <Qt>
+#include <QTableView>
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QtWebEngineWidgets/QWebEngineView>
@@ -85,7 +85,7 @@ private slots:
     //other non GUI based class methods
     void update_simulations();
     void update_groups();
-
+    QString readSelectedCell(int,QTableView*);
 
 
 

@@ -472,6 +472,7 @@ void MainWindow::on_deleteEP_clicked()
 
     ui->civilianTableView->setModel(civilianTable);
     ui->civilianTableView->hideColumn(0); // don't show the ID
+    ui->civilianTableView->show();
     ui->civilianTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
 
     //responder table display
@@ -508,11 +509,14 @@ void MainWindow::on_deleteEP_clicked()
     ui->plannerTableView->setModel(plannerTable);
     ui->plannerTableView->hideColumn(0); // don't show the ID
     ui->plannerTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
 
 
 
 }
 
+
+//index 16
 void MainWindow::on_backDeleteUser_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
@@ -523,5 +527,20 @@ void MainWindow::on_backDeleteUser_clicked()
 
 void MainWindow::on_deleteUser_clicked()
 {
+    QString selectedUsername = readSelectedCell(3,ui->civilianTableView);
 
+
+
+    std::cout << readSelectedCell(3,ui->civilianTableView).toStdString()<<std::endl;
+}
+
+QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
+{
+    //get selected row number
+    int selectedRow =selectedTable->selectionModel()->currentIndex().row();
+
+    //return the data in selected cell as QString
+    return selectedTable->model()->data(
+           selectedTable->model()->index(selectedRow,selectedCol)).
+           toString();
 }
