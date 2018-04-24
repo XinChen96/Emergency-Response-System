@@ -202,7 +202,7 @@ void MainWindow::reg() {
 //go to menu by clicking menu
 void MainWindow::on_menu_clicked()
 {
-    switch(user){
+    switch(userRole){
     case planner:
         ui->stackedWidget->setCurrentIndex(3);
         break;
