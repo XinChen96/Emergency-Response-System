@@ -105,6 +105,8 @@ private slots:
 
     void on_backDeleteUser_clicked();
 
+    void on_deleteUser_clicked();
+    
 private:
     Ui::MainWindow *ui;
 
