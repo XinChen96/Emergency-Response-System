@@ -238,7 +238,7 @@ void MainWindow::on_backComm_clicked()
 void MainWindow::on_commEP_clicked()
 {
     //go to comm
-     ui->stackedWidget->setCurrentIndex(4);
+     ui->stackedWidget->setCurrentIndex(21);
 }
 
 void MainWindow::on_protocolEP_clicked()
@@ -726,4 +726,8 @@ void MainWindow::on_viewProto_clicked() {
 
 void MainWindow::on_backToSelEm_clicked() {
     ui->stackedWidget->setCurrentIndex(19);
+}
+
+void MainWindow::on_backToMenA_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
 }
