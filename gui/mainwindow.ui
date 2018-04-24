@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>18</number>
+       <number>6</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -883,15 +883,27 @@
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
            <widget class="QPushButton" name="backRGroup">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Back</string>
+             <string>&lt; Back to Menu</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QLabel" name="label_6">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="font">
              <font>
+              <family>Helvetica</family>
               <pointsize>20</pointsize>
               <weight>75</weight>
               <bold>true</bold>
@@ -911,55 +923,52 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableWidget" name="responder_table">
-          <property name="enabled">
-           <bool>true</bool>
-          </property>
-          <attribute name="horizontalHeaderDefaultSectionSize">
-           <number>200</number>
-          </attribute>
-          <row>
-           <property name="text">
-            <string>1</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>2</string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>Responder Groups</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>Date Created</string>
-           </property>
-          </column>
-         </widget>
+         <widget class="QTableView" name="rGroupTableView"/>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
-           <widget class="QPushButton" name="pushButton_11">
-            <property name="text">
-             <string>Update</string>
+           <widget class="QLineEdit" name="enterRGroupName">
+            <property name="placeholderText">
+             <string>Enter new group's name </string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_10">
+           <widget class="QPushButton" name="addRGroup">
             <property name="text">
-             <string>Add</string>
+             <string>Add     Group</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="QPushButton" name="adduserRGroup">
+            <property name="text">
+             <string>Add User to Group</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_9">
+           <widget class="QLabel" name="deleteAlertRGroup">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
-             <string>Remove</string>
+             <string>TextLabel</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="deleteRGroup">
+            <property name="text">
+             <string>Delete Group</string>
             </property>
            </widget>
           </item>

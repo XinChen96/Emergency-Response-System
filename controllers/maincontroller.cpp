@@ -210,6 +210,7 @@ std::vector<Group*> MainController::get_groups() {
 void MainController::add_group(QString group_name) {
     db_m = new Group_DB(dbPath);
     DBItem* g = new Group(group_name);
+    db_m->create_table();
     db_m->create_row(g);
     delete db_m;
 }

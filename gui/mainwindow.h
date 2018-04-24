@@ -27,7 +27,7 @@
 #include "../users/civilian.h"
 #include "../users/planner.h"
 #include "../users/emergency.h"
-
+#include <QSqlRelationalTableModel>
 namespace Ui {
 class MainWindow;
 }
@@ -114,13 +114,13 @@ private slots:
     //Combo box index changed
     void on_identityDeleteUser_currentIndexChanged(int index);
     //Helper methods
-    void display_tableview(QString, QSqlTableModel*, QTableView*);
+    void display_tableview(db_table,QString, QSqlTableModel*, QTableView*);
     QString readSelectedCell(int,QTableView*);
 
 
     //other non GUI based class methods
     void update_simulations();
-    void update_groups();
+    //void update_groups();
 
 
 
@@ -133,12 +133,17 @@ private slots:
 
 
 
+    void on_addRGroup_clicked();
+
+    void on_adduserRGroup_clicked();
+
 private:
     Ui::MainWindow *ui;
 
     MainController *ctrl;
 
     QSqlTableModel *allUserTable;
+    QSqlTableModel *rGroupTable;
 
     QString firstNameReg;
     QString lastNameReg;

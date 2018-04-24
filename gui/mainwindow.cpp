@@ -59,21 +59,21 @@ MainWindow::~MainWindow()
 }
 
 // Method to populate the groups displayed on the group page
-void MainWindow::update_groups() {
-    // Time to populate the table
-    std::vector<Group*> group_list = ctrl->get_groups();
-    std::vector<Group*>::iterator iter;
+//void MainWindow::update_groups() {
+//    // Time to populate the table
+//    std::vector<Group*> group_list = ctrl->get_groups();
+//    std::vector<Group*>::iterator iter;
 
-    ui->responder_table->setRowCount(group_list.size());
+//    ui->responder_table->setRowCount(group_list.size());
 
-    int row = 0;
-    for(iter = group_list.begin(); iter != group_list.end(); ++iter) {
-        ui->responder_table->setItem(row, 0, new QTableWidgetItem((**iter).name));
-        ui->responder_table->setItem(row, 1, new QTableWidgetItem((**iter).date));
-        delete *iter;
-        ++row;
-    }
-}
+//    int row = 0;
+//    for(iter = group_list.begin(); iter != group_list.end(); ++iter) {
+//        ui->responder_table->setItem(row, 0, new QTableWidgetItem((**iter).name));
+//        ui->responder_table->setItem(row, 1, new QTableWidgetItem((**iter).date));
+//        delete *iter;
+//        ++row;
+//    }
+//}
 
 //index 0 Login Form
 //go to register form by clicking register
@@ -247,7 +247,8 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
-    update_groups();
+    display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
+    //update_groups();
 }
 
 void MainWindow::on_logoutEP_clicked()
@@ -456,7 +457,7 @@ void MainWindow::on_deleteEP_clicked()
     ui->stackedWidget->setCurrentIndex(16);
 
     //all users table display
-    display_tableview("all users",allUserTable,ui->allUserTableView);
+    display_tableview(user,"all users",allUserTable,ui->allUserTableView);
 
     ui->identityDeleteUser->setCurrentIndex(0);
 }
@@ -467,19 +468,19 @@ void MainWindow::on_identityDeleteUser_currentIndexChanged(int index)
     switch(index){
     case 0://all users
         //all users table display
-        display_tableview("all users",allUserTable,ui->allUserTableView);
+        display_tableview(user,"all users",allUserTable,ui->allUserTableView);
         break;
     case 1://civilian
         //civlian table display
-        display_tableview("Civilian",allUserTable,ui->allUserTableView);
+        display_tableview(user,"Civilian",allUserTable,ui->allUserTableView);
         break;
     case 2://first responder
         //responder table display
-        display_tableview("First Responder",allUserTable,ui->allUserTableView);
+        display_tableview(user,"First Responder",allUserTable,ui->allUserTableView);
         break;
     case 3://emergency planner
         //planner table display
-        display_tableview("Emergency Planner",allUserTable,ui->allUserTableView);
+        display_tableview(user,"Emergency Planner",allUserTable,ui->allUserTableView);
         break;
     }
 }
@@ -538,25 +539,35 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
             toString();
 }
 //only user table for now
-void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTableView* tableView){
+void MainWindow::display_tableview(db_table table,QString filter,QSqlTableModel* tableModel,QTableView* tableView){
 
     QString filterCmd;
 
-    tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
-    tableModel->setTable("users");
-    tableModel->select();
-    if(role != "all users"){
-        filterCmd = "role = '" + role + "'";
-        tableModel->setFilter(filterCmd);
-    }else{
-        filterCmd = "";
+    switch(table){
+    case user:
+        tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
+        tableModel->setTable("users");
+        tableModel->select();
+        if(filter != "all users"){
+            filterCmd = "role = '" + filter + "'";
+            tableModel->setFilter(filterCmd);
+        }else{
+            filterCmd = "";
+        }
+        tableModel->sort(3,Qt::AscendingOrder); //sort by username
+        tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+        tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+        tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
+        break;
+    case group:
+        tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
+        tableModel->setTable("groups");
+        tableModel->select();
+        tableModel->sort(1,Qt::AscendingOrder); //sort by group name
+        break;
     }
 
-    tableModel->sort(3,Qt::AscendingOrder); //sort by username
 
-    tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
-    tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
-    tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
 
     tableView->setModel(tableModel);
     tableView->hideColumn(0); // don't show the ID
@@ -623,9 +634,16 @@ void MainWindow::on_backToCreateEm2_clicked() {
 }
 
 
+void MainWindow::on_addRGroup_clicked()
+{
+    ctrl->add_group(ui->enterRGroupName->text());
+    display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
+    ui->enterRGroupName->clear();
+}
 
-
-
-
-
-
+void MainWindow::on_adduserRGroup_clicked()
+{
+    //rGroupTable = new QSqlTableModel(this,ctrl->get_DB(group));
+   //rGroupTable->setTable("groups");
+    //rGroupTable->(1,QSqlRelation("user","id","username"));
+}
