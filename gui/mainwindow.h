@@ -104,6 +104,11 @@ private slots:
     void on_setRole_clicked();
     void on_backToCreateEm2_clicked();
 
+    void on_viewProt_clicked();
+    void on_backToMe_clicked();
+    void on_viewProto_clicked();
+    void on_backToSelEm_clicked();
+
     //index 16 View/Delete Users page
     //Push button clicked
     void on_backDeleteUser_clicked();

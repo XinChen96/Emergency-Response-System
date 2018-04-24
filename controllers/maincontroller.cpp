@@ -248,5 +248,14 @@ bool MainController::add_response(Response* resp) {
     return true;
 }
 
+Response* MainController::select_response(Emergency* em, Group* gr) {
+    db_m = new Response_DB(dbPath);
+
+    Response* temp = ((Response_DB*)db_m)->get_response(em, gr);
+
+    delete db_m;
+    return temp;
+}
+
 
 

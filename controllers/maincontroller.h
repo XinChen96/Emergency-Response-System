@@ -48,6 +48,7 @@ public:
     std::vector<User*> get_responders();
     Group* select_group(QString name);
     bool add_response(Response*);
+    Response* select_response(Emergency* em, Group* gr);
 
 
     int check_role(QString);

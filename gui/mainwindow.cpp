@@ -42,12 +42,14 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 0; i < em_db.size(); i++) { //adds them to combo boxes
         ui->emCombo->addItem(em_db[i]);
         ui->emSelect->addItem(em_db[i]);
+        ui->selEm->addItem(em_db[i]);
     }
 
     std::vector<Group*> gr_db = ctrl->get_groups(); //get all groups
 
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
+        ui->selGr->addItem(gr_db[i]->name);
     }
 
 }
@@ -444,6 +446,7 @@ void MainWindow::on_createEm2_clicked() {
     //add to database and box
     ui->emCombo->addItem(value0);
     ui->emSelect->addItem(value0);
+    ui->selEm->addItem(value0);
 
     ui->stackedWidget->setCurrentIndex(14);
 
@@ -597,16 +600,19 @@ void MainWindow::on_backToCreateEm_clicked() {
 void MainWindow::on_selectTheGroup_clicked() {
     QString temp = ui->selectGroup->currentText(); //get value from combo box
 
-    Group* gr_temp = ctrl->select_group(temp);
-    group_ID = gr_temp->id;
+    if (temp != nullptr) {
 
-    QString temp2 = "Set Group \"" + gr_temp->name + "\" Role for \"" + emergencyName + "\" Emergency:"; //set text in new window
+        Group* gr_temp = ctrl->select_group(temp);
+        group_ID = gr_temp->id;
 
-    ui->selLabel2->setText(temp2);
+        QString temp2 = "Set Group \"" + gr_temp->name + "\" Role for \"" + emergencyName + "\" Emergency:"; //set text in new window
 
-    ui->stackedWidget->setCurrentIndex(18);
+        ui->selLabel2->setText(temp2);
 
-    delete gr_temp;
+        ui->stackedWidget->setCurrentIndex(18);
+
+        delete gr_temp;
+    }
 }
 
 void MainWindow::on_setRole_clicked() {
@@ -639,6 +645,7 @@ void MainWindow::on_addRGroup_clicked()
 {
     ctrl->add_group(ui->enterRGroupName->text());
     ui->selectGroup->addItem(ui->enterRGroupName->text());
+    ui->selGr->addItem(ui->enterRGroupName->text());
     display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
     ui->enterRGroupName->clear();
 }
@@ -648,4 +655,40 @@ void MainWindow::on_adduserRGroup_clicked()
     //rGroupTable = new QSqlTableModel(this,ctrl->get_DB(group));
    //rGroupTable->setTable("groups");
     //rGroupTable->(1,QSqlRelation("user","id","username"));
+}
+
+void MainWindow::on_viewProt_clicked() {
+    ui->stackedWidget->setCurrentIndex(19);
+}
+
+void MainWindow::on_backToMe_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_viewProto_clicked() {
+    QString temp0 = ui->selEm->currentText();
+    QString temp1 = ui->selGr->currentText();
+
+    if (temp0 != nullptr && temp1 != nullptr) { //make sure not null
+
+        Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
+        Group* gr_db = ctrl->select_group(temp1);
+        Response* resp_db = ctrl->select_response(em_db, gr_db); //get response
+
+        //display the information
+        ui->pubRes->setText(em_db->public_response);
+        ui->grRole->setText(resp_db->emergency_response);
+
+        ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+
+        ui->stackedWidget->setCurrentIndex(20);
+
+        delete em_db;
+        delete gr_db;
+        delete resp_db;
+    }
+}
+
+void MainWindow::on_backToSelEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(19);
 }
