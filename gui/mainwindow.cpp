@@ -609,7 +609,7 @@ void MainWindow::on_setRole_clicked() {
 
     ctrl->add_response(temp_resp); //add to database
 
-    ui->enterRole->clear(); //clear box
+    //ui->enterRole->clear(); //clear box
 
     ui->stackedWidget->setCurrentIndex(14);
 
