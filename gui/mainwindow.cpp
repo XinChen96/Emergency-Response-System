@@ -606,7 +606,7 @@ void MainWindow::on_setRole_clicked() {
     int em_id = temp_em->id; //get id of emergency
 
     // TODO: change back to group_ID
-    Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
+    Response* temp_resp = new Response(0, em_id, value); //construct response item
 
     ctrl->add_response(temp_resp); //add to database
 
@@ -614,8 +614,8 @@ void MainWindow::on_setRole_clicked() {
 
     ui->stackedWidget->setCurrentIndex(14);
 
-    // delete temp_em;
-    // delete temp_resp;
+    delete temp_em;
+    delete temp_resp;
 }
 
 void MainWindow::on_backToCreateEm2_clicked() {
