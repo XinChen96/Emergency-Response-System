@@ -49,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
-        ui->selGr->addItem(gr_db[i]->name);
+        //ui->selGr->addItem(gr_db[i]->name);
     }
 
 }
@@ -596,12 +596,15 @@ void MainWindow::on_setGroupRole_clicked() {
     //keep track of emergency name
     emergencyName = ui->emCombo->currentText();
 
-    QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
+    if (emergencyName != nullptr) {
 
-    //update text for next page
-    ui->selLabel->setText(temp);
+        QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
 
-    ui->stackedWidget->setCurrentIndex(17);
+        //update text for next page
+        ui->selLabel->setText(temp);
+
+        ui->stackedWidget->setCurrentIndex(17);
+    }
 }
 
 void MainWindow::on_backToCreateEm_clicked() {
@@ -634,7 +637,7 @@ void MainWindow::on_setRole_clicked() {
     int em_id = temp_em->id; //get id of emergency
 
     // TODO: change back to group_ID
-    Response* temp_resp = new Response(em_id, em_id, value); //construct response item
+    Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
 
     ctrl->add_response(temp_resp); //add to database
 
@@ -656,7 +659,7 @@ void MainWindow::on_addRGroup_clicked()
 {
     ctrl->add_group(ui->enterRGroupName->text());
     ui->selectGroup->addItem(ui->enterRGroupName->text());
-    ui->selGr->addItem(ui->enterRGroupName->text());
+    //ui->selGr->addItem(ui->enterRGroupName->text());
     display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
     ui->enterRGroupName->clear();
 }
@@ -672,10 +675,29 @@ void MainWindow::on_adduserRGroup_clicked()
 
 void MainWindow::on_viewProt_clicked() {
     ui->stackedWidget->setCurrentIndex(19);
+    ui->selGr->clear(); //clear for next viewing
 }
 
 void MainWindow::on_backToMe_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_availGroups_clicked() {
+    QString temp0 = ui->selEm->currentText();
+    ui->selGr->clear(); //clear box so it doesn't add more
+
+    if (temp0 != nullptr) {
+        Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
+
+        std::vector<int> em_resp = ctrl->get_resp_em_DBItems(em_db->id); //get all groups
+
+        for (int i = 0; i < em_resp.size(); i++) { //adds them to combo box
+            Group* temp_gr = ctrl->select_group(em_resp[i]); //get group that uses said emergency
+            ui->selGr->addItem(temp_gr->name);
+        }
+
+        delete em_db;
+    }
 }
 
 void MainWindow::on_viewProto_clicked() {

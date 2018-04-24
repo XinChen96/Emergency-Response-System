@@ -237,6 +237,15 @@ Group* MainController::select_group(QString name) {
     return temp;
 }
 
+Group* MainController::select_group(int id) {
+    db_m = new Group_DB(dbPath);
+
+    Group* temp = ((Group_DB*)db_m)->select_group(id);
+
+    delete db_m;
+    return temp;
+}
+
 //adds in an emergency item to the database
 bool MainController::add_response(Response* resp) {
     db_m = new Response_DB(dbPath);
@@ -252,6 +261,15 @@ Response* MainController::select_response(Emergency* em, Group* gr) {
     db_m = new Response_DB(dbPath);
 
     Response* temp = ((Response_DB*)db_m)->get_response(em, gr);
+
+    delete db_m;
+    return temp;
+}
+
+std::vector<int> MainController::get_resp_em_DBItems(int value) {
+    db_m = new Response_DB(dbPath);
+
+    std::vector<int> temp = ((Response_DB*)db_m)->get_Em_DBItems(value);
 
     delete db_m;
     return temp;

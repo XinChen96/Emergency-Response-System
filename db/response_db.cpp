@@ -51,3 +51,21 @@ Response* Response_DB::get_response(Emergency* e, Group* g) {
         return nullptr;
     }
 }
+
+std::vector<int> Response_DB::get_Em_DBItems(int value) {
+    query = new QSqlQuery(db);
+
+    query->exec("SELECT * FROM responses;");
+
+    std::vector<int> resp;
+
+    while (query->next()) {
+        if (query->value(2).toInt() == value) {
+            resp.push_back(query->value(1).toInt());
+        }
+    }
+
+    //delete query;
+
+    return resp;
+}
