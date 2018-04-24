@@ -360,11 +360,11 @@ void MainWindow::on_viewBut_clicked() {
 
         //Get value from current box and add to it
         QString value0 = temp0 + ":";
-        QString value1 = "Latitude of Emergency: " + temp1;
-        QString value2 = "Longitude of Emergency: " + temp2;
-        QString value3 = "Radius of Emergency: " + temp3;
-        QString value4 = "Number of Civilians Involved: " + temp4;
-        QString value5 = "Type of Emergency: " + temp5;
+        QString value1 = temp1;
+        QString value2 = temp2;
+        QString value3 = temp3;
+        QString value4 = temp4;
+        QString value5 = temp5;
 
         //reset the values
         ui->label0->setText(value0);
@@ -373,6 +373,10 @@ void MainWindow::on_viewBut_clicked() {
         ui->label3->setText(value3);
         ui->label4->setText(value4);
         ui->label5->setText(value5);
+
+        //will be deleted later
+        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+        ui->label6->setText("Simulation Not Active.");
 
         ui->stackedWidget->setCurrentIndex(11); //set page
 

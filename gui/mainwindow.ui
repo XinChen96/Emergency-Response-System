@@ -919,6 +919,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -1054,6 +1055,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -1153,6 +1155,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -1180,6 +1183,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1215,6 +1220,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1230,6 +1237,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1255,6 +1264,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1290,6 +1301,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1305,6 +1318,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1496,6 +1511,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -1559,7 +1575,7 @@
         <property name="geometry">
          <rect>
           <x>20</x>
-          <y>80</y>
+          <y>70</y>
           <width>741</width>
           <height>54</height>
          </rect>
@@ -1570,6 +1586,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -1668,78 +1685,20 @@
        <widget class="QWidget" name="gridLayoutWidget_3">
         <property name="geometry">
          <rect>
-          <x>70</x>
+          <x>40</x>
           <y>200</y>
-          <width>641</width>
+          <width>693</width>
           <height>131</height>
          </rect>
         </property>
         <layout class="QGridLayout" name="gridLayout_3">
-         <item row="3" column="0">
-          <widget class="QLabel" name="label5">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:white</string>
-           </property>
-           <property name="text">
-            <string>Trigger:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="labe1">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:white</string>
-           </property>
-           <property name="text">
-            <string>Latitude of Emergency:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label4">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:white</string>
-           </property>
-           <property name="text">
-            <string>Number of Civilians Involved:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QLabel" name="label_15">
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:white</string>
-           </property>
-           <property name="text">
-            <string>Longitude of Emergency:</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="0">
-          <widget class="QLabel" name="label3">
+          <widget class="QLabel" name="label3_2">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -1751,7 +1710,155 @@
           </widget>
          </item>
          <item row="3" column="1">
+          <widget class="QLabel" name="label5">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labe1">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QLabel" name="label4444">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string>Number of Civilians Involved:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="label_155">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string>Longitude of Emergency:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLabel" name="label3">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
           <widget class="QLabel" name="label6">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="textFormat">
+            <enum>Qt::RichText</enum>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labe1_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string>Latitude of Emergency:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label5_2">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string>Emergency:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="label_15">
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="3">
+          <widget class="QLabel" name="label4">
            <property name="font">
             <font>
              <pointsize>12</pointsize>
@@ -2126,6 +2233,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -2331,6 +2439,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -2555,6 +2664,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -2695,6 +2805,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -2894,6 +3005,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -2968,6 +3080,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
@@ -3098,6 +3211,7 @@
            <property name="font">
             <font>
              <pointsize>14</pointsize>
+             <italic>true</italic>
             </font>
            </property>
            <property name="styleSheet">
