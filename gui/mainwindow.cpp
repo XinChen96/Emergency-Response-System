@@ -542,13 +542,13 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
             toString();
 }
 //only user table for now
-void MainWindow::display_tableview(db_table table,QString filter,QSqlTableModel* tableModel,QTableView* tableView){
+void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalTableModel* tableModel,QTableView* tableView){
 
     QString filterCmd;
 
     switch(table){
     case user:
-        tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
+        tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
         tableModel->setTable("users");
         tableModel->select();
         if(filter != "all users"){
@@ -561,22 +561,33 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlTableModel*
         tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
         tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
         tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
+        tableView->setModel(tableModel);
+        tableView->hideColumn(0); // don't show the ID
+        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         break;
     case group:
-        tableModel = new QSqlTableModel(this,ctrl->get_DB(user));
+        tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
         tableModel->setTable("groups");
         tableModel->select();
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
+        tableModel->setRelation(1,QSqlRelation("users","id","username"));
+        tableView->setModel(tableModel);
+        tableView->hideColumn(0); // don't show the ID
+        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
         break;
     }
 
 
 
-    tableView->setModel(tableModel);
-    tableView->hideColumn(0); // don't show the ID
-    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
+//    tableView->setModel(tableModel);
+//    tableView->hideColumn(0); // don't show the ID
+//    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+//    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+//    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
 }
 
 
@@ -652,9 +663,11 @@ void MainWindow::on_addRGroup_clicked()
 
 void MainWindow::on_adduserRGroup_clicked()
 {
-    //rGroupTable = new QSqlTableModel(this,ctrl->get_DB(group));
-   //rGroupTable->setTable("groups");
-    //rGroupTable->(1,QSqlRelation("user","id","username"));
+//    rGroupTable = new QSqlTableModel(this,ctrl->get_DB(group));
+//   rGroupTable->setTable("groups");
+//    rGroupTable->(1,QSqlRelation("users","id","username"));
+//    ui->rGroupTableView->setModel(rGroupTable);
+//    ui->rGroupTableView->setItemDelegate(new QSqlRelationalDelegate(ui->rGroupTableView));
 }
 
 void MainWindow::on_viewProt_clicked() {
