@@ -617,7 +617,7 @@ void MainWindow::on_setRole_clicked() {
     int em_id = temp_em->id; //get id of emergency
 
     // TODO: change back to group_ID
-    Response* temp_resp = new Response(0, em_id, value); //construct response item
+    Response* temp_resp = new Response(em_id, em_id, value); //construct response item
 
     ctrl->add_response(temp_resp); //add to database
 
@@ -638,6 +638,7 @@ void MainWindow::on_backToCreateEm2_clicked() {
 void MainWindow::on_addRGroup_clicked()
 {
     ctrl->add_group(ui->enterRGroupName->text());
+    ui->selectGroup->addItem(ui->enterRGroupName->text());
     display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
     ui->enterRGroupName->clear();
 }

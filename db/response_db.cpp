@@ -19,7 +19,6 @@ void Response_DB::create_row(DBItem* r) {
     query->bindValue(":group_id", response->group_id);
     query->bindValue(":emergency_id", response->emergency_id);
     query->bindValue(":response", response->emergency_response);
-    std::cout << "Here it is" << std::endl;
 
     query->exec();
 
