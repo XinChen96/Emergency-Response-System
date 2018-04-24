@@ -18,6 +18,8 @@
 #include "../db/group_db.h"
 #include "../db/emergency_db.h"
 #include "../users/emergency.h"
+#include "../users/response.h"
+#include "../db/response_db.h"
 
 
 class MainController
@@ -41,6 +43,8 @@ public:
     void add_group(QString);
     std::vector<User*> get_civilians();
     std::vector<User*> get_responders();
+    Group* select_group(QString name);
+    bool add_response(Response*);
 
 
     int check_role(QString);

@@ -192,5 +192,27 @@ std::vector<User*> MainController::get_responders() {
     return ((User_DB*)db_m)->get_responders();
 }
 
+Group* MainController::select_group(QString name) {
+    db_m = new Group_DB(dbPath);
+
+    Group* temp = ((Group_DB*)db_m)->select_group(name);
+
+    delete db_m;
+    return temp;
+}
+
+//adds in an emergency item to the database
+bool MainController::add_response(Response* resp) {
+    db_m = new Response_DB(dbPath);
+    db_m->create_table();
+
+    db_m->create_row(resp);
+    //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
+    //db->print();
+
+    delete db_m;
+    return true;
+}
+
 
 
