@@ -75,53 +75,63 @@ void MainWindow::update_groups() {
     }
 }
 
-//index 0 (login form) button navigation
-// Successful login should take you to the appropriate screen for your user type
-// Unsuccessful login should give you an alert and let you try again
-void MainWindow::login(){
-    //ctrl = new MainController();
-    switch(ctrl->check_role(ui->enterUsername->text())) {
-    case 0: // civilian
-        user = civilian;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 1: // responder
-        user = responder;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 2:// planner
-        user = planner;
-        ui->stackedWidget->setCurrentIndex(2);
-        ui->loginAlert->setStyleSheet("");
-        ui->loginAlert->setText("");
-        break;
-    case 3: //No such user
-        ui->enterUsername->clear();
-        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
-        ui->loginAlert->setText("Username does not exist.\n Please try again.");
-        break;
-    }
-    //delete ctrl;
-}
-void MainWindow::on_enterUsername_returnPressed()
-{
-    login();
-}
-void MainWindow::on_login_clicked()
-{
-    login();
-}
+//index 0 Login Form
 //go to register form by clicking register
 void MainWindow::on_reg_clicked()
 {
     ui->stackedWidget->setCurrentIndex(1);
 }
+void MainWindow::on_login_clicked()
+{
+    login();
+}
+void MainWindow::on_enterUsername_returnPressed()
+{
+    login();
+}
+// Successful login should take you to the appropriate screen for your user type
+// Unsuccessful login should give you an alert and let you try again
+void MainWindow::login(){
+
+    if(ctrl->check_role(ui->enterUsername->text())!=3){
+        user = Role(ctrl->check_role(ui->enterUsername->text()));
+        ui->stackedWidget->setCurrentIndex(2);
+        ui->loginAlert->setStyleSheet("");
+        ui->loginAlert->setText("");
+
+    }else{
+        ui->enterUsername->clear();
+        ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
+        ui->loginAlert->setText("Username does not exist.\n Please try again.");
+    }
+
+}
 
 //index 1 register form
+//when cancel button is clicked
+void MainWindow::on_cancelReg_clicked()
+{
+    //clear contents if register is cancelled
+    ui->enterFirstnameReg->clear();
+    ui->enterLastnameReg->clear();
+    ui->enterUsernameReg->clear();
+    ui->regAlert->setStyleSheet("");
+    ui->regAlert->setText("");
+
+    //go to login form
+    ui->stackedWidget->setCurrentIndex(0);
+}
+//when submit button is clicked
+void MainWindow::on_submitReg_clicked()
+{
+
+    reg();
+}
+//when return is pressed in username box
+void MainWindow::on_enterUsernameReg_returnPressed()
+{
+    reg();
+}
 void MainWindow::reg() {
 
     std::cout<< "reg: Registration started--------------\n";
@@ -143,9 +153,10 @@ void MainWindow::reg() {
     firstNameReg = ui->enterFirstnameReg->text();
     lastNameReg  = ui->enterLastnameReg->text();
     usernameReg  = ui->enterUsernameReg->text();
+
     if(ui->enterFirstnameReg->text().isEmpty()||
-       ui->enterLastnameReg->text().isEmpty()||
-       ui->enterUsernameReg->text().isEmpty()){
+            ui->enterLastnameReg->text().isEmpty()||
+            ui->enterUsernameReg->text().isEmpty()){
         incomplete = true;
     }else{
         incomplete= false;
@@ -169,9 +180,9 @@ void MainWindow::reg() {
 
         //add user information into user database
         if(ctrl->add_user(firstNameReg,lastNameReg,usernameReg,roleReg)){
-            std::cout<< "reg: user added\n";
+            std::cout<< "GUI: reg() user added\n";
         }else{
-            std::cout<< "reg: add_user failed\n";
+            std::cout<< "GUI: reg() add_user failed\n";
         }
 
         //clear contents if register is submitted
@@ -182,36 +193,10 @@ void MainWindow::reg() {
 
         //go to loginForm
         ui->stackedWidget->setCurrentIndex(0);
-
-
     }
-    //delete ctrl;
 }
 
-//when return is pressed in username box
-void MainWindow::on_enterUsernameReg_returnPressed()
-{
-    reg();
-}
-//when cancel button is clicked
-void MainWindow::on_cancelReg_clicked()
-{
-    //clear contents if register is cancelled
-    ui->enterFirstnameReg->clear();
-    ui->enterLastnameReg->clear();
-    ui->enterUsernameReg->clear();
-    ui->regAlert->setStyleSheet("");
-    ui->regAlert->setText("");
 
-    //go to login form
-    ui->stackedWidget->setCurrentIndex(0);
-}
-//when submit button is clicked
-void MainWindow::on_submitReg_clicked()
-{
-
-    reg();
-}
 
 //index 2 (map view) button navigation
 //go to menu by clicking menu
@@ -537,6 +522,7 @@ void MainWindow::on_deleteUser_clicked()
                 readSelectedCell(2,ui->civilianTableView) + ")";
 
         ui->deleteAlert->setText(alert);
+
         ctrl->delete_user(selectedUsername);
         display_tableview("Civilian",civilianTable,ui->civilianTableView);
 
