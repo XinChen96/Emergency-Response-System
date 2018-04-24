@@ -218,8 +218,6 @@ bool MainController::add_response(Response* resp) {
     db_m->create_table();
 
     db_m->create_row(resp);
-    //std::cout<<((User_DB*)db)->select_user("6666")->last_name.toStdString()<<std::endl;
-    //db->print();
 
     delete db_m;
     return true;
