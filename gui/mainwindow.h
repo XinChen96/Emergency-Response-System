@@ -113,6 +113,7 @@ private slots:
     void on_availGroups_clicked();
 
     void on_backToMenA_clicked();
+    void on_checkNot_clicked();
 
     //index 16 View/Delete Users page
     //Push button clicked

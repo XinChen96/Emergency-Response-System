@@ -14,6 +14,7 @@
 #include "../users/planner.h"
 #include "../users/simulation.h"
 #include "../users/emergency.h"
+#include "../users/notification.h"
 
 #include "QString"
 

@@ -6,10 +6,12 @@
 #include "group_db.h"
 #include "simulation_db.h"
 #include "emergency_db.h"
+#include "notification_db.h"
 #include "../users/user.h"
 #include "../users/roles.h"
 #include "../users/simulation.h"
 #include "../users/emergency.h"
+#include "../users/notification.h"
 
 // The fixture for testing class DBTest
 class DBTest : public ::testing::Test {
@@ -45,6 +47,17 @@ TEST(InsertEmergencyTest, TESTSIMPLE) {
     ASSERT_EQ("Earthquake", ((Emergency_DB*)db)->select_emergency("Earthquake")->name);
 
     delete em;
+    delete db;
+}
+
+TEST(InsertNotificationTest, TESTSIMPLE) {
+    DB_Manager *db = new Notification_DB("../test.sqlite");
+    db->build_table();
+    Notification* no = new Notification(3);
+    db->create_row(no); // Add entry
+    ASSERT_EQ(3, ((Notification_DB*)db)->select_simulation_id(3)->simulation_id);
+
+    delete no;
     delete db;
 }
 

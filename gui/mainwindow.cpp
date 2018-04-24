@@ -731,3 +731,7 @@ void MainWindow::on_backToSelEm_clicked() {
 void MainWindow::on_backToMenA_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
 }
+
+void MainWindow::on_checkNot_clicked() {
+    //to be implemented later
+}
