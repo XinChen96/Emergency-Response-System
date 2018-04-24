@@ -600,7 +600,7 @@ void MainWindow::on_selectTheGroup_clicked() {
     Group* gr_temp = ctrl->select_group(temp);
     group_ID = gr_temp->id;
 
-    QString temp2 = "Group \"" + gr_temp->name + "\" Roles for \"" + emergencyName + "\" Emergency:"; //set text in new window
+    QString temp2 = "Set Group \"" + gr_temp->name + "\" Role for \"" + emergencyName + "\" Emergency:"; //set text in new window
 
     ui->selLabel2->setText(temp2);
 
