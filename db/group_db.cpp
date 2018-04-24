@@ -9,7 +9,7 @@ void Group_DB::generate_sql_queries() {
     create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
     insert_cmd += "INSERT INTO groups (groupName, date) VALUES (:groupName, DATE('now'));";
 
-    update_cmd += "UPDATE users SET groupName=:groupName WHERE id=:id;";
+    update_cmd += "UPDATE groups SET groupName=:groupName WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS groups;";
     query = nullptr;
 }
