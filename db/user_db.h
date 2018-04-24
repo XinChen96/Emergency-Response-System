@@ -12,6 +12,7 @@ public:
     ~User_DB() {}
     void create_row(DBItem*);
     void update_value(DBItem*);
+    void delete_user(QString);
     void generate_sql_queries();
     void print();
     int get_role(QString);

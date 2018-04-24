@@ -32,6 +32,7 @@ public:
     QSqlDatabase get_db();
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
+    virtual void delete_user(QString) {}
     virtual void generate_sql_queries() {}
     virtual void print(){}
 
@@ -45,6 +46,7 @@ protected:
     QString insert_cmd;
     QString update_cmd;
     QString drop_cmd;
+    QString delete_cmd;
     QString tableName;
     QSqlQuery *query;
 

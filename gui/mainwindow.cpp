@@ -471,61 +471,18 @@ void MainWindow::on_deleteEP_clicked()
     ui->stackedWidget->setCurrentIndex(16);
 
     //civilian table display
-
-    civilianTable = new QSqlTableModel(this,ctrl->get_db());
-    civilianTable->setTable("users");
-    civilianTable->select();
-
-    civilianTable->setFilter("role = 'Civilian' ");
-    civilianTable->sort(3,Qt::AscendingOrder); //sort by username
-
-    civilianTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
-    civilianTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
-    civilianTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
-
-    ui->civilianTableView->setModel(civilianTable);
-    ui->civilianTableView->hideColumn(0); // don't show the ID
-    ui->civilianTableView->show();
-    ui->civilianTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    display_tableview("Civilian",civilianTable,ui->civilianTableView);
 
     //responder table display
-
-    responderTable = new QSqlTableModel(this,ctrl->get_db());
-    responderTable->setTable("users");
-    responderTable->select();
-
-    responderTable->setFilter("role = 'First Responder' ");
-    responderTable->sort(3,Qt::AscendingOrder); //sort by username
-
-    responderTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
-    responderTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
-    responderTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
-
-    ui->responderTableView->setModel(responderTable);
-    ui->responderTableView->hideColumn(0); // don't show the ID
-    ui->responderTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-
+    display_tableview("First Responder",responderTable,ui->responderTableView);
 
     //planner table display
+    display_tableview("Emergency Planner",plannerTable,ui->plannerTableView);
 
-    plannerTable = new QSqlTableModel(this,ctrl->get_db());
-    plannerTable->setTable("users");
-    plannerTable->select();
+    //all users table display
+    display_tableview("all users",allUserTable,ui->allUserTableView);
 
-    plannerTable->setFilter("role = 'Emergency Planner' ");
-    plannerTable->sort(3,Qt::AscendingOrder); //sort by username
-
-    plannerTable->setHeaderData(1, Qt::Horizontal, tr("First Name"));
-    plannerTable->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
-    plannerTable->setHeaderData(3, Qt::Horizontal, tr("Username"));
-
-    ui->plannerTableView->setModel(plannerTable);
-    ui->plannerTableView->hideColumn(0); // don't show the ID
-    ui->plannerTableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
-
-
-
+    ui->userTableTab->setCurrentIndex(0);
 }
 
 
@@ -533,19 +490,90 @@ void MainWindow::on_deleteEP_clicked()
 void MainWindow::on_backDeleteUser_clicked()
 {
     ui->stackedWidget->setCurrentIndex(3);
-    delete civilianTable;
-    delete responderTable;
-    delete plannerTable;
+    //cannot delete here, error for too many delete
+    //delete civilianTable;
+    //delete responderTable;
+    //delete plannerTable;
 }
 
+//only user table for now
+void MainWindow::display_tableview(QString role,QSqlTableModel* tableModel,QTableView* tableView){
+
+    QString filterCmd;
+
+    tableModel = new QSqlTableModel(this,ctrl->get_userDB());
+    tableModel->setTable("users");
+    tableModel->select();
+    if(role != "all users"){
+    filterCmd = "role = '" + role + "'";
+    tableModel->setFilter(filterCmd);
+    }else{
+        filterCmd = "";
+    }
+
+    tableModel->sort(3,Qt::AscendingOrder); //sort by username
+
+    tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
+    tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
+    tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
+
+    tableView->setModel(tableModel);
+    tableView->hideColumn(0); // don't show the ID
+    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
+}
 
 void MainWindow::on_deleteUser_clicked()
 {
-    QString selectedUsername = readSelectedCell(3,ui->civilianTableView);
+    QString selectedUsername;
+    QString alert;
+    switch(ui->userTableTab->currentIndex()){
+    case 0:
+        selectedUsername = readSelectedCell(3,ui->civilianTableView);
 
+        alert = "Deleted " + selectedUsername +
+                " (" + readSelectedCell(1,ui->civilianTableView) + " " +
+                readSelectedCell(2,ui->civilianTableView) + ")";
 
+        ui->deleteAlert->setText(alert);
+        ctrl->delete_user(selectedUsername);
+        display_tableview("Civilian",civilianTable,ui->civilianTableView);
 
-    std::cout << readSelectedCell(3,ui->civilianTableView).toStdString()<<std::endl;
+        break;
+    case 1:
+        selectedUsername = readSelectedCell(3,ui->responderTableView);
+
+        alert = "Deleted " + selectedUsername +
+                " (" + readSelectedCell(1,ui->responderTableView) + " " +
+                readSelectedCell(2,ui->responderTableView) + ")";
+        ui->deleteAlert->setText(alert);
+        ctrl->delete_user(selectedUsername);
+        display_tableview("First Responder",responderTable,ui->responderTableView);
+        break;
+    case 2:
+        selectedUsername = readSelectedCell(3,ui->plannerTableView);
+        display_tableview("Emergency Planner",plannerTable,ui->plannerTableView);
+        break;
+    case 3:
+        selectedUsername = readSelectedCell(3,ui->allUserTableView);
+        alert = "Deleted " + selectedUsername +
+                " (" + readSelectedCell(1,ui->allUserTableView) + " " +
+                readSelectedCell(2,ui->allUserTableView) + ")";
+        ui->deleteAlert->setText(alert);
+        ctrl->delete_user(selectedUsername);
+        display_tableview("all users",allUserTable,ui->allUserTableView);
+
+        break;
+    }
+
+//std::cout << "row"<< row <<std::endl;
+//   if(plannerTable->removeRow(row)){
+//       std::cout << "user removed"<<std::endl;
+//   }else{
+//       std::cout << "user remove failed"<<std::endl;
+//       qDebug()<<plannerTable->removeRow(row);
+//   }
+
 }
 
 QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
@@ -558,6 +586,85 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
            selectedTable->model()->index(selectedRow,selectedCol)).
            toString();
 }
+
+
+//refresh page when clicking on tab (index 16)
+void MainWindow::on_userTableTab_tabBarClicked(int index)
+{
+    switch(index){
+    case 0:
+        //refresh civilian table display
+        display_tableview("Civilian",civilianTable,ui->civilianTableView);
+        ui->deleteUser->setEnabled(true);
+        break;
+    case 1:
+        //refresh responder table display
+        display_tableview("First Responder",responderTable,ui->responderTableView);
+        ui->deleteUser->setEnabled(true);
+        break;
+    case 2:
+        //refresh planner table display
+        display_tableview("Emergency Planner",plannerTable,ui->plannerTableView);
+
+        //disable delete to avoid planner deletion
+        ui->deleteUser->setEnabled(false);
+        break;
+    case 3:
+        //refresh all users  table display
+        display_tableview("all users",responderTable,ui->responderTableView);
+        ui->deleteUser->setEnabled(true);
+        break;
+    }
+}
+
+void MainWindow::on_reloadDeleteUser_clicked()
+{
+    //civilian table display
+    display_tableview("Civilian",civilianTable,ui->civilianTableView);
+
+    //responder table display
+    display_tableview("First Responder",responderTable,ui->responderTableView);
+
+    //planner table display
+    display_tableview("Emergency Planner",plannerTable,ui->plannerTableView);
+
+    //all users table display
+    display_tableview("all users",allUserTable,ui->allUserTableView);
+}
+
+
+
+void MainWindow::on_civilianTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "Delete " + readSelectedCell(3,ui->civilianTableView) +
+                " (" + readSelectedCell(1,ui->civilianTableView) + " " +
+                readSelectedCell(2,ui->civilianTableView) + ")?";
+        ui->deleteAlert->setText(alert);
+}
+
+void MainWindow::on_responderTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "Delete " + readSelectedCell(3,ui->responderTableView) +
+            " (" + readSelectedCell(1,ui->responderTableView) + " " +
+            readSelectedCell(2,ui->responderTableView) + ")?";
+    ui->deleteAlert->setText(alert);
+}
+
+void MainWindow::on_plannerTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "You cannot delete users here";
+    ui->deleteAlert->setText(alert);
+}
+
+
+void MainWindow::on_allUserTableView_clicked(const QModelIndex &index)
+{
+    QString alert = "Delete " + readSelectedCell(3,ui->allUserTableView) +
+            " (" + readSelectedCell(1,ui->allUserTableView) + " " +
+            readSelectedCell(2,ui->allUserTableView) + ")?";
+    ui->deleteAlert->setText(alert);
+}
+
 void MainWindow::on_setGroupRole_clicked() {
     //keep track of emergency name
     emergencyName = ui->emCombo->currentText();
@@ -612,3 +719,9 @@ void MainWindow::on_backToCreateEm2_clicked() {
     ui->stackedWidget->setCurrentIndex(17);;
 
 }
+
+
+
+
+
+

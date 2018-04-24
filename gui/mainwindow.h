@@ -92,7 +92,7 @@ private slots:
     void update_simulations();
     void update_groups();
     QString readSelectedCell(int,QTableView*);
-
+    void display_tableview(QString, QSqlTableModel*, QTableView*);
 
 
 
@@ -106,6 +106,19 @@ void  on_deleteUser_clicked();
     void on_backDeleteUser_clicked();
 
     
+    void on_userTableTab_tabBarClicked(int index);
+
+    void on_reloadDeleteUser_clicked();
+
+
+    void on_civilianTableView_clicked(const QModelIndex &index);
+
+    void on_responderTableView_clicked(const QModelIndex &index);
+
+    void on_plannerTableView_clicked(const QModelIndex &index);
+
+    void on_allUserTableView_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
@@ -114,6 +127,7 @@ private:
     QSqlTableModel *civilianTable;
     QSqlTableModel *responderTable;
     QSqlTableModel *plannerTable;
+    QSqlTableModel *allUserTable;
 
     QString firstNameReg;
     QString lastNameReg;

@@ -14,10 +14,13 @@ MainController::~MainController() {
     delete db_m;
 }
 
-QSqlDatabase MainController::get_db(){
+QSqlDatabase MainController::get_userDB(){
     db_m = new User_DB(dbPath);
     return db_m->get_db();
 }
+
+
+
 // Should return true if user is successfully added to the db, false otherwise
 
 bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
@@ -68,13 +71,21 @@ bool MainController::add_user(QString firstName, QString lastName,QString userna
         return false;
     }
 
-
-
-
-
-
 }
 
+User* MainController::select_user(QString username){
+    db_m = new User_DB(dbPath);
+
+    User* user = ((User_DB*)db_m)->select_user(username);
+    delete db_m;
+    return user;
+}
+void MainController::delete_user(QString username){
+    db_m = new User_DB(dbPath);
+
+    db_m->delete_user(username);
+    delete db_m;
+}
 //adds a simulation to the database
 bool MainController::add_simulation(Simulation* sim) {
     db_m = new Simulation_DB(dbPath);

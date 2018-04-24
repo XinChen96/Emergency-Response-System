@@ -31,7 +31,9 @@ public:
 
     bool add_user(QString,QString,QString,Role);
     bool add_simulation(Simulation*);
-    QSqlDatabase get_db();
+    QSqlDatabase get_userDB();
+    void delete_user(QString);
+    User*   select_user(QString);
     Simulation* select_simulation(QString name);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
