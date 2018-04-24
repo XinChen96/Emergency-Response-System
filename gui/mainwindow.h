@@ -11,6 +11,8 @@
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QtWebEngineWidgets/QWebEngineSettings>
 #include <QSqlTableModel>
+#include <QSqlRelationalTableModel>
+#include <QSqlRelationalDelegate>
 #include "QtSql/QSqlDatabase"
 #include "QtSql/QSqlQuery"
 #include "QVariant"
@@ -27,7 +29,7 @@
 #include "../users/civilian.h"
 #include "../users/planner.h"
 #include "../users/emergency.h"
-#include <QSqlRelationalTableModel>
+
 namespace Ui {
 class MainWindow;
 }
@@ -114,7 +116,7 @@ private slots:
     //Combo box index changed
     void on_identityDeleteUser_currentIndexChanged(int index);
     //Helper methods
-    void display_tableview(db_table,QString, QSqlTableModel*, QTableView*);
+    void display_tableview(db_table,QString, QSqlRelationalTableModel*, QTableView*);
     QString readSelectedCell(int,QTableView*);
 
 
@@ -142,8 +144,8 @@ private:
 
     MainController *ctrl;
 
-    QSqlTableModel *allUserTable;
-    QSqlTableModel *rGroupTable;
+    QSqlRelationalTableModel *allUserTable;
+    QSqlRelationalTableModel *rGroupTable;
 
     QString firstNameReg;
     QString lastNameReg;
