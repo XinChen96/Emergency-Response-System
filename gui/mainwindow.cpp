@@ -767,13 +767,16 @@ void MainWindow::on_availGroups_clicked() {
     ui->selGr->clear(); //clear box so it doesn't add more
 
     if (temp0 != nullptr) {
+
         Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
 
         std::vector<int> em_resp = ctrl->get_resp_em_DBItems(em_db->id); //get all groups
 
         for (int i = 0; i < em_resp.size(); i++) { //adds them to combo box
             Group* temp_gr = ctrl->select_group(em_resp[i]); //get group that uses said emergency
-            ui->selGr->addItem(temp_gr->name);
+            if  (temp_gr != nullptr) {
+                ui->selGr->addItem(temp_gr->name);
+            }
         }
 
         delete em_db;
