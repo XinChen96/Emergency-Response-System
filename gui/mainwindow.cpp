@@ -42,12 +42,14 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 0; i < em_db.size(); i++) { //adds them to combo boxes
         ui->emCombo->addItem(em_db[i]);
         ui->emSelect->addItem(em_db[i]);
+        ui->selEm->addItem(em_db[i]);
     }
 
     std::vector<Group*> gr_db = ctrl->get_groups(); //get all groups
 
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
+        //ui->selGr->addItem(gr_db[i]->name);
     }
 
 }
@@ -236,7 +238,7 @@ void MainWindow::on_backComm_clicked()
 void MainWindow::on_commEP_clicked()
 {
     //go to comm
-     ui->stackedWidget->setCurrentIndex(4);
+     ui->stackedWidget->setCurrentIndex(21);
 }
 
 void MainWindow::on_protocolEP_clicked()
@@ -359,11 +361,11 @@ void MainWindow::on_viewBut_clicked() {
 
         //Get value from current box and add to it
         QString value0 = temp0 + ":";
-        QString value1 = "Latitude of Emergency: " + temp1;
-        QString value2 = "Longitude of Emergency: " + temp2;
-        QString value3 = "Radius of Emergency: " + temp3;
-        QString value4 = "Number of Civilians Involved: " + temp4;
-        QString value5 = "Type of Emergency: " + temp5;
+        QString value1 = temp1;
+        QString value2 = temp2;
+        QString value3 = temp3;
+        QString value4 = temp4;
+        QString value5 = temp5;
 
         //reset the values
         ui->label0->setText(value0);
@@ -372,6 +374,10 @@ void MainWindow::on_viewBut_clicked() {
         ui->label3->setText(value3);
         ui->label4->setText(value4);
         ui->label5->setText(value5);
+
+        //will be deleted later
+        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+        ui->label6->setText("Simulation Not Active.");
 
         ui->stackedWidget->setCurrentIndex(11); //set page
 
@@ -445,6 +451,7 @@ void MainWindow::on_createEm2_clicked() {
     //add to database and box
     ui->emCombo->addItem(value0);
     ui->emSelect->addItem(value0);
+    ui->selEm->addItem(value0);
 
     ui->stackedWidget->setCurrentIndex(14);
 
@@ -622,12 +629,15 @@ void MainWindow::on_setGroupRole_clicked() {
     //keep track of emergency name
     emergencyName = ui->emCombo->currentText();
 
-    QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
+    if (emergencyName != nullptr) {
 
-    //update text for next page
-    ui->selLabel->setText(temp);
+        QString temp = "Select Group for \"" + emergencyName + "\" Emergency:";
 
-    ui->stackedWidget->setCurrentIndex(17);
+        //update text for next page
+        ui->selLabel->setText(temp);
+
+        ui->stackedWidget->setCurrentIndex(17);
+    }
 }
 
 void MainWindow::on_backToCreateEm_clicked() {
@@ -637,16 +647,19 @@ void MainWindow::on_backToCreateEm_clicked() {
 void MainWindow::on_selectTheGroup_clicked() {
     QString temp = ui->selectGroup->currentText(); //get value from combo box
 
-    Group* gr_temp = ctrl->select_group(temp);
-    group_ID = gr_temp->id;
+    if (temp != nullptr) {
 
-    QString temp2 = "Set Group \"" + gr_temp->name + "\" Role for \"" + emergencyName + "\" Emergency:"; //set text in new window
+        Group* gr_temp = ctrl->select_group(temp);
+        group_ID = gr_temp->id;
 
-    ui->selLabel2->setText(temp2);
+        QString temp2 = "Set Group \"" + gr_temp->name + "\" Role for \"" + emergencyName + "\" Emergency:"; //set text in new window
 
-    ui->stackedWidget->setCurrentIndex(18);
+        ui->selLabel2->setText(temp2);
 
-    delete gr_temp;
+        ui->stackedWidget->setCurrentIndex(18);
+
+        delete gr_temp;
+    }
 }
 
 void MainWindow::on_setRole_clicked() {
@@ -657,7 +670,7 @@ void MainWindow::on_setRole_clicked() {
     int em_id = temp_em->id; //get id of emergency
 
     // TODO: change back to group_ID
-    Response* temp_resp = new Response(em_id, em_id, value); //construct response item
+    Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
 
     ctrl->add_response(temp_resp); //add to database
 
@@ -680,8 +693,11 @@ void MainWindow::on_addRGroup_clicked()
     QString alert = "Group ["+ui->enterRGroupName->text()+"] added";
     ctrl->add_group(ui->enterRGroupName->text());
     ui->selectGroup->addItem(ui->enterRGroupName->text());
+
     on_refreshRGroup_clicked();
     ui->selectAlertRGroup->setText(alert);
+    display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
+
     ui->enterRGroupName->clear();
 }
 
@@ -747,4 +763,77 @@ void MainWindow::on_addMember_clicked()
 
    ctrl->add_to_group(groupName,userName);
     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+}
+
+void MainWindow::on_viewProt_clicked() {
+    ui->stackedWidget->setCurrentIndex(19);
+    ui->selGr->clear(); //clear for next viewing
+}
+
+void MainWindow::on_backToMe_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_availGroups_clicked() {
+    QString temp0 = ui->selEm->currentText();
+    ui->selGr->clear(); //clear box so it doesn't add more
+
+    if (temp0 != nullptr) {
+        Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
+
+        std::vector<int> em_resp = ctrl->get_resp_em_DBItems(em_db->id); //get all groups
+
+        for (int i = 0; i < em_resp.size(); i++) { //adds them to combo box
+            Group* temp_gr = ctrl->select_group(em_resp[i]); //get group that uses said emergency
+            ui->selGr->addItem(temp_gr->name);
+        }
+
+        delete em_db;
+    }
+}
+
+void MainWindow::on_viewProto_clicked() {
+    QString temp0 = ui->selEm->currentText();
+    QString temp1 = ui->selGr->currentText();
+
+    if (temp0 != nullptr && temp1 != nullptr) { //make sure not null
+
+        Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
+        Group* gr_db = ctrl->select_group(temp1);
+        Response* resp_db = ctrl->select_response(em_db, gr_db); //get response
+
+        //display the information
+        ui->pubRes->setText(em_db->public_response);
+        ui->grRole->setText(resp_db->emergency_response);
+
+        ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+
+        ui->stackedWidget->setCurrentIndex(20);
+
+        delete em_db;
+        delete gr_db;
+        delete resp_db;
+    }
+}
+
+void MainWindow::on_backToSelEm_clicked() {
+    ui->stackedWidget->setCurrentIndex(19);
+}
+
+void MainWindow::on_backToMenA_clicked() {
+    ui->stackedWidget->setCurrentIndex(3);
+}
+
+void MainWindow::on_checkNot_clicked() {
+    //to be implemented later
+}
+
+void MainWindow::on_removeMember_clicked()
+{
+    QString groupID = readSelectedCell(0,ui->rGroupTableView);
+    //int userID  = readSelectedCell(0,ui->responderCol).toInt();
+    QString id = readSelectedCell(0,ui->rGroupMemberCol);
+
+    ctrl->delete_row(userGroup,id);
+     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
 }

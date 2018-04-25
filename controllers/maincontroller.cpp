@@ -4,7 +4,7 @@
 MainController::MainController() {
     dbPath = "../db.sqlite";
 
-    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+    dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
     std::cout << "MainController constructor" <<std::endl;
 }
 
@@ -113,6 +113,10 @@ bool MainController::delete_row(db_table table, QString selected){
         delete db_m;
         break;
     case userGroup:
+        db_m = new Group_DB(dbPath);
+        int id = selected.toInt();
+        ((Group_DB*)db_m)->remove_from_group(id);
+        delete db_m;
         break;
     }
 }
@@ -254,6 +258,15 @@ Group* MainController::select_group(QString name) {
     return temp;
 }
 
+Group* MainController::select_group(int id) {
+    db_m = new Group_DB(dbPath);
+
+    Group* temp = ((Group_DB*)db_m)->select_group(id);
+
+    delete db_m;
+    return temp;
+}
+
 //adds in an emergency item to the database
 bool MainController::add_response(Response* resp) {
     db_m = new Response_DB(dbPath);
@@ -263,6 +276,24 @@ bool MainController::add_response(Response* resp) {
 
     delete db_m;
     return true;
+}
+
+Response* MainController::select_response(Emergency* em, Group* gr) {
+    db_m = new Response_DB(dbPath);
+
+    Response* temp = ((Response_DB*)db_m)->get_response(em, gr);
+
+    delete db_m;
+    return temp;
+}
+
+std::vector<int> MainController::get_resp_em_DBItems(int value) {
+    db_m = new Response_DB(dbPath);
+
+    std::vector<int> temp = ((Response_DB*)db_m)->get_Em_DBItems(value);
+
+    delete db_m;
+    return temp;
 }
 
 

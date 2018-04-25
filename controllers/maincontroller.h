@@ -49,7 +49,10 @@ public:
     std::vector<User*> get_civilians();
     std::vector<User*> get_responders();
     Group* select_group(QString name);
+    Group* select_group(int id);
     bool add_response(Response*);
+    Response* select_response(Emergency* em, Group* gr);
+    std::vector<int> get_resp_em_DBItems(int value);
 
 
     int check_role(QString);

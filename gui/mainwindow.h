@@ -110,6 +110,15 @@ private slots:
     void on_setRole_clicked();
     void on_backToCreateEm2_clicked();
 
+    void on_viewProt_clicked();
+    void on_backToMe_clicked();
+    void on_viewProto_clicked();
+    void on_backToSelEm_clicked();
+    void on_availGroups_clicked();
+
+    void on_backToMenA_clicked();
+    void on_checkNot_clicked();
+
     //index 16 View/Delete Users page
     //Push button clicked
     void on_backDeleteUser_clicked();
@@ -149,6 +158,8 @@ private slots:
     void on_backRGroupMember_clicked();
 
     void on_addMember_clicked();
+
+    void on_removeMember_clicked();
 
 private:
     Ui::MainWindow *ui;

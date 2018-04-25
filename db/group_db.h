@@ -16,6 +16,7 @@ public:
 
     bool create_groups_table();
     void add_to_group(User*, Group*);
+    bool remove_from_group(int);
     bool delete_row(QString);
 
     void create_row(DBItem*);
@@ -30,6 +31,7 @@ public:
 
     QString create_groups_cmd;
     QString insert_groups_cmd;
+    QString delete_groups_cmd;
 };
 
 #endif // GROUP_DB_H

@@ -13,6 +13,7 @@ void Group_DB::generate_sql_queries() {
 
     create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
     //insert_groups_cmd += "INSERT INTO userGroups (group_id, user_id) VALUES (:group_id, :user_id);";
+    delete_groups_cmd += "DELETE FROM userGroups WHERE id = :id;";
     query = nullptr;
 }
 
@@ -61,6 +62,21 @@ bool Group_DB::delete_row(QString groupName){
         std::cout << "Group_DB: User("
                   << groupName.toStdString()
                   <<") delete failed"
+                 << std::endl;
+        return false;
+    }
+}
+bool Group_DB::remove_from_group(int id){
+    query = new QSqlQuery(db);
+    query->prepare(delete_groups_cmd);
+    query->bindValue(":id", id);
+
+    if(query->exec()) {
+        std::cout << "Remove from groups"
+                  << std::endl;
+        return true;
+    } else {
+        std::cout << "Remove failed"
                  << std::endl;
         return false;
     }

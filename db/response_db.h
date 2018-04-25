@@ -13,6 +13,8 @@ public:
     void generate_sql_queries();
 
     Response* get_response(Emergency*, Group*);
+
+    std::vector<int> get_Em_DBItems(int value);
 };
 
 #endif // RESPONSE_DB_H
