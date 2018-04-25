@@ -836,10 +836,13 @@ void MainWindow::on_backToSelEm_clicked() {
 
 void MainWindow::on_backToMenA_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    ui->latBox->clear();
+    ui->longBox->clear();
 }
 
 void MainWindow::on_checkNot_clicked() {
-    //to be implemented later
+    double lat = ui->latBox->text().toDouble();
+    double lng = ui->longBox->text().toDouble();
 }
 
 void MainWindow::on_removeMember_clicked()
