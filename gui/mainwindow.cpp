@@ -220,7 +220,7 @@ void MainWindow::on_menu_clicked()
 //go to communication by clicking alert
 void MainWindow::on_alerts_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(21);
 }
 
 //index 3 (Emergency planner's menu) button navigation
@@ -347,6 +347,7 @@ void MainWindow::on_viewBut_clicked() {
     if (simName != nullptr) { //make sure an actual item is selected
 
         Simulation* sim = ctrl->select_simulation(simName); //get the database entry
+        sim_name = simName;
 
         //get value from db
         QString temp0 = sim->name;
@@ -375,9 +376,14 @@ void MainWindow::on_viewBut_clicked() {
         ui->label4->setText(value4);
         ui->label5->setText(value5);
 
-        //will be deleted later
-        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
-        ui->label6->setText("Simulation Not Active.");
+        if (active_sim != simName) {
+            //default text appearance
+            ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+            ui->label6->setText("Simulation Not Active.");
+        } else if (active_sim == simName) {
+            ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
+            ui->label6->setText("Simulation Active.");
+        }
 
         ui->stackedWidget->setCurrentIndex(11); //set page
 
@@ -826,4 +832,43 @@ void MainWindow::on_removeMember_clicked()
 
     ctrl->delete_row(userGroup,id);
      display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+}
+
+void MainWindow::on_startSim_clicked() {
+    if (!sim_active) { //only allow for one sim running at a time
+        sim_active = true;
+        active_sim = sim_name;
+
+        //set text
+        ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
+        ui->label6->setText("Simulation Active.");
+
+        Simulation* temp_sim = ctrl->select_simulation(sim_name);
+        Notification* temp_not = new Notification(temp_sim->id);
+
+        ctrl->add_notification(temp_not); //add in notification to database
+
+        delete temp_sim;
+        delete temp_not;
+    }
+}
+
+void MainWindow::on_stopSim_clicked() {
+    if (sim_active && sim_name == active_sim) { //only allow for one sim running at a time
+        sim_active = false;
+        active_sim = "";
+
+
+        //set text
+        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+        ui->label6->setText("Simulation Not Active.");
+
+        Simulation* temp_sim = ctrl->select_simulation(sim_name);
+        Notification* temp_no = ctrl->select_notification_id(temp_sim->id);
+
+        ctrl->remove_notification(temp_no->id); //remove notification from database
+
+        delete temp_sim;
+        delete temp_no;
+    }
 }

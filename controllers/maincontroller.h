@@ -21,6 +21,7 @@
 #include "../users/emergency.h"
 #include "../users/response.h"
 #include "../db/response_db.h"
+#include "../db/notification_db.h"
 
 
 class MainController
@@ -53,6 +54,10 @@ public:
     bool add_response(Response*);
     Response* select_response(Emergency* em, Group* gr);
     std::vector<int> get_resp_em_DBItems(int value);
+    bool add_notification(Notification*);
+    Notification* select_notification_id(int value);
+    bool remove_notification(int value);
+
 
 
     int check_role(QString);

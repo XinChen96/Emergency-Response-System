@@ -124,6 +124,9 @@ private slots:
     void on_backToMenA_clicked();
     void on_checkNot_clicked();
 
+    void on_startSim_clicked();
+    void on_stopSim_clicked();
+
     //index 16 View/Delete Users page
     //Push button clicked
     void on_backDeleteUser_clicked();
@@ -178,7 +181,9 @@ private:
     Role    userRole;
     QString emergencyName;
     int group_ID;
-
+    bool sim_active = false;
+    QString sim_name = "";
+    QString active_sim = "";
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };

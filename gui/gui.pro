@@ -42,7 +42,8 @@ SOURCES += \
         ../users/emergency.cpp \
         ../db/emergency_db.cpp \
         ../db/response_db.cpp \
-        ../users/response.cpp
+        ../users/response.cpp \
+        ../db/notification_db.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -61,7 +62,8 @@ HEADERS += \
         ../users/emergency.h \
         ../db/emergency_db.h \
         ../db/response_db.h \
-        ../users/response.h
+        ../users/response.h \
+        ../db/notification_db.h
 
 FORMS += \
         mainwindow.ui

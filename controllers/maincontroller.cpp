@@ -297,5 +297,33 @@ std::vector<int> MainController::get_resp_em_DBItems(int value) {
     return temp;
 }
 
+//adds in an notification to the database
+bool MainController::add_notification(Notification* no) {
+    db_m = new Notification_DB(dbPath);
+    db_m->create_table();
 
+    db_m->create_row(no);
 
+    delete db_m;
+    return true;
+}
+
+//select notification from database
+Notification* MainController::select_notification_id(int value) {
+    db_m = new Notification_DB(dbPath);
+
+    Notification* no = ((Notification_DB*)db_m)->select_simulation_id(value);
+
+    delete db_m;
+    return no;
+}
+
+//removes a notification from the database
+bool MainController::remove_notification(int value) {
+    db_m = new Notification_DB(dbPath);
+
+    db_m->delete_row(value);
+
+    delete db_m;
+    return true;
+}
