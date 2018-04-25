@@ -31,9 +31,11 @@ public:
     ~MainController();
 
     bool add_user(QString,QString,QString,Role);
+    void add_to_group(QString,QString);
     bool add_simulation(Simulation*);
+    bool delete_row(db_table,QString);
     QSqlDatabase get_DB(db_table);
-    void delete_user(QString);
+
     User*   select_user(QString);
     Simulation* select_simulation(QString name);
     bool add_emergency(Emergency*);

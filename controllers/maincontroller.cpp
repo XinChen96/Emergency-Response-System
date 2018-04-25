@@ -2,9 +2,9 @@
 #include <iostream>
 
 MainController::MainController() {
-   dbPath = "../db.sqlite";
+    dbPath = "../db.sqlite";
 
-   //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
     std::cout << "MainController constructor" <<std::endl;
 }
 
@@ -47,52 +47,74 @@ QSqlDatabase MainController::get_DB(db_table table){
 
 bool MainController::add_user(QString firstName, QString lastName,QString username, Role role) {
 
-    std::cout << firstName.toStdString()
-              << "  "
-              << lastName.toStdString()
-              << "  "
-              << username.toStdString()
-              << std::endl;
-
     db_m = new User_DB(dbPath);
     db_m->create_table();
 
     User* newUser;
 
-
-    if(role == civilian){
+    switch(role){
+    case civilian:
         newUser = new Civilian(firstName,lastName,username);
         db_m->create_row(newUser);
         db_m->print();
         delete newUser;
         delete db_m;
         return true;
-
-    }else if (role == planner){
-
+        break;
+    case planner:
         newUser = new Planner(firstName,lastName,username);
         db_m->create_row(newUser);
         db_m->print();
         delete newUser;
         delete db_m;
         return true;
-    }else if (role == responder){
-
+        break;
+    case responder:
         newUser = new Responder(firstName,lastName,username);
         db_m->create_row(newUser);
         db_m->print();
         delete newUser;
         delete db_m;
         return true;
-    }else{
-
-
+        break;
+    default:
         db_m->print();
         //delete newUser;
         delete db_m;
         return false;
     }
 
+}
+
+void MainController::add_to_group(QString groupID, QString userID){
+    db_m = new Group_DB(dbPath);
+
+   ((Group_DB*)db_m)->create_groups_table();
+
+    Group* group = ((Group_DB*)db_m)->select_group(groupID);
+    User* user = ((User_DB*)db_m)->select_user(userID);
+
+    ((Group_DB*)db_m)->add_to_group(user,group);
+    //delete user;
+    //delete group;
+    //delete db_m;
+
+}
+bool MainController::delete_row(db_table table, QString selected){
+    switch(table){
+    case user://delete a user;
+        db_m = new User_DB(dbPath);
+        db_m->delete_row(selected);
+        delete db_m;
+        break;
+    case group:
+        db_m = new Group_DB(dbPath);
+        return db_m->delete_row(selected);
+        delete db_m;
+        break;
+    case userGroup:
+        break;
+    }
 }
 
 User* MainController::select_user(QString username){
@@ -102,12 +124,7 @@ User* MainController::select_user(QString username){
     delete db_m;
     return user;
 }
-void MainController::delete_user(QString username){
-    db_m = new User_DB(dbPath);
 
-    db_m->delete_user(username);
-    delete db_m;
-}
 //adds a simulation to the database
 bool MainController::add_simulation(Simulation* sim) {
     db_m = new Simulation_DB(dbPath);
@@ -194,7 +211,7 @@ int MainController::check_role(QString username) {
         return u->role_num;
 
     } else {
-       delete db_m;
+        delete db_m;
         return 3;
     }
 }

@@ -247,8 +247,9 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
-    display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
-    //update_groups();
+    display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
+    ui->manageRGroupMember->setEnabled(false);
+    ui->deleteRGroup->setEnabled(false);
 }
 
 void MainWindow::on_logoutEP_clicked()
@@ -457,7 +458,7 @@ void MainWindow::on_deleteEP_clicked()
     ui->stackedWidget->setCurrentIndex(16);
 
     //all users table display
-    display_tableview(user,"all users",allUserTable,ui->allUserTableView);
+    display_tableview(user,"all",allUserTable,ui->allUserTableView);
 
     ui->identityDeleteUser->setCurrentIndex(0);
 }
@@ -468,7 +469,7 @@ void MainWindow::on_identityDeleteUser_currentIndexChanged(int index)
     switch(index){
     case 0://all users
         //all users table display
-        display_tableview(user,"all users",allUserTable,ui->allUserTableView);
+        display_tableview(user,"all",allUserTable,ui->allUserTableView);
         break;
     case 1://civilian
         //civlian table display
@@ -500,13 +501,12 @@ void MainWindow::on_deleteUser_clicked()
 
     selectedUsername = readSelectedCell(3,ui->allUserTableView);
 
-    alert = readSelectedCell(4,ui->allUserTableView) + " " + selectedUsername +
-            " (" + readSelectedCell(1,ui->allUserTableView) + " " +
-            readSelectedCell(2,ui->allUserTableView) + ")" + " is deleted ";
+    alert = readSelectedCell(4,ui->allUserTableView)
+          + " " + selectedUsername + " ["
+          + readSelectedCell(1,ui->allUserTableView) + " "
+          + readSelectedCell(2,ui->allUserTableView) + "] is deleted ";
 
-
-
-    ctrl->delete_user(selectedUsername);
+    ctrl->delete_row(user,selectedUsername);
     on_reloadDeleteUser_clicked();
     ui->deleteAlert->setText(alert);
 
@@ -548,18 +548,26 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
         tableModel->setTable("users");
         tableModel->select();
-        if(filter != "all users"){
+        if(filter != "all"){
             filterCmd = "role = '" + filter + "'";
             tableModel->setFilter(filterCmd);
         }else{
             filterCmd = "";
         }
         tableModel->sort(3,Qt::AscendingOrder); //sort by username
+
         tableModel->setHeaderData(1, Qt::Horizontal, tr("First Name"));
         tableModel->setHeaderData(2, Qt::Horizontal, tr("Last Name"));
         tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
         tableView->setModel(tableModel);
+
+        if(ui->stackedWidget->currentIndex()==5){
+            tableView->hideColumn(0);
+            tableView->hideColumn(4);
+            tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
+        }else{
         tableView->hideColumn(0); // don't show the ID
+        }
         tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
         tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
         break;
@@ -568,9 +576,30 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel->setTable("groups");
         tableModel->select();
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
-        tableModel->setRelation(1,QSqlRelation("users","id","username"));
+        tableModel->setHeaderData(1, Qt::Horizontal, tr("Group Name"));
+        tableModel->setHeaderData(2, Qt::Horizontal, tr("Date Created"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
+        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
+        break;
+     case userGroup:
+        tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
+        tableModel->setTable("userGroups");
+        tableModel->select();
+
+        filterCmd = "group_id = '" + filter + "'";
+        tableModel->setFilter(filterCmd);
+
+        tableModel->sort(1,Qt::AscendingOrder); //sort by group name
+        tableModel->setHeaderData(2, Qt::Horizontal, tr("User ID"));
+
+        tableModel->setRelation(2,QSqlRelation("users","id","username"));
+        tableView->setModel(tableModel);
+        tableView->hideColumn(0); // don't show the ID
+        tableView->hideColumn(1); // don't show the ID
         tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
         tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
@@ -648,17 +677,74 @@ void MainWindow::on_backToCreateEm2_clicked() {
 
 void MainWindow::on_addRGroup_clicked()
 {
+    QString alert = "Group ["+ui->enterRGroupName->text()+"] added";
     ctrl->add_group(ui->enterRGroupName->text());
     ui->selectGroup->addItem(ui->enterRGroupName->text());
-    display_tableview(group,"all users",rGroupTable,ui->rGroupTableView);
+    on_refreshRGroup_clicked();
+    ui->selectAlertRGroup->setText(alert);
     ui->enterRGroupName->clear();
 }
 
-void MainWindow::on_adduserRGroup_clicked()
+void MainWindow::on_rGroupTableView_clicked(const QModelIndex &index)
 {
-//    rGroupTable = new QSqlTableModel(this,ctrl->get_DB(group));
-//   rGroupTable->setTable("groups");
-//    rGroupTable->(1,QSqlRelation("users","id","username"));
-//    ui->rGroupTableView->setModel(rGroupTable);
-//    ui->rGroupTableView->setItemDelegate(new QSqlRelationalDelegate(ui->rGroupTableView));
+    QString alert;
+
+    alert = "Group ["+readSelectedCell(1,ui->rGroupTableView)+"] selected";
+    ui->selectAlertRGroup->setText(alert);
+    ui->manageRGroupMember->setEnabled(true);
+    ui->deleteRGroup->setEnabled(true);
+
+}
+
+void MainWindow::on_refreshRGroup_clicked()
+{
+    display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
+    ui->selectAlertRGroup->setText("");
+    ui->manageRGroupMember->setEnabled(false);
+    ui->deleteRGroup->setEnabled(false);
+}
+
+void MainWindow::on_deleteRGroup_clicked()
+{
+    QString selectedName = readSelectedCell(1,ui->rGroupTableView);
+    QString alert;
+
+        if(ctrl->delete_row(group,selectedName)){
+            on_refreshRGroup_clicked();
+            alert = "Group ["+ selectedName +"] is deleted";
+            ui->selectAlertRGroup->setText(alert);
+        }else{
+            on_refreshRGroup_clicked();
+            alert = "Group ["+ selectedName +"] delete failed";
+            ui->selectAlertRGroup->setText(alert);
+
+        }
+
+}
+
+void MainWindow::on_manageRGroupMember_clicked()
+{
+    QString pageTitle = readSelectedCell(1,ui->rGroupTableView)+" Group";
+    QString tableTitle = "Existing Group Members in " + readSelectedCell(1,ui->rGroupTableView);
+    ui->rGroupMemberTitle->setText(pageTitle);
+    ui->userGroupTitle->setText(tableTitle);
+    ui->stackedWidget->setCurrentIndex(5);
+    display_tableview(userGroup,readSelectedCell(0,ui->rGroupTableView),uGroupTable,ui->rGroupMemberCol);
+    display_tableview(user,"First Responder",allUserTable,ui->responderCol);
+}
+
+void MainWindow::on_backRGroupMember_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+}
+
+void MainWindow::on_addMember_clicked()
+{
+   QString groupID = readSelectedCell(0,ui->rGroupTableView);
+   //int userID  = readSelectedCell(0,ui->responderCol).toInt();
+   QString groupName = readSelectedCell(1,ui->rGroupTableView);
+   QString userName  = readSelectedCell(3,ui->responderCol);
+
+   ctrl->add_to_group(groupName,userName);
+    display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
 }

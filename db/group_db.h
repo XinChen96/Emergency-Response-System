@@ -10,15 +10,16 @@ using namespace std;
 class Group_DB : public DB_Manager {
 public:
     Group_DB(const QString& path) : DB_Manager(path) {
-        tableName = "emergencies";
+
         generate_sql_queries(); }
     ~Group_DB() {}
 
-    void create_group_table();
+    bool create_groups_table();
     void add_to_group(User*, Group*);
-
+    bool delete_row(QString);
 
     void create_row(DBItem*);
+
     void update_value(DBItem*);
     void generate_sql_queries();
 
@@ -28,6 +29,7 @@ public:
     vector<Group*> get_groups();
 
     QString create_groups_cmd;
+    QString insert_groups_cmd;
 };
 
 #endif // GROUP_DB_H

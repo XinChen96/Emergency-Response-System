@@ -97,7 +97,7 @@ User* User_DB::select_user(int id) {
     }
 }
 
-void User_DB::delete_user(QString username) {
+bool User_DB::delete_row(QString username) {
     query = new QSqlQuery(db);
     query->prepare(delete_cmd);
     query->bindValue(":user", username);
@@ -107,11 +107,13 @@ void User_DB::delete_user(QString username) {
                   << username.toStdString()
                   <<") deleted"
                   << std::endl;
+        return true;
     } else {
         std::cout << "delete_user: User("
                   << username.toStdString()
                   <<") delete failed"
                  << std::endl;
+        return false;
     }
 }
 

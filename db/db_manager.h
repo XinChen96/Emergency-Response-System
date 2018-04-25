@@ -32,7 +32,7 @@ public:
     QSqlDatabase get_db();
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
-    virtual void delete_user(QString) {}
+    virtual bool delete_row(QString) {}
     virtual void generate_sql_queries() {}
     virtual void print(){}
 

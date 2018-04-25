@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>20</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -661,7 +661,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Add / Update Responder Groups</string>
+           <string>Manage Responder Groups</string>
           </property>
          </widget>
         </item>
@@ -874,8 +874,123 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="page">
-       <layout class="QVBoxLayout" name="verticalLayout_9"/>
+      <widget class="QWidget" name="responderGroupMember">
+       <layout class="QVBoxLayout" name="verticalLayout_27">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_6">
+          <item>
+           <widget class="QPushButton" name="backRGroupMember">
+            <property name="text">
+             <string>&lt; Back to Responder Groups </string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="rGroupMemberTitle">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:white;</string>
+            </property>
+            <property name="text">
+             <string>TextLabel</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_42">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_21">
+            <item>
+             <widget class="QLabel" name="userGroupTitle">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: white;</string>
+              </property>
+              <property name="text">
+               <string>Existing Member in this Group</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableView" name="rGroupMemberCol">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+               </font>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_9">
+            <item>
+             <widget class="QPushButton" name="addMember">
+              <property name="text">
+               <string>&lt;&lt; Add</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="removeMember">
+              <property name="text">
+               <string>Remove &gt;&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_19">
+            <item>
+             <widget class="QLabel" name="firstResponderTitle">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color: white</string>
+              </property>
+              <property name="text">
+               <string>First Responders</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableView" name="responderCol"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="responderGroups">
        <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -936,8 +1051,13 @@
           </item>
           <item>
            <widget class="QPushButton" name="addRGroup">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Add     Group</string>
+             <string>Create Group</string>
             </property>
            </widget>
           </item>
@@ -946,22 +1066,58 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
-           <widget class="QPushButton" name="adduserRGroup">
+           <widget class="QPushButton" name="refreshRGroup">
             <property name="text">
-             <string>Add User to Group</string>
+             <string>Reload Table</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="deleteAlertRGroup">
+           <widget class="QLabel" name="selectAlertRGroup">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color : white;</string>
+            </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="manageRGroupMember">
+            <property name="text">
+             <string>Manage Group Members</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_26">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:white;</string>
+            </property>
+            <property name="text">
+             <string>-or-</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -2549,7 +2705,7 @@
              <string notr="true">color: white</string>
             </property>
             <property name="text">
-             <string>View User</string>
+             <string>User</string>
             </property>
             <property name="alignment">
              <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -2626,7 +2782,7 @@
           <item>
            <widget class="QPushButton" name="reloadDeleteUser">
             <property name="text">
-             <string>Reload table</string>
+             <string>Reload Table</string>
             </property>
            </widget>
           </item>

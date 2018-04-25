@@ -92,12 +92,12 @@ TEST(InsertUserGroupTest, TESTSIMPLE) {
     User* user = ((User_DB*)db_u)->select_user("firstlast"); // Select user
 
     DB_Manager *db = new Group_DB("../test.sqlite");
-    ((Group_DB*)db)->create_group_table(); // Creat group table
+    ((Group_DB*)db)->create_groups_table(); // Creat group table
     DBItem *entry = new Group("The Rad Group");
     db->create_row(entry); // Add entry
 
     Group* g = ((Group_DB*)db)->select_group("The Rad Group");
-    ((Group_DB*)db)->create_group_table(); // Create the table usersGroup
+    ((Group_DB*)db)->create_groups_table(); // Create the table usersGroup
     ((Group_DB*)db)->add_to_group(user, g);
 
     std::vector<User*> user_list = ((Group_DB*)db)->get_group_members(g);
