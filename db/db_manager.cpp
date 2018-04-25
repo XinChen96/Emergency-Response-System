@@ -4,7 +4,16 @@
 DB_Manager::DB_Manager(const QString& path) {
     //std::cerr << "DB_manager: called" << std::endl;
     std::cout << "DB_manager: called" << std::endl;
-    db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
+
+    if (QSqlDatabase::contains())
+    {
+        db = QSqlDatabase::database(QLatin1String(QSqlDatabase::defaultConnection), false);
+    }
+    else
+    {
+        db = QSqlDatabase::addDatabase("QSQLITE");
+    }
+    //db = QSqlDatabase::addDatabase("QSQLITE"); // Create the db
     db.setDatabaseName(path); // Set it to the correct location
 
     if(!db.open()) {
@@ -16,6 +25,10 @@ DB_Manager::DB_Manager(const QString& path) {
 
 
 }
+
+
+
+
 
 
 void DB_Manager::create_table(){
