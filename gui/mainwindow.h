@@ -163,7 +163,9 @@ private slots:
 
     void on_manageRGroupMember_clicked();
 
+    int get_user_id(QString);
 
+    QString find_group(QString);
 private:
     Ui::MainWindow *ui;
 

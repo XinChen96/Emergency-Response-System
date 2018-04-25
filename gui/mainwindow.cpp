@@ -751,12 +751,14 @@ void MainWindow::on_backRGroupMember_clicked()
 void MainWindow::on_addMember_clicked()
 {
    QString groupID = readSelectedCell(0,ui->rGroupTableView);
-   //int userID  = readSelectedCell(0,ui->responderCol).toInt();
+
    QString groupName = readSelectedCell(1,ui->rGroupTableView);
    QString userName  = readSelectedCell(3,ui->responderCol);
 
    ctrl->add_to_group(groupName,userName);
     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+
+    std::cout << find_group(userName).toStdString() << std::endl;
 }
 
 void MainWindow::on_viewProt_clicked() {
@@ -871,4 +873,15 @@ void MainWindow::on_stopSim_clicked() {
         delete temp_sim;
         delete temp_no;
     }
+}
+
+QString MainWindow::find_group(QString username){
+    int userId = get_user_id(username);
+    int groupId = ctrl->find_group(userId);
+    QString groupName = ctrl->select_group(groupId)->name;
+    return groupName;
+}
+
+int MainWindow::get_user_id(QString username){
+    return ctrl->select_user(username)->id;
 }

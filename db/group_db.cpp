@@ -109,7 +109,7 @@ Group* Group_DB::select_group(int id) {
         delete query;
         return group;
     } else {
-        cerr << "Entry does not exist." << endl;
+        cerr << "Group:select_group:Entry does not exist." << endl;
         delete query;
         return nullptr;
     }
@@ -131,6 +131,24 @@ Group* Group_DB::select_group(QString name) {
         cerr << "Entry does not exist." << endl;
         delete query;
         return nullptr;
+    }
+}
+
+int Group_DB::find_group(int userId) {
+    int groupId;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT DISTINCT * FROM userGroups WHERE user_id=:userId");
+    query->bindValue(":userId", userId);
+    query->exec();
+
+    if(query->next()) {
+        groupId =  query->value(0).toInt();
+        delete query;
+        return groupId;
+    } else {
+        cerr << "Entry does not exist." << endl;
+        delete query;
+        return -1;
     }
 }
 

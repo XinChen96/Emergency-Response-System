@@ -23,6 +23,7 @@ public:
 
     void update_value(DBItem*);
     void generate_sql_queries();
+    int find_group(int);
 
     Group* select_group(int);
     Group* select_group(QString);

@@ -5,7 +5,7 @@ MainController::MainController() {
     dbPath = "../db.sqlite";
 
 
-    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+    dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
     std::cout << "MainController constructor" <<std::endl;
 }
 
@@ -326,4 +326,9 @@ bool MainController::remove_notification(int value) {
 
     delete db_m;
     return true;
+}
+
+int MainController::find_group(int userId){
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->find_group(userId);
 }
