@@ -107,6 +107,11 @@ void MainWindow::login(){
         ui->loginAlert->setText("Username does not exist.\n Please try again.");
     }
 
+    if(userRole == 2) { // Planner
+        ctrl->start_server();
+    } else {
+        ctrl->start_client();
+    }
 }
 
 //index 1 register form
@@ -836,4 +841,9 @@ void MainWindow::on_removeMember_clicked()
 
     ctrl->delete_row(userGroup,id);
      display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+}
+
+void MainWindow::on_receive_msg_btn_clicked()
+{
+    ctrl->get_notification();
 }

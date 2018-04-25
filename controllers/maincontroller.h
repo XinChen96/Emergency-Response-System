@@ -21,6 +21,9 @@
 #include "../users/emergency.h"
 #include "../users/response.h"
 #include "../db/response_db.h"
+#include "../db/notification_db.h"
+#include "server.h"
+#include "client.h"
 
 
 class MainController
@@ -53,13 +56,15 @@ public:
     bool add_response(Response*);
     Response* select_response(Emergency* em, Group* gr);
     std::vector<int> get_resp_em_DBItems(int value);
-
-
+    void start_client();
+    void start_server();
     int check_role(QString);
+    void get_notification();
 
 private:
 
-
+    Client *c = nullptr;
+    Server *s = nullptr;
     QString dbPath;
     DB_Manager *db_m;
 

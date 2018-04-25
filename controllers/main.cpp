@@ -20,11 +20,6 @@ class ServerTest : public ::testing::Test {
 };
 
 TEST(StartServerTest, TESTSIMPLE) {
-    Server *s = new Server();
-    Client *c = new Client();
-    c->request_new_message();
-    delete c;
-    delete s;
 }
 
 int main(int argc, char **argv) {

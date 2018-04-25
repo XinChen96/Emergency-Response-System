@@ -40,7 +40,7 @@ void Response_DB::update_value(DBItem *r) {
 
 Response* Response_DB::get_response(Emergency* e, Group* g) {
     // Note: need to fix this query
-    query->prepare("SELECT response, groups.id, emergencies.id FROM responses WHERE group_id=:group && emergency_id=:emergency INNER JOIN;");
+    query->prepare("SELECT response, groups.id, emergencies.id FROM responses WHERE group_id=:group && emergency_id=:emergency;");
     if(query->next()) {
         Response *r = new Response(query->value(1).toInt(), query->value(2).toInt(), query->value(0).toString());
         delete query;

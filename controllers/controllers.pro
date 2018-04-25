@@ -18,9 +18,11 @@ HEADERS += \
         ../users/dbitem.h \
         ../users/response.h \
         ../db/response_db.h \
+        ../db/notification_db.h \
         db_table.h \
-    	server.h \
-    	client.h
+        clientthread.h \
+        client.h \
+        server.h
 
 
 SOURCES += \
@@ -37,8 +39,10 @@ SOURCES += \
         ../users/dbitem.cpp \
 	../users/response.cpp \
         ../db/response_db.cpp \
-        server.cpp \
-	client.cpp
+        ../db/notification_db.cpp \
+        clientthread.cpp \
+        client.cpp \
+        server.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

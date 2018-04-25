@@ -13,6 +13,8 @@ MainController::~MainController() {
 
     std::cout << __PRETTY_FUNCTION__<<"\n";
     delete db_m;
+    delete s;
+    delete c;
 }
 
 QSqlDatabase MainController::get_DB(db_table table){
@@ -41,8 +43,6 @@ QSqlDatabase MainController::get_DB(db_table table){
     }
 
 }
-
-
 
 // Should return true if user is successfully added to the db, false otherwise
 
@@ -295,6 +295,20 @@ std::vector<int> MainController::get_resp_em_DBItems(int value) {
 
     delete db_m;
     return temp;
+}
+
+// Method to create a new client instance
+void MainController::start_client() {
+    c = new Client();
+}
+
+// Method to start a new server instance
+void MainController::start_server() {
+    s = new Server();
+}
+
+void MainController::get_notification() {
+    c->request_new_msg();
 }
 
 

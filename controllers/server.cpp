@@ -1,25 +1,22 @@
 #include "server.h"
-#include <iostream>
 
 Server::Server(QObject *parent) : QObject(parent) {
     server = new QTcpServer(this);
-    if(server->listen(QHostAddress::Any, 8080)) std::cout << "Server successfully started!" << std::endl;
-
-    // Connect new connection event to message retrieval event
-    connect(server, SIGNAL(newConnection()), this, SLOT(print_something()));
+    if(!server->listen(QHostAddress::Any, 8080)) std::cout << "Could not start server." << std::endl;
+    else std::cout << "Server running on " << server->serverAddress().toString().toStdString() << " on port " << server->serverPort() << std::endl;
+    connect(server, SIGNAL(newConnection()), this, SLOT(send_msg()));
 }
 
-void Server::print_something() {
-    std::cout << "called print something" << std::endl;
+void Server::send_msg() {
+    std::cout << "Server was accessed." << std::endl;
     QByteArray block;
     QDataStream out(&block, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_10);
+    out << "Hey there friendos";
 
-    out << QString("Hello there friendo");
+    QTcpSocket *client_conn = server->nextPendingConnection();
+    connect(client_conn, SIGNAL(disconnected()), client_conn, SLOT(deleteLater()));
 
-    QTcpSocket *client_connection = server->nextPendingConnection();
-    connect(client_connection, &QAbstractSocket::disconnected, client_connection, &QObject::deleteLater);
-
-    client_connection->write(block);
-    client_connection->disconnectFromHost();
+    client_conn->write(block);
+    client_conn->disconnectFromHost();
 }

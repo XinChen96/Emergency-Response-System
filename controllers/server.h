@@ -2,18 +2,20 @@
 #define SERVER_H
 #include <QtNetwork>
 #include <QObject>
+#include <iostream>
 
-class Server : public QObject {
+class Server : public QObject
+{
     Q_OBJECT
 public:
     explicit Server(QObject *parent = nullptr);
 
 public slots:
-    void print_something();
+    // void session_opened();
+    void send_msg();
 
 private:
     QTcpServer *server = nullptr;
-
 };
 
 #endif // SERVER_H

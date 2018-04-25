@@ -29,6 +29,8 @@
 #include "../users/civilian.h"
 #include "../users/planner.h"
 #include "../users/emergency.h"
+#include "../controllers/client.h"
+#include "../controllers/server.h"
 
 namespace Ui {
 class MainWindow;
@@ -161,6 +163,8 @@ private slots:
 
     void on_removeMember_clicked();
 
+    void on_receive_msg_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -178,7 +182,6 @@ private:
     Role    userRole;
     QString emergencyName;
     int group_ID;
-
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };
