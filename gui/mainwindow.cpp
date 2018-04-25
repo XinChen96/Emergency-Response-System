@@ -26,10 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
-    //***
-    //TO ADD: add in all items to combo box from existing database
-    //***
 
+    //Adds in all items to combo box / GUI from existing database
 
     std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
 
@@ -50,6 +48,17 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
         //ui->selGr->addItem(gr_db[i]->name);
+    }
+
+    std::vector<int> no_db = ctrl->get_noti_sim_DBItems(); //get all notifications from database
+
+    for (int i = 0; i < no_db.size(); i++) { //sets active simulation
+        Simulation* temp_si = ctrl->select_simulation(no_db[i]);
+
+        if (temp_si != nullptr) {
+            active_sim = temp_si->name;
+            sim_active = true;
+        }
     }
 
 }

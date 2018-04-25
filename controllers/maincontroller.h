@@ -41,6 +41,7 @@ public:
 
     User*   select_user(QString);
     Simulation* select_simulation(QString name);
+    Simulation* select_simulation(int id);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
     Emergency* select_emergency(int id);
@@ -62,6 +63,7 @@ public:
     void start_server();
     void start_client();
     void get_notification();
+    std::vector<int> get_noti_sim_DBItems();
 
 
 

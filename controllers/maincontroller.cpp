@@ -155,6 +155,16 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
+//gets a simulation from the database
+Simulation* MainController::select_simulation(int id) {
+    db_m = new Simulation_DB(dbPath);
+
+    Simulation* temp = ((Simulation_DB*)db_m)->select_simulation(id);
+
+    delete db_m;
+    return temp;
+}
+
 //gets all simulation item names currentcly in the database
 std::vector<QString> MainController::get_Sim_DBItems() {
     db_m = new Simulation_DB(dbPath);
@@ -343,4 +353,13 @@ bool MainController::remove_notification(int value) {
 
     delete db_m;
     return true;
+}
+
+std::vector<int> MainController::get_noti_sim_DBItems() {
+    db_m = new Notification_DB(dbPath);
+
+    std::vector<int> temp = ((Notification_DB*)db_m)->get_DBItems();
+
+    delete db_m;
+    return temp;
 }

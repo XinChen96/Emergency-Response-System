@@ -66,3 +66,19 @@ Notification* Notification_DB::select_simulation_id(int simulation_id) {
         return nullptr;
     }
 }
+
+std::vector<int> Notification_DB::get_DBItems() {
+    query = new QSqlQuery(db);
+
+    query->exec("SELECT * FROM notifications;");
+
+    std::vector<int> nos;
+
+    while (query->next()) {
+        nos.push_back(query->value(1).toInt());
+    }
+
+    //delete query;
+
+    return nos;
+}
