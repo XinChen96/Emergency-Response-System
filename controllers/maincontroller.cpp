@@ -325,13 +325,6 @@ void MainController::get_notification() {
     c->request_new_msg();
 }
 
-
-    db_m->create_row(no);
-
-    delete db_m;
-    return true;
-}
-
 //select notification from database
 Notification* MainController::select_notification_id(int value) {
     db_m = new Notification_DB(dbPath);

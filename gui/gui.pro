@@ -45,9 +45,8 @@ SOURCES += \
         ../users/response.cpp \
         ../controllers/server.cpp \
         ../controllers/client.cpp \
-        ../db/notification_db.cpp \
         ../controllers/clientthread.cpp \
-	../db/notification_db.cpp
+        ../db/notification_db.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -67,7 +66,6 @@ HEADERS += \
         ../db/emergency_db.h \
         ../db/response_db.h \
         ../users/response.h \
-	../db/notification_db.h
         ../controllers/server.h \
         ../controllers/client.h \
         ../db/notification_db.h \

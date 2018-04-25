@@ -43,7 +43,8 @@ SOURCES += \
         server.cpp \
         client.cpp \
         ../db/notification_db.cpp \
-        ../users/notification.cpp
+        ../users/notification.cpp \
+        clientthread.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

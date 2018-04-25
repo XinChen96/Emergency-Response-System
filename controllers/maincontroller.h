@@ -59,11 +59,13 @@ public:
     bool add_notification(Notification*);
     Notification* select_notification_id(int value);
     bool remove_notification(int value);
+    void start_server();
+    void start_client();
+    void get_notification();
 
 
 
     int check_role(QString);
-    void get_notification();
 
 private:
 

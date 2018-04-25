@@ -165,13 +165,6 @@ private slots:
 
     void on_manageRGroupMember_clicked();
 //index 5
-    void on_backRGroupMember_clicked();
-
-    void on_addMember_clicked();
-
-    void on_removeMember_clicked();
-
-    void on_receive_msg_btn_clicked();
 
 private:
     Ui::MainWindow *ui;
