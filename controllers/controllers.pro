@@ -20,7 +20,9 @@ HEADERS += \
         ../db/response_db.h \
         db_table.h \
     	server.h \
-    	client.h
+        client.h \
+        ../db/notification_db.h \
+        ../users/notification.h
 
 
 SOURCES += \
@@ -38,7 +40,9 @@ SOURCES += \
 	../users/response.cpp \
         ../db/response_db.cpp \
         server.cpp \
-	client.cpp
+        client.cpp \
+        ../db/notification_db.cpp \
+        ../users/notification.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

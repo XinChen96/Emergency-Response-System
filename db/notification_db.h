@@ -11,6 +11,7 @@ public:
 
     ~Notification_DB() {}
     void create_row(DBItem*);
+    bool delete_row(int);
     void update_value(DBItem*);
     void generate_sql_queries();
 

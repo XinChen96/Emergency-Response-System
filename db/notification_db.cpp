@@ -7,6 +7,7 @@ void Notification_DB::generate_sql_queries() {
     // Todo: When you update, you need to be able to choose which values you are updating
     update_cmd += "UPDATE notifications SET simulation_id=:simulation_id;"; // WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS notifications;";
+    delete_cmd += "DELETE FROM notifications WHERE id=:id;";
     query = nullptr;
 }
 
@@ -31,6 +32,18 @@ void Notification_DB::create_row(DBItem* u) {
     query->exec();
 
     delete query;
+}
+
+bool Notification_DB::delete_row(int id) {
+    query = new QSqlQuery(db);
+    query->prepare(delete_cmd);
+    query->bindValue(":id", id);
+
+    if(query->exec()) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
