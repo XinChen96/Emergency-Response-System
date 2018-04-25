@@ -225,7 +225,7 @@ void MainWindow::on_menu_clicked()
 //go to communication by clicking alert
 void MainWindow::on_alerts_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(4);
+    ui->stackedWidget->setCurrentIndex(21);
 }
 
 //index 3 (Emergency planner's menu) button navigation
@@ -352,6 +352,7 @@ void MainWindow::on_viewBut_clicked() {
     if (simName != nullptr) { //make sure an actual item is selected
 
         Simulation* sim = ctrl->select_simulation(simName); //get the database entry
+        sim_name = simName;
 
         //get value from db
         QString temp0 = sim->name;
@@ -380,9 +381,14 @@ void MainWindow::on_viewBut_clicked() {
         ui->label4->setText(value4);
         ui->label5->setText(value5);
 
-        //will be deleted later
-        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
-        ui->label6->setText("Simulation Not Active.");
+        if (active_sim != simName) {
+            //default text appearance
+            ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+            ui->label6->setText("Simulation Not Active.");
+        } else if (active_sim == simName) {
+            ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
+            ui->label6->setText("Simulation Active.");
+        }
 
         ui->stackedWidget->setCurrentIndex(11); //set page
 
@@ -578,10 +584,9 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
             tableView->hideColumn(4);
             tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
         }else{
-        tableView->hideColumn(0); // don't show the ID
+            tableView->hideColumn(0); // don't show the ID
         }
-        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
         break;
     case group:
         tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
@@ -600,6 +605,7 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
      case userGroup:
         tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
         tableModel->setTable("userGroups");
+        tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableModel->select();
 
         filterCmd = "group_id = '" + filter + "'";
@@ -607,18 +613,18 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
 
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
         tableModel->setHeaderData(2, Qt::Horizontal, tr("User ID"));
+        tableModel->setHeaderData(3, Qt::Horizontal, tr("First Name"));
 
         tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
         tableView->hideColumn(1); // don't show the ID
-        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
-        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
+        //tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
         break;
     }
 
+    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
 
 //    tableView->setModel(tableModel);
@@ -784,13 +790,16 @@ void MainWindow::on_availGroups_clicked() {
     ui->selGr->clear(); //clear box so it doesn't add more
 
     if (temp0 != nullptr) {
+
         Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
 
         std::vector<int> em_resp = ctrl->get_resp_em_DBItems(em_db->id); //get all groups
 
         for (int i = 0; i < em_resp.size(); i++) { //adds them to combo box
             Group* temp_gr = ctrl->select_group(em_resp[i]); //get group that uses said emergency
-            ui->selGr->addItem(temp_gr->name);
+            if  (temp_gr != nullptr) {
+                ui->selGr->addItem(temp_gr->name);
+            }
         }
 
         delete em_db;
@@ -843,7 +852,41 @@ void MainWindow::on_removeMember_clicked()
      display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
 }
 
-void MainWindow::on_receive_msg_btn_clicked()
-{
-    ctrl->get_notification();
+void MainWindow::on_startSim_clicked() {
+    if (!sim_active) { //only allow for one sim running at a time
+        sim_active = true;
+        active_sim = sim_name;
+
+        //set text
+        ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
+        ui->label6->setText("Simulation Active.");
+
+        Simulation* temp_sim = ctrl->select_simulation(sim_name);
+        Notification* temp_not = new Notification(temp_sim->id);
+
+        ctrl->add_notification(temp_not); //add in notification to database
+
+        delete temp_sim;
+        delete temp_not;
+    }
+}
+
+void MainWindow::on_stopSim_clicked() {
+    if (sim_active && sim_name == active_sim) { //only allow for one sim running at a time
+        sim_active = false;
+        active_sim = "";
+
+
+        //set text
+        ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+        ui->label6->setText("Simulation Not Active.");
+
+        Simulation* temp_sim = ctrl->select_simulation(sim_name);
+        Notification* temp_no = ctrl->select_notification_id(temp_sim->id);
+
+        ctrl->remove_notification(temp_no->id); //remove notification from database
+
+        delete temp_sim;
+        delete temp_no;
+    }
 }

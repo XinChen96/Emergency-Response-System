@@ -103,7 +103,7 @@ Group* Group_DB::select_group(int id) {
     query->prepare("SELECT DISTINCT * FROM groups WHERE id=:id");
     query->bindValue(":id", id);
     query->exec();
-    query->first();
+
     if(query->next()) {
         group = new Group(query->value(1).toString());
         delete query;

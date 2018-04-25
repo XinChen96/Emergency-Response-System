@@ -56,8 +56,12 @@ public:
     bool add_response(Response*);
     Response* select_response(Emergency* em, Group* gr);
     std::vector<int> get_resp_em_DBItems(int value);
-    void start_client();
-    void start_server();
+    bool add_notification(Notification*);
+    Notification* select_notification_id(int value);
+    bool remove_notification(int value);
+
+
+
     int check_role(QString);
     void get_notification();
 

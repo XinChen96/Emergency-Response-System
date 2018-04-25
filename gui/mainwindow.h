@@ -79,6 +79,11 @@ private slots:
     //index 4 Communication for Emergency Planner
     void on_backComm_clicked();
 
+    //index 5
+    void on_backRGroupMember_clicked();
+    void on_addMember_clicked();
+    void on_removeMember_clicked();
+
     //index 6 Responder Group
     void on_addRGroup_clicked();
     void on_rGroupTableView_clicked(const QModelIndex &index);
@@ -120,6 +125,9 @@ private slots:
 
     void on_backToMenA_clicked();
     void on_checkNot_clicked();
+
+    void on_startSim_clicked();
+    void on_stopSim_clicked();
 
     //index 16 View/Delete Users page
     //Push button clicked
@@ -182,6 +190,9 @@ private:
     Role    userRole;
     QString emergencyName;
     int group_ID;
+    bool sim_active = false;
+    QString sim_name = "";
+    QString active_sim = "";
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };

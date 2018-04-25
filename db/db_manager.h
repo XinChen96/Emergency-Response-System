@@ -34,9 +34,9 @@ public:
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
     virtual bool delete_row(QString) {}
+    virtual bool delete_row(int) {}
     virtual void generate_sql_queries() {}
     virtual void print(){}
-
 
     QSqlDatabase database(){
         return db;

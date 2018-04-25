@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>4</number>
+       <number>7</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -561,7 +561,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Alerts</string>
+             <string>Notifications</string>
             </property>
            </widget>
           </item>
@@ -648,7 +648,7 @@
            </sizepolicy>
           </property>
           <property name="text">
-           <string>Communication</string>
+           <string>Notifications</string>
           </property>
          </widget>
         </item>
@@ -741,22 +741,7 @@
        </layout>
       </widget>
       <widget class="QWidget" name="comm">
-       <layout class="QVBoxLayout" name="verticalLayout_6">
-        <item>
-         <widget class="QLabel" name="msg_label">
-          <property name="text">
-           <string>TextLabel</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="receive_msg_btn">
-          <property name="text">
-           <string>Click to receive a message</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <layout class="QVBoxLayout" name="verticalLayout_6"/>
       </widget>
       <widget class="QWidget" name="responderGroupMember">
        <layout class="QVBoxLayout" name="verticalLayout_27">
