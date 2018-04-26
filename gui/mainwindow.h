@@ -168,6 +168,8 @@ private slots:
     int get_user_id(QString);
 
     QString find_group(QString);
+    void on_responderCol_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 

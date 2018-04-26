@@ -906,16 +906,28 @@ void MainWindow::on_stopSim_clicked() {
 }
 
 QString MainWindow::find_group(QString username){
+    QString groupName;
     int userId = get_user_id(username);
     std::cout << "GUi:get user id"<<userId << std::endl;
     int groupId = ctrl->find_group(userId);
     std::cout << "GUi:group id"<<groupId << std::endl;
-    QString groupName = ctrl->select_group(groupId)->name;
+    if(groupId == -1){
+    groupName = "Not assigned";
+    }else{groupName = ctrl->select_group(groupId)->name;
+    }
     std::cout << "GUi:find group"<<groupName.toStdString() << std::endl;
+
+
     return groupName;
 
 }
 
 int MainWindow::get_user_id(QString username){
     return ctrl->select_user(username)->id;
+}
+
+void MainWindow::on_responderCol_clicked(const QModelIndex &index)
+{
+QString responderName = readSelectedCell(3,ui->responderCol);
+QString alert = responderName;
 }
