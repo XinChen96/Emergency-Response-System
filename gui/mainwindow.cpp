@@ -1103,3 +1103,25 @@ void MainWindow::on_rGroupMemberCol_clicked(const QModelIndex &index)
     ui->alertMember->setStyleSheet("color:white");
 
 }
+
+void MainWindow::on_messageG_clicked() {
+    // Populate group box
+    std::vector<Group*> group_list = ctrl->get_user_groups(user_ID);
+    group_ID = group_list[0]->id;
+    for(int i = 0; i < group_list.size(); i++) {
+        ui->selectGroup_2->addItem(group_list[i]->name);
+    }
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+}
+
+void MainWindow::on_update_instructions_btn_clicked() {
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+}

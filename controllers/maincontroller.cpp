@@ -373,3 +373,15 @@ std::vector<int> MainController::get_noti_sim_DBItems() {
     db_m = new Notification_DB(dbPath);
     return ((Notification_DB*)db_m)->get_DBItems();
 }
+
+std::vector<Group*> MainController::get_user_groups(int user) {
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->get_user_groups(group);
+    delete db_m;
+}
+
+int MainController::get_user_id(QString user) {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_user_id(user);
+    delete db_m;
+}
