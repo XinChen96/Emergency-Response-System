@@ -885,9 +885,14 @@ void MainWindow::on_viewProto_clicked() {
             delete gr_db;
             delete resp_db;
         } else {
+            ui->errorText->setAlignment(Qt::AlignCenter);
             ui->errorText->setText("Please click Available Groups before viewing.");
             ui->errorText->setStyleSheet("background-color:rgb(245, 215, 110)");
         }
+    } else {
+        ui->errorText->setAlignment(Qt::AlignCenter);
+        ui->errorText->setText("Please click Available Groups before viewing.");
+        ui->errorText->setStyleSheet("background-color:rgb(245, 215, 110)");
     }
 }
 
