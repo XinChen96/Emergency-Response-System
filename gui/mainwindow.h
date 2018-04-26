@@ -186,6 +186,7 @@ private:
     QString firstNameReg;
     QString lastNameReg;
     QString usernameReg;
+    QString perm_username;
     Role    roleReg;
     QString emailReg;
     Role    userRole;
