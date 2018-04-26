@@ -140,16 +140,13 @@ private slots:
     void on_identityDeleteUser_currentIndexChanged(int index);
     //Helper methods
     void display_tableview(db_table,QString, QSqlRelationalTableModel*, QTableView*);
+    void display_messages(QSqlRelationalTableModel*, QTableView*, int);
     QString readSelectedCell(int,QTableView*);
 
 
     //other non GUI based class methods
     void update_simulations();
     //void update_groups();
-
-
-
-
 
     void on_breakIn_clicked();
 
@@ -166,6 +163,12 @@ private slots:
     void on_manageRGroupMember_clicked();
 //index 5
 
+    void on_messageG_clicked();
+
+    void on_selectGroup_2_activated(const QString &arg1);
+
+    void on_update_instructions_btn_clicked();
+
 private:
     Ui::MainWindow *ui;
 
@@ -173,6 +176,7 @@ private:
 
     QSqlRelationalTableModel *allUserTable;
     QSqlRelationalTableModel *rGroupTable;
+    QSqlRelationalTableModel *instructionGroupTable;
     QSqlRelationalTableModel *uGroupTable;
 
     QString firstNameReg;
@@ -183,6 +187,7 @@ private:
     Role    userRole;
     QString emergencyName;
     int group_ID;
+    int user_ID;
     bool sim_active = false;
     QString sim_name = "";
     QString active_sim = "";

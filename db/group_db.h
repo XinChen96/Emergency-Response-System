@@ -28,6 +28,7 @@ public:
     Group* select_group(QString);
     vector<User*> get_group_members(Group*);
     vector<Group*> get_groups();
+    vector<Group*> get_user_groups(int);
 
     QString create_groups_cmd;
     QString insert_groups_cmd;

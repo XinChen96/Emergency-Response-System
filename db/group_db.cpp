@@ -186,4 +186,19 @@ vector<Group*> Group_DB::get_groups() {
     return group_list;
 }
 
+vector<Group*> Group_DB::get_user_groups(int user_id) {
+    vector<Group*> group_list;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT groups.groupName, groups.id FROM userGroups INNER JOIN groups ON userGroups.group_id=groups.id WHERE user_id=:id;");
+    query->bindValue(":id", user_id);
+    query->exec();
+    Group *g;
+    while(query->next()) {
+        g = new Group(query->value(0).toString());
+        g->id = query->value(1).toInt();
+        std::cout << g->name.toStdString()<< std::endl;
+        group_list.push_back(g);
+    }
+    return group_list;
+}
 

@@ -95,11 +95,13 @@ void MainWindow::on_enterUsername_returnPressed()
 // Unsuccessful login should give you an alert and let you try again
 void MainWindow::login(){
 
-    if(ctrl->check_role(ui->enterUsername->text())!=3){
-        userRole = Role(ctrl->check_role(ui->enterUsername->text()));
+    QString username = ui->enterUsername->text();
+    if(ctrl->check_role(username)!=3){
+        userRole = Role(ctrl->check_role(username));
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
+        user_ID = ctrl->get_user_id(username);
 
     }else{
         ui->enterUsername->clear();
@@ -556,6 +558,23 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
            selectedTable->model()->index(selectedRow,selectedCol)).
             toString();
 }
+
+// Display all of the messages from the database
+void MainWindow::display_messages(QSqlRelationalTableModel* table_model, QTableView* table_view, int group) {
+    table_model = new QSqlRelationalTableModel(this, ctrl->get_DB(user));
+    table_model->setTable("instructions");
+    QString filter = QString("group_id=%1").arg(group);
+    table_model->setFilter(filter);
+    table_model->select();
+    table_model->sort(3, Qt::DescendingOrder); // Sort with most recent message first
+
+    table_model->setHeaderData(1, Qt::Horizontal, tr("Instruction"));
+    table_model->setHeaderData(2, Qt::Horizontal, tr("Date"));
+    table_view->setModel(table_model);
+    table_view->hideColumn(0);
+    table_view->hideColumn(2);
+}
+
 //only user table for now
 void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalTableModel* tableModel,QTableView* tableView){
 
@@ -889,4 +908,35 @@ void MainWindow::on_stopSim_clicked() {
         delete temp_sim;
         delete temp_no;
     }
+}
+
+void MainWindow::on_messageG_clicked()
+{
+    // Populate combo box
+    std::vector<Group*> gr_db = ctrl->get_user_groups(user_ID); //get all groups
+    display_messages(instructionGroupTable, ui->instructions_table_view, gr_db[0]->id); // Default to first item returned
+    group_ID = gr_db[0]->id;
+    for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
+        ui->selectGroup_2->addItem(gr_db[i]->name);
+        delete gr_db[i];
+    }
+
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_selectGroup_2_activated(const QString &arg1)
+{
+    QString temp = ui->selectGroup_2->currentText(); //get value from combo box
+    if (temp != nullptr) {
+        Group* gr_temp = ctrl->select_group(temp);
+        group_ID = gr_temp->id;
+        display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+        delete gr_temp;
+    }
+}
+
+void MainWindow::on_update_instructions_btn_clicked()
+{
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
 }

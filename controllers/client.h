@@ -1,7 +1,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
-#include "clientthread.h"
 #include <QObject>
+#include <QtNetwork>
 #include <iostream>
 
 class Client : public QObject
@@ -9,15 +9,15 @@ class Client : public QObject
     Q_OBJECT
 public:
     Client(QObject *parent = 0);
-    ~Client() { }
+    ~Client() {}
 
 public slots:
     void request_new_msg();
-    void change_msg(const QString&);
+    QString get_msg();
 
 private:
-    ClientThread ct;
-    QString msg;
+    QString new_message;
+    QMutex mutex;
 };
 
 #endif // CLIENT_H

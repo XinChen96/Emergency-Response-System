@@ -22,6 +22,7 @@ public:
     User* select_user(QString);
     std::vector<User*> get_civilians();
     std::vector<User*> get_responders();
+    int get_user_id(QString);
 };
 
 #endif // USER_DB_H

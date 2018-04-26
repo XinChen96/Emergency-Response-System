@@ -19,7 +19,8 @@ SOURCES += main.cpp \
     ../users/response.cpp \
     response_db.cpp \
     notification_db.cpp \
-    ../users/notification.cpp
+    ../users/notification.cpp \
+    instructions_db.cpp
 
 HEADERS += \
     db_manager.h \
@@ -38,7 +39,8 @@ HEADERS += \
     ../users/response.h \
     response_db.h \
     notification_db.h \
-    ../users/notification.h
+    ../users/notification.h \
+    instructions_db.h
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

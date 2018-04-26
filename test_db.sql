@@ -1,5 +1,6 @@
 /* Build tables for DB */
-CREATE TABLE IF NOT EXISTS groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE, date text);
+CREATE TABLE groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE, date text);
+CREATE TABLE instructions (id integer PRIMARY KEY, instruction text NOT NULL, group_id integer NOT NULL, date text NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id));
 CREATE TABLE users (id integer PRIMARY KEY, firstName text NOT NULL, lastName text NOT NULL, username text NOT NULL UNIQUE, role integer NOT NULL);
 CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));
 CREATE TABLE simulations (id integer PRIMARY KEY, name text NOT NULL UNIQUE, lat real, lng real, radius real, num_civilians integer, trigger integer);
@@ -24,8 +25,12 @@ INSERT INTO groups (groupName, date) VALUES("Police Group 2", DATE('now'));
 INSERT INTO groups (groupName, date) VALUES("Firemen Group 1", DATE('now'));
 
 /* Add responders to groups */
-INSERT INTO userGroups (group_id, user_id) VALUES(0,0); /* Add ben to police group 1 */
-INSERT INTO userGroups (group_id, user_id) VALUES(0,2); /* Add ben to firemen group 1 */
-INSERT INTO userGroups (group_id, user_id) VALUES(1,1); /* Add Joseph to police group 2 */
-INSERT INTO userGroups (group_id, user_id) VALUES(2,2); /* Add chen to firemen group 1 */
+INSERT INTO userGroups (group_id, user_id) VALUES(1,1); /* Add ben to police group 1 */
+INSERT INTO userGroups (group_id, user_id) VALUES(1,2); /* Add ben to firemen group 1 */
+INSERT INTO userGroups (group_id, user_id) VALUES(2,2); /* Add Joseph to police group 2 */
+INSERT INTO userGroups (group_id, user_id) VALUES(3,3); /* Add chen to firemen group 1 */
 INSERT INTO userGroups (group_id, user_id) VALUES(4,1); /* Add paul to police group 1 */
+
+/* Add instructions */
+INSERT INTO instructions (instruction, group_id, date) VALUES ("Go directly to the town jail and free the prisoners.", 1, DATE('now'));
+INSERT INTO instructions (instruction, group_id, date) VALUES ("Start a bucket brigade.", 2, DATE('now'));

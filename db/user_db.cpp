@@ -204,3 +204,15 @@ std::vector<User*> User_DB::get_responders() {
     return user_list;
 }
 
+int User_DB::get_user_id(QString user) {
+    query = new QSqlQuery(db);
+    std::cout << user.toStdString() << std::endl;
+    query->prepare("SELECT id FROM users WHERE username=:user;");
+    query->bindValue(":user", user);
+    query->exec();
+    query->next();
+    int id = query->value(0).toInt();
+    delete query;
+    return id;
+}
+

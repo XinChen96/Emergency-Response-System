@@ -1,14 +1,6 @@
 #include "maincontroller.h"
 #include <iostream>
 
-MainController::MainController() {
-    dbPath = "../db.sqlite";
-
-
-    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-    std::cout << "MainController constructor" <<std::endl;
-}
-
 MainController::~MainController() {
 
     std::cout << __PRETTY_FUNCTION__<<"\n";
@@ -39,7 +31,13 @@ QSqlDatabase MainController::get_DB(db_table table){
         db_m = new Emergency_DB(dbPath);
         return db_m->get_db();
         break;
-
+    case 5:
+        db_m = new Instructions_DB(dbPath);
+        return db_m->get_db();
+        break;
+    default:
+        db_m = new DB_Manager(dbPath);
+        break;
     }
 
 }
@@ -230,6 +228,13 @@ std::vector<Group*> MainController::get_groups() {
     delete db_m;
 }
 
+// Get all groups that a particular responder is in
+std::vector<Group*> MainController::get_user_groups(int user_id) {
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->get_user_groups(user_id);
+    delete db_m;
+}
+
 // Add a group to the db
 void MainController::add_group(QString group_name) {
     db_m = new Group_DB(dbPath);
@@ -321,10 +326,6 @@ void MainController::start_server() {
     s = new Server();
 }
 
-void MainController::get_notification() {
-    c->request_new_msg();
-}
-
 //select notification from database
 Notification* MainController::select_notification_id(int value) {
     db_m = new Notification_DB(dbPath);
@@ -343,4 +344,27 @@ bool MainController::remove_notification(int value) {
 
     delete db_m;
     return true;
+}
+
+// Gets the user id
+int MainController::get_user_id(QString username) {
+    db_m = new User_DB(dbPath);
+    int temp = ((User_DB*)db_m)->get_user_id(username);
+    std::cout << temp << std::endl;
+    delete db_m;
+    return temp;
+}
+
+// Requests update instructions from the planner server
+void MainController::update_instructions(int group_id) {
+    QMutex m;
+    m.lock();
+    c->request_new_msg();
+    m.unlock();
+    db_m = new Instructions_DB(dbPath);
+    QString msg = c->get_msg();
+    std::cout << msg.toStdString() << std::endl;
+    std::cout << group_id << std::endl;
+    db_m->create_row(new Instruction(msg, group_id));
+    delete db_m;
 }

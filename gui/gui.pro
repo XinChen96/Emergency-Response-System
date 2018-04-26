@@ -45,8 +45,9 @@ SOURCES += \
         ../users/response.cpp \
         ../controllers/server.cpp \
         ../controllers/client.cpp \
-        ../controllers/clientthread.cpp \
-        ../db/notification_db.cpp
+        ../db/notification_db.cpp \
+        ../db/instructions_db.cpp \
+        ../users/instruction.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -69,7 +70,8 @@ HEADERS += \
         ../controllers/server.h \
         ../controllers/client.h \
         ../db/notification_db.h \
-        ../controllers/clientthread.h
+        ../users/instruction.h \
+        ../db/instructions_db.h
 
 FORMS += \
         mainwindow.ui
