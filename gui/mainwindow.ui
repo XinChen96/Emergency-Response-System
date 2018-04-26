@@ -750,7 +750,7 @@
           <item>
            <widget class="QPushButton" name="backRGroupMember">
             <property name="text">
-             <string>&lt; Back to Responder Groups </string>
+             <string>&lt; Back to Responder Group</string>
             </property>
            </widget>
           </item>
@@ -863,6 +863,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
            <widget class="QPushButton" name="reloadMember">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Reload Tables</string>
             </property>
@@ -872,6 +878,9 @@
            <spacer name="horizontalSpacer_9">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Preferred</enum>
             </property>
             <property name="sizeHint" stdset="0">
              <size>
@@ -892,7 +901,10 @@
              <string notr="true">color: white;</string>
             </property>
             <property name="text">
-             <string>TextLabel</string>
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -1000,7 +1012,7 @@
              <string/>
             </property>
             <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+             <set>Qt::AlignCenter</set>
             </property>
            </widget>
           </item>
@@ -2700,7 +2712,7 @@
           <item>
            <widget class="QPushButton" name="backDeleteUser">
             <property name="text">
-             <string>&lt; Menu</string>
+             <string>&lt; Back to Menu</string>
             </property>
            </widget>
           </item>

@@ -543,7 +543,6 @@ void MainWindow::on_reloadDeleteUser_clicked()
 {
 
     on_identityDeleteUser_currentIndexChanged(ui->identityDeleteUser->currentIndex());
-
     //clear alert after reload
     ui->deleteAlert->setText("");
 }
@@ -709,15 +708,27 @@ void MainWindow::on_backToCreateEm2_clicked() {
 
 void MainWindow::on_addRGroup_clicked()
 {
-    QString alert = "Group ["+ui->enterRGroupName->text()+"] added";
+    QString alert;
+    on_refreshRGroup_clicked();
+    if(ui->enterRGroupName->text().isEmpty()){
+    alert= "Please enter a new group name";
+    ui->selectAlertRGroup->setText(alert);
+    ui->selectAlertRGroup->setStyleSheet("background-color:rgb(245, 215, 110)");
+    }else if(ctrl->select_group(ui->enterRGroupName->text())!=nullptr){
+        alert= "Group already exists. Please enter a different name";
+        ui->selectAlertRGroup->setText(alert);
+        ui->selectAlertRGroup->setStyleSheet("background-color:rgb(245, 215, 110)");
+    }else{
+    alert= "Group ["+ui->enterRGroupName->text()+"] added";
     ctrl->add_group(ui->enterRGroupName->text());
     ui->selectGroup->addItem(ui->enterRGroupName->text());
 
-    on_refreshRGroup_clicked();
+
     ui->selectAlertRGroup->setText(alert);
     display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
 
     ui->enterRGroupName->clear();
+    }
 }
 
 void MainWindow::on_rGroupTableView_clicked(const QModelIndex &index)
@@ -726,6 +737,7 @@ void MainWindow::on_rGroupTableView_clicked(const QModelIndex &index)
 
     alert = "Group ["+readSelectedCell(1,ui->rGroupTableView)+"] selected";
     ui->selectAlertRGroup->setText(alert);
+    ui->selectAlertRGroup->setStyleSheet("color: white;");
     ui->manageRGroupMember->setEnabled(true);
     ui->deleteRGroup->setEnabled(true);
 
@@ -735,6 +747,7 @@ void MainWindow::on_refreshRGroup_clicked()
 {
     display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
     ui->selectAlertRGroup->setText("");
+    ui->selectAlertRGroup->setStyleSheet("color: white;");
     ui->manageRGroupMember->setEnabled(false);
     ui->deleteRGroup->setEnabled(false);
 }

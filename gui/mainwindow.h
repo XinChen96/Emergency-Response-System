@@ -79,14 +79,22 @@ private slots:
     //index 4 Communication for Emergency Planner
     void on_backComm_clicked();
 
-    //index 5
+    //index 5 Manage Responder Group Member
     void on_backRGroupMember_clicked();
     void on_addMember_clicked();
     void on_removeMember_clicked();
+    void on_responderCol_clicked(const QModelIndex &index);
+    void on_reloadMember_clicked();
+    void on_rGroupMemberCol_clicked(const QModelIndex &index);
 
-    //index 6 Responder Group
+    //index 6 Manage Responder Group
     void on_addRGroup_clicked();
     void on_rGroupTableView_clicked(const QModelIndex &index);
+    void on_refreshRGroup_clicked();
+    void on_deleteRGroup_clicked();
+    void on_manageRGroupMember_clicked();
+
+
 
     void on_simulationsButton_clicked();
     void on_backToSim_clicked();
@@ -157,22 +165,12 @@ private slots:
 
 
 
-//index6
 
-    void on_refreshRGroup_clicked();
-
-    void on_deleteRGroup_clicked();
-
-    void on_manageRGroupMember_clicked();
 
     int get_user_id(QString);
 
     QString find_group(QString);
-    void on_responderCol_clicked(const QModelIndex &index);
 
-    void on_reloadMember_clicked();
-
-    void on_rGroupMemberCol_clicked(const QModelIndex &index);
 
 private:
     Ui::MainWindow *ui;
