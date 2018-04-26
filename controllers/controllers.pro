@@ -19,9 +19,10 @@ HEADERS += \
         ../users/response.h \
         ../db/response_db.h \
         db_table.h \
-    	server.h \
+        clientthread.h \
         client.h \
-        ../db/notification_db.h \
+        server.h \
+	../db/notification_db.h \
         ../users/notification.h
 
 
@@ -42,7 +43,8 @@ SOURCES += \
         server.cpp \
         client.cpp \
         ../db/notification_db.cpp \
-        ../users/notification.cpp
+        ../users/notification.cpp \
+        clientthread.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

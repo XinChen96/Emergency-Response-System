@@ -1,24 +1,23 @@
 #ifndef CLIENT_H
 #define CLIENT_H
-#include <QtNetwork>
+#include "clientthread.h"
 #include <QObject>
+#include <iostream>
 
 class Client : public QObject
 {
     Q_OBJECT
 public:
-    explicit Client(QObject *parent = nullptr);
-    ~Client() {}
+    Client(QObject *parent = 0);
+    ~Client() { }
 
 public slots:
-    void read_message();
-    void request_new_message();
-    void display_error(QAbstractSocket::SocketError);
+    void request_new_msg();
+    void change_msg(const QString&);
 
 private:
-    QTcpSocket *socket = nullptr;
-    QDataStream in;
-    QString current_message;
+    ClientThread ct;
+    QString msg;
 };
 
 #endif // CLIENT_H

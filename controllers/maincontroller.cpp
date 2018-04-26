@@ -5,7 +5,7 @@ MainController::MainController() {
     dbPath = "../db.sqlite";
 
 
-    dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
     std::cout << "MainController constructor" <<std::endl;
 }
 
@@ -13,6 +13,8 @@ MainController::~MainController() {
 
     std::cout << __PRETTY_FUNCTION__<<"\n";
     delete db_m;
+    delete s;
+    delete c;
 }
 
 QSqlDatabase MainController::get_DB(db_table table){
@@ -148,6 +150,16 @@ Simulation* MainController::select_simulation(QString name) {
     db_m = new Simulation_DB(dbPath);
 
     Simulation* temp = ((Simulation_DB*)db_m)->select_simulation(name);
+
+    delete db_m;
+    return temp;
+}
+
+//gets a simulation from the database
+Simulation* MainController::select_simulation(int id) {
+    db_m = new Simulation_DB(dbPath);
+
+    Simulation* temp = ((Simulation_DB*)db_m)->select_simulation(id);
 
     delete db_m;
     return temp;
@@ -308,6 +320,21 @@ bool MainController::add_notification(Notification* no) {
     return true;
 }
 
+
+// Method to create a new client instance
+void MainController::start_client() {
+    c = new Client();
+}
+
+// Method to start a new server instance
+void MainController::start_server() {
+    s = new Server();
+}
+
+void MainController::get_notification() {
+    c->request_new_msg();
+}
+
 //select notification from database
 Notification* MainController::select_notification_id(int value) {
     db_m = new Notification_DB(dbPath);
@@ -328,7 +355,16 @@ bool MainController::remove_notification(int value) {
     return true;
 }
 
+
 int MainController::find_group(int userId){
     db_m = new Group_DB(dbPath);
     return ((Group_DB*)db_m)->find_group(userId);
+}
+std::vector<int> MainController::get_noti_sim_DBItems() {
+    db_m = new Notification_DB(dbPath);
+
+    std::vector<int> temp = ((Notification_DB*)db_m)->get_DBItems();
+
+    delete db_m;
+    return temp;
 }

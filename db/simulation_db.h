@@ -14,7 +14,7 @@ public:
 
     //selection methods
     Simulation* select_simulation(QString);
-
+    Simulation* select_simulation(int);
     std::vector<QString> get_DBItems();
 };
 

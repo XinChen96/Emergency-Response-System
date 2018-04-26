@@ -2,6 +2,7 @@
 #define NOTIFICATION_DB_H
 
 #include "db_manager.h"
+#include <vector>
 
 class Notification_DB : public DB_Manager {
 public:
@@ -18,6 +19,7 @@ public:
     //selection methods
     Notification* select_simulation_id(int sim_id);
 
+    std::vector<int> get_DBItems();
 };
 
 #endif // NOTIFICATION_DB_H

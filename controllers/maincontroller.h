@@ -22,6 +22,8 @@
 #include "../users/response.h"
 #include "../db/response_db.h"
 #include "../db/notification_db.h"
+#include "server.h"
+#include "client.h"
 
 
 class MainController
@@ -39,6 +41,7 @@ public:
 
     User*   select_user(QString);
     Simulation* select_simulation(QString name);
+    Simulation* select_simulation(int id);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
     Emergency* select_emergency(int id);
@@ -57,6 +60,10 @@ public:
     bool add_notification(Notification*);
     Notification* select_notification_id(int value);
     bool remove_notification(int value);
+    void start_server();
+    void start_client();
+    void get_notification();
+    std::vector<int> get_noti_sim_DBItems();
 
 
 
@@ -65,7 +72,8 @@ public:
 
 private:
 
-
+    Client *c = nullptr;
+    Server *s = nullptr;
     QString dbPath;
     DB_Manager *db_m;
 

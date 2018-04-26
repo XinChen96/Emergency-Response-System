@@ -29,6 +29,8 @@
 #include "../users/civilian.h"
 #include "../users/planner.h"
 #include "../users/emergency.h"
+#include "../controllers/client.h"
+#include "../controllers/server.h"
 
 namespace Ui {
 class MainWindow;

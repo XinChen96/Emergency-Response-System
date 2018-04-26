@@ -26,10 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
-    //***
-    //TO ADD: add in all items to combo box from existing database
-    //***
 
+    //Adds in all items to combo box / GUI from existing database
 
     std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
 
@@ -50,6 +48,17 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
         //ui->selGr->addItem(gr_db[i]->name);
+    }
+
+    std::vector<int> no_db = ctrl->get_noti_sim_DBItems(); //get all notifications from database
+
+    for (int i = 0; i < no_db.size(); i++) { //sets active simulation
+        Simulation* temp_si = ctrl->select_simulation(no_db[i]);
+
+        if (temp_si != nullptr) {
+            active_sim = temp_si->name;
+            sim_active = true;
+        }
     }
 
 }
@@ -107,6 +116,11 @@ void MainWindow::login(){
         ui->loginAlert->setText("Username does not exist.\n Please try again.");
     }
 
+    if(userRole == 2) { // Planner
+        ctrl->start_server();
+    } else {
+        ctrl->start_client();
+    }
 }
 
 //index 1 register form
@@ -577,6 +591,7 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         if(ui->stackedWidget->currentIndex()==5){
             tableView->hideColumn(0);
             tableView->hideColumn(4);
+            tableModel->setHeaderData(3, Qt::Horizontal, tr("Username"));
         }else{
             tableView->hideColumn(0); // don't show the ID
         }
@@ -591,19 +606,25 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel->setHeaderData(2, Qt::Horizontal, tr("Date Created"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
+        tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+        tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
         break;
      case userGroup:
         tableModel = new QSqlRelationalTableModel(this,ctrl->get_DB(user));
         tableModel->setTable("userGroups");
         tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableModel->select();
+
         filterCmd = "group_id = '" + filter + "'";
         tableModel->setFilter(filterCmd);
+
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
         tableModel->setHeaderData(2, Qt::Horizontal, tr("User ID"));
         tableModel->setHeaderData(3, Qt::Horizontal, tr("First Name"));
 
+        tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
         tableView->hideColumn(1); // don't show the ID
@@ -614,6 +635,11 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
     tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
     tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 
+
+//    tableView->setModel(tableModel);
+//    tableView->hideColumn(0); // don't show the ID
+//    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+//    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 //    //ui->plannerTableView->setSelectionMode( QAbstractItemView::SingleSelection );
 }
 
@@ -821,15 +847,19 @@ void MainWindow::on_backToSelEm_clicked() {
 
 void MainWindow::on_backToMenA_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    ui->latBox->clear();
+    ui->longBox->clear();
 }
 
 void MainWindow::on_checkNot_clicked() {
-    //to be implemented later
+    double lat = ui->latBox->text().toDouble();
+    double lng = ui->longBox->text().toDouble();
 }
 
 void MainWindow::on_removeMember_clicked()
 {
     QString groupID = readSelectedCell(0,ui->rGroupTableView);
+    //int userID  = readSelectedCell(0,ui->responderCol).toInt();
     QString id = readSelectedCell(0,ui->rGroupMemberCol);
 
     ctrl->delete_row(userGroup,id);
