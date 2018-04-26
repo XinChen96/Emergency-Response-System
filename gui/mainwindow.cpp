@@ -263,9 +263,9 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
-    display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
-    ui->manageRGroupMember->setEnabled(false);
-    ui->deleteRGroup->setEnabled(false);
+    on_refreshRGroup_clicked();
+
+
 }
 
 void MainWindow::on_logoutEP_clicked()
@@ -621,14 +621,12 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel->setFilter(filterCmd);
 
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
-        tableModel->setHeaderData(2, Qt::Horizontal, tr("User ID"));
-        tableModel->setHeaderData(3, Qt::Horizontal, tr("First Name"));
+        tableModel->setHeaderData(2, Qt::Horizontal, tr("Responder Username"));
 
-        tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
-        tableView->hideColumn(1); // don't show the ID
-        //tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
+        tableView->hideColumn(1); // don't show the Group ID
+        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
         break;
     }
 
@@ -765,8 +763,10 @@ void MainWindow::on_manageRGroupMember_clicked()
     ui->rGroupMemberTitle->setText(pageTitle);
     ui->userGroupTitle->setText(tableTitle);
     ui->stackedWidget->setCurrentIndex(5);
-    display_tableview(userGroup,readSelectedCell(0,ui->rGroupTableView),uGroupTable,ui->rGroupMemberCol);
-    display_tableview(user,"First Responder",allUserTable,ui->responderCol);
+
+    on_reloadMember_clicked();
+
+
 }
 
 void MainWindow::on_backRGroupMember_clicked()
@@ -782,9 +782,8 @@ void MainWindow::on_addMember_clicked()
    QString userName  = readSelectedCell(3,ui->responderCol);
 
    ctrl->add_to_group(groupName,userName);
-    display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+    on_reloadMember_clicked();
 
-    std::cout << find_group(userName).toStdString() << std::endl;
 }
 
 void MainWindow::on_viewProt_clicked() {
@@ -863,7 +862,7 @@ void MainWindow::on_removeMember_clicked()
     QString id = readSelectedCell(0,ui->rGroupMemberCol);
 
     ctrl->delete_row(userGroup,id);
-     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+    on_reloadMember_clicked();
 }
 
 void MainWindow::on_startSim_clicked() {
@@ -912,7 +911,7 @@ QString MainWindow::find_group(QString username){
     int groupId = ctrl->find_group(userId);
     std::cout << "GUi:group id"<<groupId << std::endl;
     if(groupId == -1){
-    groupName = "Not assigned";
+    groupName = "";
     }else{groupName = ctrl->select_group(groupId)->name;
     }
     std::cout << "GUi:find group"<<groupName.toStdString() << std::endl;
@@ -928,6 +927,50 @@ int MainWindow::get_user_id(QString username){
 
 void MainWindow::on_responderCol_clicked(const QModelIndex &index)
 {
-QString responderName = readSelectedCell(3,ui->responderCol);
-QString alert = responderName;
+
+QString firstName = readSelectedCell(1,ui->responderCol);
+QString lastName =  readSelectedCell(2,ui->responderCol);
+QString userName =  readSelectedCell(3,ui->responderCol);
+QString groupName = find_group(userName);
+QString alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ ", Current Group:"+ find_group(userName);
+
+if(groupName == ""){
+
+alert = "Available Responder: "+firstName+ " " + lastName + " ["+userName+"] ";
+ui->addMember->setEnabled(true);
+ui->alertMember->setStyleSheet("background-color:rgb(38, 194, 129);color:white;");
+}else{
+alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ "is already assigned to Group: "+ find_group(userName);
+ui->addMember->setEnabled(false);
+ui->alertMember->setStyleSheet("background-color:rgb(245, 215, 110)");
+}
+ui->removeMember->setEnabled(false);
+ui->alertMember->setText(alert);
+
+}
+
+void MainWindow::on_reloadMember_clicked()
+{
+    display_tableview(userGroup,readSelectedCell(0,ui->rGroupTableView),uGroupTable,ui->rGroupMemberCol);
+    display_tableview(user,"First Responder",allUserTable,ui->responderCol);
+    ui->addMember->setEnabled(false);
+    ui->removeMember->setEnabled(false);
+    ui->alertMember->setText("");
+    ui->alertMember->setStyleSheet("color:white");
+}
+
+void MainWindow::on_rGroupMemberCol_clicked(const QModelIndex &index)
+{
+
+    QString userName =  readSelectedCell(2,ui->rGroupMemberCol);
+    QString firstName = ctrl->select_user(userName)->first_name;
+    QString lastName =  ctrl->select_user(userName)->last_name;
+
+
+    QString alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ ", Existing Member in this group "+ find_group(userName);
+    ui->addMember->setEnabled(false);
+    ui->removeMember->setEnabled(true);
+    ui->alertMember->setText(alert);
+    ui->alertMember->setStyleSheet("color:white");
+
 }

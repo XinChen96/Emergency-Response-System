@@ -170,6 +170,10 @@ private slots:
     QString find_group(QString);
     void on_responderCol_clicked(const QModelIndex &index);
 
+    void on_reloadMember_clicked();
+
+    void on_rGroupMemberCol_clicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
 
