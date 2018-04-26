@@ -67,6 +67,27 @@ Simulation* Simulation_DB::select_simulation(QString name) {
     }
 }
 
+Simulation* Simulation_DB::select_simulation(int id) {
+    Simulation *sim;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT DISTINCT * FROM simulations WHERE id=:id");
+    query->bindValue(":id", id);
+    query->exec();
+
+    if(query->next()) {
+        sim = new Simulation(query->value(1).toString(), query->value(2).toDouble(), query->value(3).toDouble(), query->value(4).toDouble(),
+                             query->value(5).toInt(), query->value(6).toInt());
+        sim->id = query->value(0).toInt();
+
+        delete query;
+        return sim;
+    } else {
+        std::cerr << "Entry does not exist." << std::endl;
+        delete query;
+        return nullptr;
+    }
+}
+
 std::vector<QString> Simulation_DB::get_DBItems(){
     query = new QSqlQuery(db);
 

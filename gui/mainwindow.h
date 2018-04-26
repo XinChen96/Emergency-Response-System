@@ -161,7 +161,15 @@ private slots:
     void on_deleteRGroup_clicked();
 
     void on_manageRGroupMember_clicked();
-//index 5
+
+    int get_user_id(QString);
+
+    QString find_group(QString);
+    void on_responderCol_clicked(const QModelIndex &index);
+
+    void on_reloadMember_clicked();
+
+    void on_rGroupMemberCol_clicked(const QModelIndex &index);
 
     void on_messageG_clicked();
 
@@ -182,6 +190,7 @@ private:
     QString firstNameReg;
     QString lastNameReg;
     QString usernameReg;
+    QString perm_username;
     Role    roleReg;
     QString emailReg;
     Role    userRole;

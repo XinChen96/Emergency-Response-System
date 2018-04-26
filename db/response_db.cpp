@@ -39,8 +39,12 @@ void Response_DB::update_value(DBItem *r) {
 }
 
 Response* Response_DB::get_response(Emergency* e, Group* g) {
-    // Note: need to fix this query
+    query = new QSqlQuery(db);
     query->prepare("SELECT group_id, emergency_id, response FROM responses WHERE group_id=:group AND emergency_id=:emergency;");
+    query->bindValue(":group", g->id);
+    query->bindValue(":emergency", e->id);
+    query->exec();
+
     if(query->next()) {
         Response *r = new Response(query->value(0).toInt(), query->value(1).toInt(), query->value(2).toString());
         delete query;

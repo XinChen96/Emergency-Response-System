@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //TO ADD: add in all items to combo box from existing database
     //***
 
+    //Adds in all items to combo box / GUI from existing database
 
     std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
 
@@ -50,6 +51,17 @@ MainWindow::MainWindow(QWidget *parent) :
     for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
         ui->selectGroup->addItem(gr_db[i]->name);
         //ui->selGr->addItem(gr_db[i]->name);
+    }
+
+    std::vector<int> no_db = ctrl->get_noti_sim_DBItems(); //get all notifications from database
+
+    for (int i = 0; i < no_db.size(); i++) { //sets active simulation
+        Simulation* temp_si = ctrl->select_simulation(no_db[i]);
+
+        if (temp_si != nullptr) {
+            active_sim = temp_si->name;
+            sim_active = true;
+        }
     }
 
 }
@@ -95,9 +107,9 @@ void MainWindow::on_enterUsername_returnPressed()
 // Unsuccessful login should give you an alert and let you try again
 void MainWindow::login(){
 
-    QString username = ui->enterUsername->text();
-    if(ctrl->check_role(username)!=3){
-        userRole = Role(ctrl->check_role(username));
+    if(ctrl->check_role(ui->enterUsername->text())!=3){
+        userRole = Role(ctrl->check_role(ui->enterUsername->text()));
+        perm_username = ui->enterUsername->text();
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
@@ -256,9 +268,9 @@ void MainWindow::on_protocolEP_clicked()
 void MainWindow::on_groupEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(6);
-    display_tableview(group,"all",rGroupTable,ui->rGroupTableView);
-    ui->manageRGroupMember->setEnabled(false);
-    ui->deleteRGroup->setEnabled(false);
+    on_refreshRGroup_clicked();
+
+
 }
 
 void MainWindow::on_logoutEP_clicked()
@@ -631,14 +643,13 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel->setFilter(filterCmd);
 
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
-        tableModel->setHeaderData(2, Qt::Horizontal, tr("User ID"));
-        tableModel->setHeaderData(3, Qt::Horizontal, tr("First Name"));
+        tableModel->setHeaderData(2, Qt::Horizontal, tr("Responder Username"));
 
         tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
-        tableView->hideColumn(1); // don't show the ID
-        //tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
+        tableView->hideColumn(1); // don't show the Group ID
+        tableView->setItemDelegate(new QSqlRelationalDelegate(tableView));
         break;
     }
 
@@ -775,8 +786,10 @@ void MainWindow::on_manageRGroupMember_clicked()
     ui->rGroupMemberTitle->setText(pageTitle);
     ui->userGroupTitle->setText(tableTitle);
     ui->stackedWidget->setCurrentIndex(5);
-    display_tableview(userGroup,readSelectedCell(0,ui->rGroupTableView),uGroupTable,ui->rGroupMemberCol);
-    display_tableview(user,"First Responder",allUserTable,ui->responderCol);
+
+    on_reloadMember_clicked();
+
+
 }
 
 void MainWindow::on_backRGroupMember_clicked()
@@ -787,12 +800,13 @@ void MainWindow::on_backRGroupMember_clicked()
 void MainWindow::on_addMember_clicked()
 {
    QString groupID = readSelectedCell(0,ui->rGroupTableView);
-   //int userID  = readSelectedCell(0,ui->responderCol).toInt();
+
    QString groupName = readSelectedCell(1,ui->rGroupTableView);
    QString userName  = readSelectedCell(3,ui->responderCol);
 
    ctrl->add_to_group(groupName,userName);
-    display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+    on_reloadMember_clicked();
+
 }
 
 void MainWindow::on_viewProt_clicked() {
@@ -855,10 +869,105 @@ void MainWindow::on_backToSelEm_clicked() {
 
 void MainWindow::on_backToMenA_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    ui->latBox->clear();
+    ui->longBox->clear();
 }
 
 void MainWindow::on_checkNot_clicked() {
-    //to be implemented later
+    QString lat_str = ui->latBox->text();
+    QString lng_str = ui->longBox->text();
+
+    if (lat_str != nullptr && lng_str != nullptr) {
+
+        double lat = lat_str.toDouble();
+        double lng = lng_str.toDouble();
+
+        std::vector<int> no_db = ctrl->get_noti_sim_DBItems(); //get all notifications from database
+
+        for (int i = 0; i < no_db.size(); i++) { //sets active simulation
+            Simulation* temp_si = ctrl->select_simulation(no_db[i]);
+
+            if (temp_si != nullptr) {
+                //get proper location values
+                double lat_high = temp_si->lat + temp_si->radius;
+                double lat_low = temp_si->lat - temp_si->radius;
+                double lng_high = temp_si->lng + temp_si->radius;
+                double lng_low = temp_si->lng - temp_si->radius;
+
+                std::cout << lat << " lat " << lng << " lng \n";
+                std::cout << lat_high << " lat high " << lng_high << " lng high \n";
+                std::cout << lat_low << " lat low " << lng_low << " lng low \n";
+
+                if (((lat <= lat_high && lat >= lat_low) || (lat >= lat_high && lat <= lat_low)) && ((lng >= lng_high && lng <= lng_low) || (lng <= lng_high && lng >= lng_low))) {
+                    //get the Emergency
+                    Emergency* em_val = ctrl->select_emergency(temp_si->emergency_id);
+
+                    QString new_text, old_text;
+
+                    switch(userRole) {
+                        case planner: {
+
+                            //nothing yet
+                            break;
+                        }
+                        case responder:
+                        {
+                            //get group info
+                            QString group_name = find_group(perm_username);
+                            Group* gr_val = ctrl->select_group(group_name);
+
+                            //get response
+                            Response* res_val = ctrl->select_response(em_val, gr_val);
+
+                            if (res_val != nullptr) {
+
+                                new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
+                                    + QString::fromUtf8("\" Emergency at Latitude: ") + QString::number(temp_si->lat)
+                                    + " and Longitude: " + QString::number(temp_si->lng) + "\n"
+                                    + "There are " + QString::number(temp_si->num_civilians) + " civilians in the area of the \""
+                                    + em_val->name + "\".\nAs a member of the \"" + gr_val->name + "\" Group, "
+                                    + "you have been directed to do as follows:\n"
+                                    + res_val->emergency_response + QString::fromUtf8("\nThank You and Stay Safe!\n");
+                                old_text = ui->notArea->toPlainText();
+
+                                //ui->notArea->setText(old_text + "\n" + new_text);
+                                ui->notArea->setText(new_text);
+                            } else {
+                                ui->notArea->setText("No active emergencies to worry about.");
+                            }
+                            break;
+                        }
+                        case civilian: {
+                            new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
+                                    + QString::fromUtf8("\" Emergency at Latitude: ") + QString::number(temp_si->lat)
+                                    + " and Longitude: " + QString::number(temp_si->lng) + "\n"
+                                    + "You have been directed to do as follows:\n"
+                                    + em_val->public_response + QString::fromUtf8("\nThank You and Stay Safe!\n");
+                            old_text = ui->notArea->toPlainText();
+
+                            //ui->notArea->setText(old_text + "\n" + new_text);
+                            ui->notArea->setText(new_text);
+
+                            std::cout << new_text.toStdString();
+                            break;
+                        }
+                    }
+                } else {
+                    switch(userRole) {
+                        case planner:
+                            ui->notArea->setText("No active emergencies to worry about.");
+                            break;
+                        case responder:
+                            ui->notArea->setText("No active emergencies to worry about.");
+                            break;
+                        case civilian:
+                            ui->notArea->setText("No active emergencies to worry about.");
+                            break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 void MainWindow::on_removeMember_clicked()
@@ -868,7 +977,7 @@ void MainWindow::on_removeMember_clicked()
     QString id = readSelectedCell(0,ui->rGroupMemberCol);
 
     ctrl->delete_row(userGroup,id);
-     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+    on_reloadMember_clicked();
 }
 
 void MainWindow::on_startSim_clicked() {
@@ -894,6 +1003,7 @@ void MainWindow::on_stopSim_clicked() {
     if (sim_active && sim_name == active_sim) { //only allow for one sim running at a time
         sim_active = false;
         active_sim = "";
+        ui->notArea->clear();
 
 
         //set text
@@ -910,33 +1020,73 @@ void MainWindow::on_stopSim_clicked() {
     }
 }
 
-void MainWindow::on_messageG_clicked()
-{
-    // Populate combo box
-    std::vector<Group*> gr_db = ctrl->get_user_groups(user_ID); //get all groups
-    display_messages(instructionGroupTable, ui->instructions_table_view, gr_db[0]->id); // Default to first item returned
-    group_ID = gr_db[0]->id;
-    for (int i = 0; i < gr_db.size(); i++) { //adds them to combo box
-        ui->selectGroup_2->addItem(gr_db[i]->name);
-        delete gr_db[i];
+QString MainWindow::find_group(QString username){
+    QString groupName;
+    int userId = get_user_id(username);
+    std::cout << "GUi:get user id"<<userId << std::endl;
+    int groupId = ctrl->find_group(userId);
+    std::cout << "GUi:group id"<<groupId << std::endl;
+    if(groupId == -1){
+    groupName = "";
+    }else{groupName = ctrl->select_group(groupId)->name;
     }
+    std::cout << "GUi:find group"<<groupName.toStdString() << std::endl;
 
-    ui->stackedWidget->setCurrentIndex(4);
+
+    return groupName;
+
 }
 
-void MainWindow::on_selectGroup_2_activated(const QString &arg1)
-{
-    QString temp = ui->selectGroup_2->currentText(); //get value from combo box
-    if (temp != nullptr) {
-        Group* gr_temp = ctrl->select_group(temp);
-        group_ID = gr_temp->id;
-        display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
-        delete gr_temp;
-    }
+int MainWindow::get_user_id(QString username){
+    return ctrl->select_user(username)->id;
 }
 
-void MainWindow::on_update_instructions_btn_clicked()
+void MainWindow::on_responderCol_clicked(const QModelIndex &index)
 {
-    ctrl->update_instructions(group_ID);
-    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+
+QString firstName = readSelectedCell(1,ui->responderCol);
+QString lastName =  readSelectedCell(2,ui->responderCol);
+QString userName =  readSelectedCell(3,ui->responderCol);
+QString groupName = find_group(userName);
+QString alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ ", Current Group:"+ find_group(userName);
+
+if(groupName == ""){
+
+alert = "Available Responder: "+firstName+ " " + lastName + " ["+userName+"] ";
+ui->addMember->setEnabled(true);
+ui->alertMember->setStyleSheet("background-color:rgb(38, 194, 129);color:white;");
+}else{
+alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ "is already assigned to Group: "+ find_group(userName);
+ui->addMember->setEnabled(false);
+ui->alertMember->setStyleSheet("background-color:rgb(245, 215, 110)");
+}
+ui->removeMember->setEnabled(false);
+ui->alertMember->setText(alert);
+
+}
+
+void MainWindow::on_reloadMember_clicked()
+{
+    display_tableview(userGroup,readSelectedCell(0,ui->rGroupTableView),uGroupTable,ui->rGroupMemberCol);
+    display_tableview(user,"First Responder",allUserTable,ui->responderCol);
+    ui->addMember->setEnabled(false);
+    ui->removeMember->setEnabled(false);
+    ui->alertMember->setText("");
+    ui->alertMember->setStyleSheet("color:white");
+}
+
+void MainWindow::on_rGroupMemberCol_clicked(const QModelIndex &index)
+{
+
+    QString userName =  readSelectedCell(2,ui->rGroupMemberCol);
+    QString firstName = ctrl->select_user(userName)->first_name;
+    QString lastName =  ctrl->select_user(userName)->last_name;
+
+
+    QString alert = "Responder: "+firstName+ " " + lastName + " ["+userName+"] "+ ", Existing Member in this group "+ find_group(userName);
+    ui->addMember->setEnabled(false);
+    ui->removeMember->setEnabled(true);
+    ui->alertMember->setText(alert);
+    ui->alertMember->setStyleSheet("color:white");
+
 }

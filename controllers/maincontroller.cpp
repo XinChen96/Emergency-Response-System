@@ -9,6 +9,14 @@ MainController::~MainController() {
     delete c;
 }
 
+MainController::~MainController() {
+
+    std::cout << __PRETTY_FUNCTION__<<"\n";
+    delete db_m;
+    delete s;
+    delete c;
+}
+
 QSqlDatabase MainController::get_DB(db_table table){
     switch(table){
     case 0:
@@ -153,6 +161,16 @@ Simulation* MainController::select_simulation(QString name) {
     return temp;
 }
 
+//gets a simulation from the database
+Simulation* MainController::select_simulation(int id) {
+    db_m = new Simulation_DB(dbPath);
+
+    Simulation* temp = ((Simulation_DB*)db_m)->select_simulation(id);
+
+    delete db_m;
+    return temp;
+}
+
 //gets all simulation item names currentcly in the database
 std::vector<QString> MainController::get_Sim_DBItems() {
     db_m = new Simulation_DB(dbPath);
@@ -225,13 +243,6 @@ int MainController::check_role(QString username) {
 std::vector<Group*> MainController::get_groups() {
     db_m = new Group_DB(dbPath);
     return ((Group_DB*)db_m)->get_groups();
-    delete db_m;
-}
-
-// Get all groups that a particular responder is in
-std::vector<Group*> MainController::get_user_groups(int user_id) {
-    db_m = new Group_DB(dbPath);
-    return ((Group_DB*)db_m)->get_user_groups(user_id);
     delete db_m;
 }
 
@@ -346,13 +357,10 @@ bool MainController::remove_notification(int value) {
     return true;
 }
 
-// Gets the user id
-int MainController::get_user_id(QString username) {
-    db_m = new User_DB(dbPath);
-    int temp = ((User_DB*)db_m)->get_user_id(username);
-    std::cout << temp << std::endl;
-    delete db_m;
-    return temp;
+
+int MainController::find_group(int userId){
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->find_group(userId);
 }
 
 // Requests update instructions from the planner server

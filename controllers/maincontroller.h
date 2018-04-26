@@ -1,7 +1,6 @@
 #ifndef MAINCONTROLLER_H
 #define MAINCONTROLLER_H
 #include "QtSql/QSqlDatabase"
-#include <QObject>
 #include "QtSql/QSqlQuery"
 #include "QString"
 #include <iostream>
@@ -43,6 +42,7 @@ public:
 
     User*   select_user(QString);
     Simulation* select_simulation(QString name);
+    Simulation* select_simulation(int id);
     bool add_emergency(Emergency*);
     Emergency* select_emergency(QString name);
     Emergency* select_emergency(int id);
@@ -63,10 +63,18 @@ public:
     bool remove_notification(int value);
     void start_server();
     void start_client();
+    void get_notification();
+    std::vector<int> get_noti_sim_DBItems();
     std::vector<Group*> get_user_groups(int);
     int get_user_id(QString);
     void update_instructions(int);
     int check_role(QString);
+    void add_instruction(int);
+
+
+
+    int check_role(QString);
+    int find_group(int);
     void add_instruction(int);
 
 private:
