@@ -31,7 +31,7 @@ void Instructions_DB::update_value(DBItem* instr) {
     delete in;
 }
 
-void Instructions_DB::add_planner_instruction(DBItem* instruction) {
+void Instructions_DB::add_planner_instruction(DBItem* instr) {
     Instruction *in = ((Instruction*)instr);
 
     query = new QSqlQuery(db);

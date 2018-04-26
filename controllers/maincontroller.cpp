@@ -9,14 +9,6 @@ MainController::~MainController() {
     delete c;
 }
 
-MainController::~MainController() {
-
-    std::cout << __PRETTY_FUNCTION__<<"\n";
-    delete db_m;
-    delete s;
-    delete c;
-}
-
 QSqlDatabase MainController::get_DB(db_table table){
     switch(table){
     case 0:

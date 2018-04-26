@@ -113,7 +113,7 @@ void MainWindow::login(){
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
-        user_ID = ctrl->get_user_id(username);
+        user_ID = ctrl->get_user_id(ui->enterUsername->text());
 
     }else{
         ui->enterUsername->clear();

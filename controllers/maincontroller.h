@@ -70,12 +70,7 @@ public:
     void update_instructions(int);
     int check_role(QString);
     void add_instruction(int);
-
-
-
-    int check_role(QString);
     int find_group(int);
-    void add_instruction(int);
 
 private:
 
