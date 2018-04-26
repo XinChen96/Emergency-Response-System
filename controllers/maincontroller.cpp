@@ -6,7 +6,7 @@ MainController::MainController() {
 
 
     //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-    std::cout << "MainController constructor" <<std::endl;
+    std::cout << __PRETTY_FUNCTION__ <<std::endl;
 }
 
 MainController::~MainController() {
@@ -355,6 +355,11 @@ bool MainController::remove_notification(int value) {
     return true;
 }
 
+
+int MainController::find_group(int userId){
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->find_group(userId);
+}
 std::vector<int> MainController::get_noti_sim_DBItems() {
     db_m = new Notification_DB(dbPath);
 

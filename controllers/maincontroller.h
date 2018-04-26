@@ -68,6 +68,7 @@ public:
 
 
     int check_role(QString);
+    int find_group(int);
 
 private:
 

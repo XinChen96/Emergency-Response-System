@@ -777,12 +777,14 @@ void MainWindow::on_backRGroupMember_clicked()
 void MainWindow::on_addMember_clicked()
 {
    QString groupID = readSelectedCell(0,ui->rGroupTableView);
-   //int userID  = readSelectedCell(0,ui->responderCol).toInt();
+
    QString groupName = readSelectedCell(1,ui->rGroupTableView);
    QString userName  = readSelectedCell(3,ui->responderCol);
 
    ctrl->add_to_group(groupName,userName);
     display_tableview(userGroup,groupID,uGroupTable,ui->rGroupMemberCol);
+
+    std::cout << find_group(userName).toStdString() << std::endl;
 }
 
 void MainWindow::on_viewProt_clicked() {
@@ -965,4 +967,31 @@ void MainWindow::on_stopSim_clicked() {
         delete temp_sim;
         delete temp_no;
     }
+}
+
+QString MainWindow::find_group(QString username){
+    QString groupName;
+    int userId = get_user_id(username);
+    std::cout << "GUi:get user id"<<userId << std::endl;
+    int groupId = ctrl->find_group(userId);
+    std::cout << "GUi:group id"<<groupId << std::endl;
+    if(groupId == -1){
+    groupName = "Not assigned";
+    }else{groupName = ctrl->select_group(groupId)->name;
+    }
+    std::cout << "GUi:find group"<<groupName.toStdString() << std::endl;
+
+
+    return groupName;
+
+}
+
+int MainWindow::get_user_id(QString username){
+    return ctrl->select_user(username)->id;
+}
+
+void MainWindow::on_responderCol_clicked(const QModelIndex &index)
+{
+QString responderName = readSelectedCell(3,ui->responderCol);
+QString alert = responderName;
 }
