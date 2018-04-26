@@ -368,3 +368,8 @@ void MainController::update_instructions(int group_id) {
     db_m->create_row(new Instruction(msg, group_id));
     delete db_m;
 }
+
+std::vector<int> MainController::get_noti_sim_DBItems() {
+    db_m = new Notification_DB(dbPath);
+    return ((Notification_DB*)db_m)->get_DBItems();
+}
