@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     simulation.cpp \
     emergency.cpp \
     response.cpp \
-    notification.cpp
+    notification.cpp \
+    instruction.cpp
 
 HEADERS += \
     user.h \
@@ -26,4 +27,5 @@ HEADERS += \
     simulation.h \
     emergency.h \
     response.h \
-    notification.h
+    notification.h \
+    instruction.h

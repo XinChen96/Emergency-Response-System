@@ -1,14 +1,6 @@
 #include "maincontroller.h"
 #include <iostream>
 
-MainController::MainController() {
-    dbPath = "../db.sqlite";
-
-
-    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-    std::cout << __PRETTY_FUNCTION__ <<std::endl;
-}
-
 MainController::~MainController() {
 
     std::cout << __PRETTY_FUNCTION__<<"\n";
@@ -39,7 +31,13 @@ QSqlDatabase MainController::get_DB(db_table table){
         db_m = new Emergency_DB(dbPath);
         return db_m->get_db();
         break;
-
+    case 5:
+        db_m = new Instructions_DB(dbPath);
+        return db_m->get_db();
+        break;
+    default:
+        db_m = new DB_Manager(dbPath);
+        break;
     }
 
 }
@@ -331,10 +329,6 @@ void MainController::start_server() {
     s = new Server();
 }
 
-void MainController::get_notification() {
-    c->request_new_msg();
-}
-
 //select notification from database
 Notification* MainController::select_notification_id(int value) {
     db_m = new Notification_DB(dbPath);
@@ -360,11 +354,34 @@ int MainController::find_group(int userId){
     db_m = new Group_DB(dbPath);
     return ((Group_DB*)db_m)->find_group(userId);
 }
+
+// Requests update instructions from the planner server
+void MainController::update_instructions(int group_id) {
+    QMutex m;
+    m.lock();
+    c->request_new_msg();
+    m.unlock();
+    db_m = new Instructions_DB(dbPath);
+    QString msg = c->get_msg();
+    std::cout << msg.toStdString() << std::endl;
+    std::cout << group_id << std::endl;
+    db_m->create_row(new Instruction(msg, group_id));
+    delete db_m;
+}
+
 std::vector<int> MainController::get_noti_sim_DBItems() {
     db_m = new Notification_DB(dbPath);
+    return ((Notification_DB*)db_m)->get_DBItems();
+}
 
-    std::vector<int> temp = ((Notification_DB*)db_m)->get_DBItems();
-
+std::vector<Group*> MainController::get_user_groups(int user) {
+    db_m = new Group_DB(dbPath);
+    return ((Group_DB*)db_m)->get_user_groups(group);
     delete db_m;
-    return temp;
+}
+
+int MainController::get_user_id(QString user) {
+    db_m = new User_DB(dbPath);
+    return ((User_DB*)db_m)->get_user_id(user);
+    delete db_m;
 }

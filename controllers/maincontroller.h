@@ -22,15 +22,16 @@
 #include "../users/response.h"
 #include "../db/response_db.h"
 #include "../db/notification_db.h"
+#include "../db/instructions_db.h"
+#include "../users/instruction.h"
 #include "server.h"
 #include "client.h"
+#include <QMutex>
 
 
-class MainController
-{
+class MainController {
 public:
-    MainController();
-    MainController(QString path);
+    MainController() : dbPath("../db.sqlite") {}
     ~MainController();
 
     bool add_user(QString,QString,QString,Role);
@@ -64,10 +65,11 @@ public:
     void start_client();
     void get_notification();
     std::vector<int> get_noti_sim_DBItems();
-
-
-
+    std::vector<Group*> get_user_groups(int);
+    int get_user_id(QString);
+    void update_instructions(int);
     int check_role(QString);
+    void add_instruction(int);
     int find_group(int);
 
 private:

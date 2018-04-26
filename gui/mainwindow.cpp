@@ -26,6 +26,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
+    //***
+    //TO ADD: add in all items to combo box from existing database
+    //***
 
     //Adds in all items to combo box / GUI from existing database
 
@@ -110,6 +113,7 @@ void MainWindow::login(){
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
+        user_ID = ctrl->get_user_id(ui->enterUsername->text());
 
     }else{
         ui->enterUsername->clear();
@@ -566,6 +570,23 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
            selectedTable->model()->index(selectedRow,selectedCol)).
             toString();
 }
+
+// Display all of the messages from the database
+void MainWindow::display_messages(QSqlRelationalTableModel* table_model, QTableView* table_view, int group) {
+    table_model = new QSqlRelationalTableModel(this, ctrl->get_DB(user));
+    table_model->setTable("instructions");
+    QString filter = QString("group_id=%1").arg(group);
+    table_model->setFilter(filter);
+    table_model->select();
+    table_model->sort(3, Qt::DescendingOrder); // Sort with most recent message first
+
+    table_model->setHeaderData(1, Qt::Horizontal, tr("Instruction"));
+    table_model->setHeaderData(2, Qt::Horizontal, tr("Date"));
+    table_view->setModel(table_model);
+    table_view->hideColumn(0);
+    table_view->hideColumn(2);
+}
+
 //only user table for now
 void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalTableModel* tableModel,QTableView* tableView){
 
@@ -624,6 +645,7 @@ void MainWindow::display_tableview(db_table table,QString filter,QSqlRelationalT
         tableModel->sort(1,Qt::AscendingOrder); //sort by group name
         tableModel->setHeaderData(2, Qt::Horizontal, tr("Responder Username"));
 
+        tableModel->setRelation(2,QSqlRelation("users","id","username"));
         tableView->setModel(tableModel);
         tableView->hideColumn(0); // don't show the ID
         tableView->hideColumn(1); // don't show the Group ID
@@ -1095,4 +1117,26 @@ void MainWindow::on_rGroupMemberCol_clicked(const QModelIndex &index)
     ui->alertMember->setText(alert);
     ui->alertMember->setStyleSheet("color:white");
 
+}
+
+void MainWindow::on_messageG_clicked() {
+    // Populate group box
+    std::vector<Group*> group_list = ctrl->get_user_groups(user_ID);
+    group_ID = group_list[0]->id;
+    for(int i = 0; i < group_list.size(); i++) {
+        ui->selectGroup_2->addItem(group_list[i]->name);
+    }
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+    ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+}
+
+void MainWindow::on_update_instructions_btn_clicked() {
+    ctrl->update_instructions(group_ID);
+    display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
 }
