@@ -850,8 +850,71 @@ void MainWindow::on_backToMenA_clicked() {
 }
 
 void MainWindow::on_checkNot_clicked() {
-    double lat = ui->latBox->text().toDouble();
-    double lng = ui->longBox->text().toDouble();
+    QString lat_str = ui->latBox->text();
+    QString lng_str = ui->longBox->text();
+
+    if (lat_str != nullptr && lng_str != nullptr) {
+
+        double lat = lat_str.toDouble();
+        double lng = lng_str.toDouble();
+
+        std::vector<int> no_db = ctrl->get_noti_sim_DBItems(); //get all notifications from database
+
+        for (int i = 0; i < no_db.size(); i++) { //sets active simulation
+            Simulation* temp_si = ctrl->select_simulation(no_db[i]);
+
+            if (temp_si != nullptr) {
+                //get proper location values
+                double lat_high = temp_si->lat + temp_si->radius;
+                double lat_low = temp_si->lat - temp_si->radius;
+                double lng_high = temp_si->lng + temp_si->radius;
+                double lng_low = temp_si->lng - temp_si->radius;
+
+                std::cout << lat << " lat " << lng << " lng \n";
+                std::cout << lat_high << " lat high " << lng_high << " lng high \n";
+                std::cout << lat_low << " lat low " << lng_low << " lng low \n";
+
+                if (((lat <= lat_high && lat >= lat_low) || (lat >= lat_high && lat <= lat_low)) && ((lng >= lng_high && lng <= lng_low) || (lng <= lng_high && lng >= lng_low))) {
+                    //get the Emergency
+                    Emergency* em_val = ctrl->select_emergency(temp_si->emergency_id);
+
+                    switch(userRole) {
+                        case planner:
+                            //nothing yet
+                            break;
+                        case responder:
+                            //nothing yet
+                            break;
+                        case civilian:
+                            QString new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
+                                    + QString::fromUtf8("\" Emergency at Latitude: ") + QString::number(temp_si->lat)
+                                    + " and Longitude: " + QString::number(temp_si->lng) + "\n"
+                                    + "You have been directed to do as follows:\n"
+                                    + em_val->public_response + QString::fromUtf8("\nThank You and Stay Safe!\n");
+                            QString old_text = ui->notArea->toPlainText();
+
+                            //ui->notArea->setText(old_text + "\n" + new_text);
+                            ui->notArea->setText(new_text);
+
+                            std::cout << new_text.toStdString();
+                            break;
+                    }
+                } else {
+                    switch(userRole) {
+                        case planner:
+                            ui->notArea->setText("No active emergencies to worry about");
+                            break;
+                        case responder:
+                            ui->notArea->setText("No active emergencies to worry about");
+                            break;
+                        case civilian:
+                            ui->notArea->setText("No active emergencies to worry about");
+                            break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 void MainWindow::on_removeMember_clicked()
@@ -887,6 +950,7 @@ void MainWindow::on_stopSim_clicked() {
     if (sim_active && sim_name == active_sim) { //only allow for one sim running at a time
         sim_active = false;
         active_sim = "";
+        ui->notArea->clear();
 
 
         //set text
