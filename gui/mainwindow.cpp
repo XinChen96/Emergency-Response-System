@@ -106,6 +106,7 @@ void MainWindow::login(){
 
     if(ctrl->check_role(ui->enterUsername->text())!=3){
         userRole = Role(ctrl->check_role(ui->enterUsername->text()));
+        perm_username = ui->enterUsername->text();
         ui->stackedWidget->setCurrentIndex(2);
         ui->loginAlert->setStyleSheet("");
         ui->loginAlert->setText("");
@@ -880,37 +881,66 @@ void MainWindow::on_checkNot_clicked() {
                     //get the Emergency
                     Emergency* em_val = ctrl->select_emergency(temp_si->emergency_id);
 
+                    QString new_text, old_text;
+
                     switch(userRole) {
-                        case planner:
+                        case planner: {
+
                             //nothing yet
                             break;
+                        }
                         case responder:
-                            //nothing yet
+                        {
+                            //get group info
+                            QString group_name = find_group(perm_username);
+                            Group* gr_val = ctrl->select_group(group_name);
+
+                            //get response
+                            Response* res_val = ctrl->select_response(em_val, gr_val);
+
+                            if (res_val != nullptr) {
+
+                                new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
+                                    + QString::fromUtf8("\" Emergency at Latitude: ") + QString::number(temp_si->lat)
+                                    + " and Longitude: " + QString::number(temp_si->lng) + "\n"
+                                    + "There are " + QString::number(temp_si->num_civilians) + " civilians in the area of the \""
+                                    + em_val->name + "\".\nAs a member of the \"" + gr_val->name + "\" Group, "
+                                    + "you have been directed to do as follows:\n"
+                                    + res_val->emergency_response + QString::fromUtf8("\nThank You and Stay Safe!\n");
+                                old_text = ui->notArea->toPlainText();
+
+                                //ui->notArea->setText(old_text + "\n" + new_text);
+                                ui->notArea->setText(new_text);
+                            } else {
+                                ui->notArea->setText("No active emergencies to worry about.");
+                            }
                             break;
-                        case civilian:
-                            QString new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
+                        }
+                        case civilian: {
+                            new_text = QString::fromUtf8("ATTENTION:\nThere is a \"") + em_val->name
                                     + QString::fromUtf8("\" Emergency at Latitude: ") + QString::number(temp_si->lat)
                                     + " and Longitude: " + QString::number(temp_si->lng) + "\n"
                                     + "You have been directed to do as follows:\n"
                                     + em_val->public_response + QString::fromUtf8("\nThank You and Stay Safe!\n");
-                            QString old_text = ui->notArea->toPlainText();
+                            old_text = ui->notArea->toPlainText();
 
                             //ui->notArea->setText(old_text + "\n" + new_text);
                             ui->notArea->setText(new_text);
 
                             std::cout << new_text.toStdString();
                             break;
+                        }
                     }
                 } else {
                     switch(userRole) {
                         case planner:
-                            ui->notArea->setText("No active emergencies to worry about");
+                            ui->notArea->setText("No active emergencies to worry about.");
                             break;
                         case responder:
-                            ui->notArea->setText("No active emergencies to worry about");
+                            ui->notArea->setText("No active emergencies to worry about.");
                             break;
                         case civilian:
-                            ui->notArea->setText("No active emergencies to worry about");
+                            ui->notArea->setText("No active emergencies to worry about.");
                             break;
                     }
                 }
