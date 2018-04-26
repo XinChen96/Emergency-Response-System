@@ -109,7 +109,8 @@ Group* Group_DB::select_group(int id) {
         delete query;
         return group;
     } else {
-        cerr << "Group:select_group:Entry does not exist." << endl;
+        cerr << "Group:select_group:"
+                "Entry does not exist." << endl;
         delete query;
         return nullptr;
     }
@@ -142,7 +143,7 @@ int Group_DB::find_group(int userId) {
     query->exec();
 
     if(query->next()) {
-        groupId =  query->value(0).toInt();
+        groupId =  query->value(1).toInt();
         delete query;
         return groupId;
     } else {

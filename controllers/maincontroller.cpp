@@ -6,7 +6,7 @@ MainController::MainController() {
 
 
     //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
-    std::cout << "MainController constructor" <<std::endl;
+    std::cout << __PRETTY_FUNCTION__ <<std::endl;
 }
 
 MainController::~MainController() {
