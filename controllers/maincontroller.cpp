@@ -5,7 +5,7 @@ MainController::MainController() {
     dbPath = "../db.sqlite";
 
 
-    dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
+    //dbPath = "/Users/chenxin/db.sqlite"; // this is for Chen's laptop
     std::cout << __PRETTY_FUNCTION__ <<std::endl;
 }
 
