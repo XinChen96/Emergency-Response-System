@@ -273,6 +273,7 @@ void MainWindow::on_logoutEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->enterUsername->clear();
+    ui->notArea->clear();
 }
 
 void MainWindow::on_simulationsButton_clicked() {
@@ -807,6 +808,8 @@ void MainWindow::on_viewProt_clicked() {
 
 void MainWindow::on_backToMe_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    ui->errorText->clear();
+    ui->errorText->setStyleSheet("");
 }
 
 void MainWindow::on_availGroups_clicked() {
@@ -814,6 +817,9 @@ void MainWindow::on_availGroups_clicked() {
     ui->selGr->clear(); //clear box so it doesn't add more
 
     if (temp0 != nullptr) {
+
+        ui->errorText->clear();
+        ui->errorText->setStyleSheet("");
 
         Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
 
@@ -840,17 +846,26 @@ void MainWindow::on_viewProto_clicked() {
         Group* gr_db = ctrl->select_group(temp1);
         Response* resp_db = ctrl->select_response(em_db, gr_db); //get response
 
-        //display the information
-        ui->pubRes->setText(em_db->public_response);
-        ui->grRole->setText(resp_db->emergency_response);
+        if (resp_db) {
 
-        ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+            ui->errorText->clear();
+            ui->errorText->setStyleSheet("");
 
-        ui->stackedWidget->setCurrentIndex(20);
+            //display the information
+            ui->pubRes->setText(em_db->public_response);
+            ui->grRole->setText(resp_db->emergency_response);
 
-        delete em_db;
-        delete gr_db;
-        delete resp_db;
+            ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+
+            ui->stackedWidget->setCurrentIndex(20);
+
+            delete em_db;
+            delete gr_db;
+            delete resp_db;
+        } else {
+            ui->errorText->setText("Please click Available Groups before viewing.");
+            ui->errorText->setStyleSheet("background-color:rgb(245, 215, 110)");
+        }
     }
 }
 
