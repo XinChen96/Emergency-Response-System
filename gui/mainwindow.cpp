@@ -288,6 +288,9 @@ void MainWindow::on_simulationsButton_clicked() {
 
 void MainWindow::on_backToSim_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    //set error text
+    ui->errorText2->clear();
+    ui->errorText2->setStyleSheet("");
 }
 
 void MainWindow::on_createBut_clicked() {
@@ -371,45 +374,61 @@ void MainWindow::on_viewBut_clicked() {
         Simulation* sim = ctrl->select_simulation(simName); //get the database entry
         sim_name = simName;
 
-        //get value from db
-        QString temp0 = sim->name;
-        QString temp1 = QString::number(sim->lat);
-        QString temp2 = QString::number(sim->lng);
-        QString temp3 = QString::number(sim->radius);
-        QString temp4 = QString::number(sim->num_civilians);
-        int temp_id = sim->emergency_id;
+        if (sim != nullptr) {
+            //set error text
+            ui->errorText2->clear();
+            ui->errorText2->setStyleSheet("");
 
-        Emergency* temp_em = ctrl->select_emergency(temp_id);
-        QString temp5 = temp_em->name;
+            //get value from db
+            QString temp0 = sim->name;
+            QString temp1 = QString::number(sim->lat);
+            QString temp2 = QString::number(sim->lng);
+            QString temp3 = QString::number(sim->radius);
+            QString temp4 = QString::number(sim->num_civilians);
+            int temp_id = sim->emergency_id;
 
-        //Get value from current box and add to it
-        QString value0 = temp0 + ":";
-        QString value1 = temp1;
-        QString value2 = temp2;
-        QString value3 = temp3;
-        QString value4 = temp4;
-        QString value5 = temp5;
+            Emergency* temp_em = ctrl->select_emergency(temp_id);
+            QString temp5 = temp_em->name;
 
-        //reset the values
-        ui->label0->setText(value0);
-        ui->labe1->setText(value1);
-        ui->label_15->setText(value2);
-        ui->label3->setText(value3);
-        ui->label4->setText(value4);
-        ui->label5->setText(value5);
+            //Get value from current box and add to it
+            QString value0 = temp0 + ":";
+            QString value1 = temp1;
+            QString value2 = temp2;
+            QString value3 = temp3;
+            QString value4 = temp4;
+            QString value5 = temp5;
 
-        if (active_sim != simName) {
-            //default text appearance
-            ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
-            ui->label6->setText("Simulation Not Active.");
-        } else if (active_sim == simName) {
-            ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
-            ui->label6->setText("Simulation Active.");
+            //reset the values
+            ui->label0->setText(value0);
+            ui->labe1->setText(value1);
+            ui->label_15->setText(value2);
+            ui->label3->setText(value3);
+            ui->label4->setText(value4);
+            ui->label5->setText(value5);
+
+            if (active_sim != simName) {
+                //default text appearance
+                ui->label6->setStyleSheet("color:rgb(242, 21, 21)");
+                ui->label6->setText("Simulation Not Active.");
+            } else if (active_sim == simName) {
+                ui->label6->setStyleSheet("color:rgb(1, 155, 52)");
+                ui->label6->setText("Simulation Active.");
+            }
+
+            ui->stackedWidget->setCurrentIndex(11); //set page
+
+            delete sim;
+        } else {
+            //set error text
+            ui->errorText2->setAlignment(Qt::AlignCenter);
+            ui->errorText2->setText("Please select a Simulation before viewing.");
+            ui->errorText2->setStyleSheet("background-color:rgb(245, 215, 110)");
         }
-
-        ui->stackedWidget->setCurrentIndex(11); //set page
-
-        delete sim;
+    } else {
+        //set error text
+        ui->errorText2->setAlignment(Qt::AlignCenter);
+        ui->errorText2->setText("Please select a Simulation before viewing.");
+        ui->errorText2->setStyleSheet("background-color:rgb(245, 215, 110)");
     }
 }
 
@@ -744,8 +763,8 @@ void MainWindow::on_setRole_clicked() {
 }
 
 void MainWindow::on_backToCreateEm2_clicked() {
-    ui->stackedWidget->setCurrentIndex(17);;
-
+    ui->stackedWidget->setCurrentIndex(17);
+    ui->enterRole->clear();
 }
 
 
@@ -801,10 +820,17 @@ void MainWindow::on_deleteRGroup_clicked()
     QString selectedName = readSelectedCell(1,ui->rGroupTableView);
     QString alert;
 
+    //remove group from combo box
+    Group* temp_gr = ctrl->select_group(selectedName);
+
         if(ctrl->delete_row(group,selectedId)){
             on_refreshRGroup_clicked();
             alert = "Group ["+ selectedName +"] is deleted";
             ui->selectAlertRGroup->setText(alert);
+
+            //remove group from combo box
+            int spot = temp_gr->id - 1;
+            ui->selectGroup->removeItem(spot);
         }else{
             on_refreshRGroup_clicked();
             alert = "Group ["+ selectedName +"] delete failed";
