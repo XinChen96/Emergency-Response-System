@@ -11,10 +11,10 @@ void Group_DB::generate_sql_queries() {
     update_cmd += "UPDATE groups SET groupName=:groupName WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS groups;";
 
-    create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE );";
+    create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id) ON DELETE CASCADE , FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE );";
     //insert_groups_cmd += "INSERT INTO userGroups (group_id, user_id) VALUES (:group_id, :user_id);";
     delete_usergroups_cmd += "DELETE FROM userGroups WHERE id = :id;";
-    delete_groups_cmd += "DELETE FROM userGroups WHERE group_id = :group_id ORDER BY nleft;";
+    delete_groups_cmd += "DELETE FROM userGroups WHERE group_id = :group_id;";
     delete_users_cmd += "DELETE FROM userGroups WHERE user_id = :user_id;";
     query = nullptr;
 }

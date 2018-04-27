@@ -21,16 +21,16 @@ DB_Manager::DB_Manager(const QString& path) {
         std::cerr << "DB_Manager: Could not open db." << std::endl;
         //exit(0);
     } else {
-        std::cout << "DB_Manager: Opened new Db connection:" << std::endl;
+        std::cout << "DB_Manager: Opened new Db connection: ";
     }
 
     //print all database connection to keep track all connection opened
     QStringList allConnection = QSqlDatabase::connectionNames();
     for(int i=0 ; i < allConnection.length() ; i++)
      {
-         std::cout << "DB_Manager: connection " << (i + 1) << ": "<< allConnection.at(i).toStdString() << std::endl;
+         std::cout << "[" << (i + 1) << "] "<< allConnection.at(i).toStdString();
       }
-
+    std::cout << std::endl;
 }
 
 
