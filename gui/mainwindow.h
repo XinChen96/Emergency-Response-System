@@ -139,6 +139,8 @@ private slots:
     void on_startSim_clicked();
     void on_stopSim_clicked();
 
+    void on_notifMenu_clicked();
+
     //index 16 View/Delete Users page
     //Push button clicked
     void on_backDeleteUser_clicked();

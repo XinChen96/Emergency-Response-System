@@ -31,8 +31,9 @@
 
 class MainController {
 public:
-    MainController() : dbPath("../db.sqlite") {}
-    //MainController() : dbPath("/Users/chenxin/db.sqlite") {}
+    //MainController() : dbPath("../db.sqlite") {}
+    //MainController() : dbPath("/Users/chenxin/db.sqlite") {} //Chen's file path
+    MainController() : dbPath("/mnt/205_Database/db.sqlite") {} //Joe's file path
 
     ~MainController();
 

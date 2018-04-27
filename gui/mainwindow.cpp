@@ -229,15 +229,12 @@ void MainWindow::on_menu_clicked()
     switch(userRole){
     case planner:
         ui->stackedWidget->setCurrentIndex(3);
-        ui->responderChannelG->setEnabled(true);
         break;
     case responder:
         ui->stackedWidget->setCurrentIndex(13);
-        ui->responderChannelG->setEnabled(true);
         break;
     case civilian:
         ui->stackedWidget->setCurrentIndex(13);
-        ui->responderChannelG->setEnabled(false);
         break;
     }
 }
@@ -450,6 +447,7 @@ void MainWindow::on_logoutG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->enterUsername->clear();
+    ui->notArea->clear();
 }
 
 void MainWindow::on_createEm_clicked() {
@@ -1181,4 +1179,8 @@ void MainWindow::on_backToMapA_clicked() {
 void MainWindow::on_backMapG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_notifMenu_clicked() {
+    ui->stackedWidget->setCurrentIndex(21);
 }
