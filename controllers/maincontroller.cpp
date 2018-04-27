@@ -37,6 +37,7 @@ QSqlDatabase MainController::get_DB(db_table table){
         break;
     default:
         db_m = new DB_Manager(dbPath);
+        return db_m->get_db();
         break;
     }
 
@@ -99,24 +100,30 @@ void MainController::add_to_group(QString groupID, QString userID){
     //delete user;
     //delete group;
     //delete db_m;
-
 }
-bool MainController::delete_row(db_table table, QString selected){
+
+bool MainController::delete_row(db_table table, QString selectedId){
+    int groupId;
+    bool deleteSuccess;
     switch(table){
     case user://delete a user;
         db_m = new User_DB(dbPath);
-        db_m->delete_row(selected);
+        deleteSuccess = db_m->delete_row(selectedId);
         delete db_m;
+        return deleteSuccess;
         break;
     case group:
+        groupId = selectedId.toInt();
         db_m = new Group_DB(dbPath);
-        return db_m->delete_row(selected);
+        deleteSuccess = db_m->delete_row(groupId)&&((Group_DB*)db_m)->remove_from_group("groupId",groupId);
         delete db_m;
+        return deleteSuccess;
         break;
     case userGroup:
         db_m = new Group_DB(dbPath);
-        int id = selected.toInt();
-        ((Group_DB*)db_m)->remove_from_group(id);
+        int uGroupId = selectedId.toInt();
+        //remove_from_group (enter "userId","groupId",or "userGroupId")
+        ((Group_DB*)db_m)->remove_from_group("userGroupId",uGroupId);
         delete db_m;
         break;
     }
@@ -385,3 +392,14 @@ int MainController::get_user_id(QString user) {
     return ((User_DB*)db_m)->get_user_id(user);
     delete db_m;
 }
+
+//updates response item in the database
+bool MainController::update_response(Response* resp) {
+    db_m = new Response_DB(dbPath);
+
+    db_m->update_value(resp);
+
+    delete db_m;
+    return true;
+}
+

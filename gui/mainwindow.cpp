@@ -122,8 +122,11 @@ void MainWindow::login(){
     }
 
     if(userRole == 2) { // Planner
+        ui->alerts->setVisible(false);
         ctrl->start_server();
+
     } else {
+        ui->alerts->setVisible(true);
         ctrl->start_client();
     }
 }
@@ -226,9 +229,11 @@ void MainWindow::on_menu_clicked()
     switch(userRole){
     case planner:
         ui->stackedWidget->setCurrentIndex(3);
+        ui->responderChannelG->setEnabled(true);
         break;
     case responder:
         ui->stackedWidget->setCurrentIndex(13);
+        ui->responderChannelG->setEnabled(true);
         break;
     case civilian:
         ui->stackedWidget->setCurrentIndex(13);
@@ -254,11 +259,11 @@ void MainWindow::on_backComm_clicked()
 }
 
 
-void MainWindow::on_commEP_clicked()
+/*void MainWindow::on_commEP_clicked()
 {
     //go to comm
      ui->stackedWidget->setCurrentIndex(21);
-}
+} */
 
 void MainWindow::on_protocolEP_clicked()
 {
@@ -277,6 +282,7 @@ void MainWindow::on_logoutEP_clicked()
 {
     ui->stackedWidget->setCurrentIndex(0);
     ui->enterUsername->clear();
+    ui->notArea->clear();
 }
 
 void MainWindow::on_simulationsButton_clicked() {
@@ -696,6 +702,15 @@ void MainWindow::on_selectTheGroup_clicked() {
 
         ui->selLabel2->setText(temp2);
 
+        Emergency* temp_em = ctrl->select_emergency(emergencyName);
+        Response* temp_resp = ctrl->select_response(temp_em, gr_temp);
+
+        if (temp_resp != nullptr) {
+            ui->enterRole->setText(temp_resp->emergency_response);
+            id_value = temp_resp->id;
+            is_updating = true;
+        }
+
         ui->stackedWidget->setCurrentIndex(18);
 
         delete gr_temp;
@@ -712,7 +727,15 @@ void MainWindow::on_setRole_clicked() {
     // TODO: change back to group_ID
     Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
 
-    ctrl->add_response(temp_resp); //add to database
+    if (is_updating) {
+        temp_resp->id = id_value;
+
+        std::cout << temp_resp->id << " value\n";
+        ctrl->update_response(temp_resp); //update in database
+        is_updating = false;
+    } else {
+        ctrl->add_response(temp_resp); //add to databas
+    }
 
     ui->enterRole->clear(); //clear box
 
@@ -776,10 +799,11 @@ void MainWindow::on_refreshRGroup_clicked()
 
 void MainWindow::on_deleteRGroup_clicked()
 {
+    QString selectedId = readSelectedCell(0,ui->rGroupTableView);
     QString selectedName = readSelectedCell(1,ui->rGroupTableView);
     QString alert;
 
-        if(ctrl->delete_row(group,selectedName)){
+        if(ctrl->delete_row(group,selectedId)){
             on_refreshRGroup_clicked();
             alert = "Group ["+ selectedName +"] is deleted";
             ui->selectAlertRGroup->setText(alert);
@@ -829,6 +853,8 @@ void MainWindow::on_viewProt_clicked() {
 
 void MainWindow::on_backToMe_clicked() {
     ui->stackedWidget->setCurrentIndex(3);
+    ui->errorText->clear();
+    ui->errorText->setStyleSheet("");
 }
 
 void MainWindow::on_availGroups_clicked() {
@@ -836,6 +862,9 @@ void MainWindow::on_availGroups_clicked() {
     ui->selGr->clear(); //clear box so it doesn't add more
 
     if (temp0 != nullptr) {
+
+        ui->errorText->clear();
+        ui->errorText->setStyleSheet("");
 
         Emergency* em_db = ctrl->select_emergency(temp0); //get emergency
 
@@ -862,17 +891,31 @@ void MainWindow::on_viewProto_clicked() {
         Group* gr_db = ctrl->select_group(temp1);
         Response* resp_db = ctrl->select_response(em_db, gr_db); //get response
 
-        //display the information
-        ui->pubRes->setText(em_db->public_response);
-        ui->grRole->setText(resp_db->emergency_response);
+        if (resp_db) {
 
-        ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+            ui->errorText->clear();
+            ui->errorText->setStyleSheet("");
 
-        ui->stackedWidget->setCurrentIndex(20);
+            //display the information
+            ui->pubRes->setText(em_db->public_response);
+            ui->grRole->setText(resp_db->emergency_response);
 
-        delete em_db;
-        delete gr_db;
-        delete resp_db;
+            ui->protEmLab->setText("Protocol for Group \"" + temp1 + "\" - \"" + temp0 + "\" Emergency:"); //set text
+
+            ui->stackedWidget->setCurrentIndex(20);
+
+            delete em_db;
+            delete gr_db;
+            delete resp_db;
+        } else {
+            ui->errorText->setAlignment(Qt::AlignCenter);
+            ui->errorText->setText("Please click Available Groups before viewing.");
+            ui->errorText->setStyleSheet("background-color:rgb(245, 215, 110)");
+        }
+    } else {
+        ui->errorText->setAlignment(Qt::AlignCenter);
+        ui->errorText->setText("Please click Available Groups before viewing.");
+        ui->errorText->setStyleSheet("background-color:rgb(245, 215, 110)");
     }
 }
 
@@ -881,7 +924,11 @@ void MainWindow::on_backToSelEm_clicked() {
 }
 
 void MainWindow::on_backToMenA_clicked() {
+    if(userRole == planner){
     ui->stackedWidget->setCurrentIndex(3);
+    }else{
+        ui->stackedWidget->setCurrentIndex(13);
+    }
     ui->latBox->clear();
     ui->longBox->clear();
 }
@@ -1125,4 +1172,14 @@ void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
 void MainWindow::on_update_instructions_btn_clicked() {
     ctrl->update_instructions(group_ID);
     display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+}
+
+void MainWindow::on_backToMapA_clicked() {
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_backMapG_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }

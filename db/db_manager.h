@@ -25,7 +25,7 @@ class DB_Manager {
 public:
     DB_Manager(const QString&);
     virtual ~DB_Manager() { db.close();
-                          std::cout << __PRETTY_FUNCTION__<<"\n";
+                          std::cout << __PRETTY_FUNCTION__<<std::endl;
                           }
 
     void build_table();
@@ -33,8 +33,8 @@ public:
     QSqlDatabase get_db();
     virtual void create_row(DBItem*) {}
     virtual void update_value(DBItem*) {}
-    virtual bool delete_row(QString) {}
-    virtual bool delete_row(int) {}
+    virtual bool delete_row(QString) {return false;}
+    virtual bool delete_row(int) {return false;}
     virtual void generate_sql_queries() {}
     virtual void print(){}
 
