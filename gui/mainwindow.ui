@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>19</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -846,7 +846,7 @@
              <x>-1</x>
              <y>409</y>
              <width>741</width>
-             <height>31</height>
+             <height>32</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">

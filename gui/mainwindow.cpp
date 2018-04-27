@@ -122,8 +122,11 @@ void MainWindow::login(){
     }
 
     if(userRole == 2) { // Planner
+        ui->alerts->setVisible(false);
         ctrl->start_server();
+
     } else {
+        ui->alerts->setVisible(true);
         ctrl->start_client();
     }
 }
