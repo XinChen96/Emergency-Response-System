@@ -24,7 +24,8 @@ HEADERS += \
 	../db/notification_db.h \
         ../users/notification.h \
         ../users/instruction.h \
-        ../db/instructions_db.h
+        ../db/instructions_db.h \
+        clientthread.h
 
 
 SOURCES += \
@@ -46,7 +47,8 @@ SOURCES += \
         client.cpp \
         ../db/notification_db.cpp \
         ../users/notification.cpp \
-        ../users/instruction.cpp
+        ../users/instruction.cpp \
+        clientthread.cpp
 
 SOURCES += ../googletest-master/googletest/src/gtest-all.cc
 

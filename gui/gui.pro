@@ -47,7 +47,8 @@ SOURCES += \
         ../controllers/client.cpp \
         ../db/notification_db.cpp \
         ../db/instructions_db.cpp \
-        ../users/instruction.cpp
+        ../users/instruction.cpp \
+        ../controllers/clientthread.cpp
 
 HEADERS += \
         mainwindow.h\
@@ -71,7 +72,8 @@ HEADERS += \
         ../controllers/client.h \
         ../db/notification_db.h \
         ../users/instruction.h \
-        ../db/instructions_db.h
+        ../db/instructions_db.h \
+        ../controllers/clientthread.h
 
 FORMS += \
         mainwindow.ui

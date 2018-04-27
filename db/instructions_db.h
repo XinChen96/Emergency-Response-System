@@ -13,6 +13,7 @@ public:
     void generate_sql_queries();
 
     void add_planner_instruction(DBItem*);
+    Instruction* get_instruction(int);
 };
 
 #endif // INSTRUCTIONS_DB_H

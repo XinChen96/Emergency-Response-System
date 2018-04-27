@@ -1117,6 +1117,7 @@ void MainWindow::on_messageG_clicked() {
 }
 
 void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
+    std::cout << group_ID << std::endl;
     ctrl->update_instructions(group_ID);
     display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
 }

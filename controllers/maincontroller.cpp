@@ -359,7 +359,7 @@ int MainController::find_group(int userId){
 void MainController::update_instructions(int group_id) {
     QMutex m;
     m.lock();
-    c->request_new_msg();
+    c->request_new_msg(group_id);
     m.unlock();
     db_m = new Instructions_DB(dbPath);
     QString msg = c->get_msg();

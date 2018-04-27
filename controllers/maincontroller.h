@@ -31,7 +31,7 @@
 
 class MainController {
 public:
-    MainController() : dbPath("../db.sqlite") {}
+    MainController() : dbPath("/mnt/cs205/db.sqlite") {}
     ~MainController();
 
     bool add_user(QString,QString,QString,Role);
