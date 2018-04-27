@@ -119,7 +119,6 @@ bool User_DB::delete_row(QString username) {
 
 User* User_DB::select_user(QString username) {
     User* user;
-    Role role;
     query = new QSqlQuery(db);
     query->prepare("SELECT DISTINCT * FROM users WHERE username=:user");
     query->bindValue(":user", username);

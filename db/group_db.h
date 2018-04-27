@@ -17,7 +17,7 @@ public:
     bool create_groups_table();
     void add_to_group(User*, Group*);
     bool remove_from_group(int);
-    bool delete_row(QString);
+    bool delete_row(int);
 
     void create_row(DBItem*);
 

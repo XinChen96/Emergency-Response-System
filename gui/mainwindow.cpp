@@ -780,10 +780,11 @@ void MainWindow::on_refreshRGroup_clicked()
 
 void MainWindow::on_deleteRGroup_clicked()
 {
+    QString selectedId = readSelectedCell(0,ui->rGroupTableView);
     QString selectedName = readSelectedCell(1,ui->rGroupTableView);
     QString alert;
 
-        if(ctrl->delete_row(group,selectedName)){
+        if(ctrl->delete_row(group,selectedId)){
             on_refreshRGroup_clicked();
             alert = "Group ["+ selectedName +"] is deleted";
             ui->selectAlertRGroup->setText(alert);

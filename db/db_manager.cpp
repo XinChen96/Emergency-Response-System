@@ -2,19 +2,16 @@
 #include <iostream>
 
 DB_Manager::DB_Manager(const QString& path) {
-    //std::cerr << "DB_manager: called" << std::endl;
-    std::cout << "DB_manager: called" << std::endl;
 
+     std::cout << __PRETTY_FUNCTION__<<std::endl;
     if (QSqlDatabase::contains())//check if default connection already exist
     {
-        //close default connection
+        //close existing default connection
         db = QSqlDatabase::database(QLatin1String(QSqlDatabase::defaultConnection), false);
-        std::cout << "DB_Manager: Closed existing default connection" << std::endl;
-
     }
     else
     {
-        //create the db
+        //create the database
         db = QSqlDatabase::addDatabase("QSQLITE");
     }
 
@@ -24,7 +21,7 @@ DB_Manager::DB_Manager(const QString& path) {
         std::cerr << "DB_Manager: Could not open db." << std::endl;
         //exit(0);
     } else {
-        std::cout << "DB_Manager: Opened new Db connection." << std::endl;
+        std::cout << "DB_Manager: Opened new Db connection:" << std::endl;
     }
 
     //print all database connection to keep track all connection opened

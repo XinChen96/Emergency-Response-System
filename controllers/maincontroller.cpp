@@ -37,6 +37,7 @@ QSqlDatabase MainController::get_DB(db_table table){
         break;
     default:
         db_m = new DB_Manager(dbPath);
+        return db_m->get_db();
         break;
     }
 
@@ -101,22 +102,27 @@ void MainController::add_to_group(QString groupID, QString userID){
     //delete db_m;
 
 }
-bool MainController::delete_row(db_table table, QString selected){
+bool MainController::delete_row(db_table table, QString selectedId){
+    int groupId;
+    bool deleteSuccess;
     switch(table){
     case user://delete a user;
         db_m = new User_DB(dbPath);
-        db_m->delete_row(selected);
+        deleteSuccess = db_m->delete_row(selectedId);
         delete db_m;
+        return deleteSuccess;
         break;
     case group:
+        groupId = selectedId.toInt();
         db_m = new Group_DB(dbPath);
-        return db_m->delete_row(selected);
+        deleteSuccess = db_m->delete_row(groupId);
         delete db_m;
+        return deleteSuccess;
         break;
     case userGroup:
         db_m = new Group_DB(dbPath);
-        int id = selected.toInt();
-        ((Group_DB*)db_m)->remove_from_group(id);
+        int uGroupId = selectedId.toInt();
+        ((Group_DB*)db_m)->remove_from_group(uGroupId);
         delete db_m;
         break;
     }

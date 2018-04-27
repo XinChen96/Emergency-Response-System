@@ -7,7 +7,7 @@ using namespace std;
 void Group_DB::generate_sql_queries() {
     create_cmd += "CREATE TABLE IF NOT EXISTS groups (id integer PRIMARY KEY, groupName text NOT NULL UNIQUE, date text);";
     insert_cmd += "INSERT INTO groups (groupName, date) VALUES (:groupName, DATE('now'));";
-    delete_cmd += "DELETE FROM groups WHERE groupName = :group;";
+    delete_cmd += "DELETE FROM groups WHERE id = :id;";
     update_cmd += "UPDATE groups SET groupName=:groupName WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS groups;";
 
@@ -47,9 +47,12 @@ bool Group_DB::create_groups_table(){
 
 }
 
-bool Group_DB::delete_row(QString groupName){
+bool Group_DB::delete_row(int groupId){
+    QString groupName;
     query = new QSqlQuery(db);
+
     query->prepare(delete_cmd);
+    query->bindValue(":id", groupId);
     query->bindValue(":group", groupName);
 
     if(query->exec()) {
