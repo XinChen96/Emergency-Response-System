@@ -257,11 +257,11 @@ void MainWindow::on_backComm_clicked()
 }
 
 
-void MainWindow::on_commEP_clicked()
+/*void MainWindow::on_commEP_clicked()
 {
     //go to comm
      ui->stackedWidget->setCurrentIndex(21);
-}
+} */
 
 void MainWindow::on_protocolEP_clicked()
 {
@@ -905,7 +905,7 @@ void MainWindow::on_backToSelEm_clicked() {
 }
 
 void MainWindow::on_backToMenA_clicked() {
-    ui->stackedWidget->setCurrentIndex(3);
+    ui->stackedWidget->setCurrentIndex(13);
     ui->latBox->clear();
     ui->longBox->clear();
 }
@@ -1148,4 +1148,14 @@ void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
 void MainWindow::on_update_instructions_btn_clicked() {
     ctrl->update_instructions(group_ID);
     display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
+}
+
+void MainWindow::on_backToMapA_clicked() {
+    ui->stackedWidget->setCurrentIndex(2);
+}
+
+
+void MainWindow::on_backMapG_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }
