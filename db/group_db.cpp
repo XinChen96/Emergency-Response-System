@@ -11,9 +11,11 @@ void Group_DB::generate_sql_queries() {
     update_cmd += "UPDATE groups SET groupName=:groupName WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS groups;";
 
-    create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id));";
+    create_groups_cmd += "CREATE TABLE IF NOT EXISTS userGroups (id integer PRIMARY KEY, group_id integer NOT NULL, user_id integer NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE );";
     //insert_groups_cmd += "INSERT INTO userGroups (group_id, user_id) VALUES (:group_id, :user_id);";
-    delete_groups_cmd += "DELETE FROM userGroups WHERE id = :id;";
+    delete_usergroups_cmd += "DELETE FROM userGroups WHERE id = :id;";
+    delete_groups_cmd += "DELETE FROM userGroups WHERE group_id = :group_id ORDER BY nleft;";
+    delete_users_cmd += "DELETE FROM userGroups WHERE user_id = :user_id;";
     query = nullptr;
 }
 
@@ -39,7 +41,7 @@ bool Group_DB::create_groups_table(){
 
     } else {
         std::cerr << "create_userGroup_table: could not create table." << std::endl;
-        qDebug()<<query->exec(drop_cmd);
+        qDebug()<<query->lastError();
          delete query;
         return false;
     }
@@ -69,10 +71,19 @@ bool Group_DB::delete_row(int groupId){
         return false;
     }
 }
-bool Group_DB::remove_from_group(int id){
+bool Group_DB::remove_from_group(QString colomn,int id){
     query = new QSqlQuery(db);
+
+    if(colomn == "userId"){
+    query->prepare(delete_users_cmd);
+    query->bindValue(":user_id", id);
+    }else if (colomn == "groupId"){
     query->prepare(delete_groups_cmd);
+    query->bindValue(":group_id", id);
+    }else{
+    query->prepare(delete_usergroups_cmd);
     query->bindValue(":id", id);
+    }
 
     if(query->exec()) {
         std::cout << "Remove from groups"

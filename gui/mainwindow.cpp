@@ -229,9 +229,11 @@ void MainWindow::on_menu_clicked()
     switch(userRole){
     case planner:
         ui->stackedWidget->setCurrentIndex(3);
+        ui->responderChannelG->setEnabled(true);
         break;
     case responder:
         ui->stackedWidget->setCurrentIndex(13);
+        ui->responderChannelG->setEnabled(true);
         break;
     case civilian:
         ui->stackedWidget->setCurrentIndex(13);
@@ -905,7 +907,11 @@ void MainWindow::on_backToSelEm_clicked() {
 }
 
 void MainWindow::on_backToMenA_clicked() {
+    if(userRole == planner){
     ui->stackedWidget->setCurrentIndex(3);
+    }else{
+        ui->stackedWidget->setCurrentIndex(13);
+    }
     ui->latBox->clear();
     ui->longBox->clear();
 }

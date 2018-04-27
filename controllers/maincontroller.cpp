@@ -100,8 +100,8 @@ void MainController::add_to_group(QString groupID, QString userID){
     //delete user;
     //delete group;
     //delete db_m;
-
 }
+
 bool MainController::delete_row(db_table table, QString selectedId){
     int groupId;
     bool deleteSuccess;
@@ -115,14 +115,15 @@ bool MainController::delete_row(db_table table, QString selectedId){
     case group:
         groupId = selectedId.toInt();
         db_m = new Group_DB(dbPath);
-        deleteSuccess = db_m->delete_row(groupId);
+        deleteSuccess = db_m->delete_row(groupId)&&((Group_DB*)db_m)->remove_from_group("userGroupId",groupId);;
         delete db_m;
         return deleteSuccess;
         break;
     case userGroup:
         db_m = new Group_DB(dbPath);
         int uGroupId = selectedId.toInt();
-        ((Group_DB*)db_m)->remove_from_group(uGroupId);
+        //remove_from_group (enter "userId","groupId",or "userGroupId")
+        ((Group_DB*)db_m)->remove_from_group("userGroupId",uGroupId);
         delete db_m;
         break;
     }
