@@ -18,7 +18,7 @@ DB_Manager::DB_Manager(const QString& path) {
     db.setDatabaseName(path); // Set it to the correct location
 
     if(!db.open()) {
-        std::cerr << "DB_Manager: Could not open db." << std::endl;
+        std::cerr << "DB_Manager: Could not open db: " << db.lastError().text().toStdString() << std::endl;
         //exit(0);
     } else {
         std::cout << "DB_Manager: Opened new Db connection: ";

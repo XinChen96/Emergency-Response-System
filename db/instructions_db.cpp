@@ -44,4 +44,17 @@ void Instructions_DB::add_planner_instruction(DBItem* instr) {
     delete in;
 }
 
+// Get the most recent instruction for a group id
+Instruction* Instructions_DB::get_instruction(int group_id) {
+    query = new QSqlQuery(db);
+    // Select the newest entry in the table for a specific group
+    query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions) AND group_id=:group_id;");
+    query->bindValue(":group_id", group_id);
+    query->exec();
+    query->next();
+    Instruction *in = new Instruction(query->value(0).toString(), query->value(1).toInt());
+    std::cout << in->instruction.toStdString() << std::endl;
+    return in;
+}
+
 

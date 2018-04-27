@@ -1,29 +1,37 @@
 #include "client.h"
 
-Client::Client(QObject *parent) : QObject(parent) {}
+Client::Client(QObject *parent) : QTcpSocket(parent) {}
 
 // TODO: implement custom ip addresses
-void Client::request_new_msg() {
-    mutex.lock(); // Lock the thread until the transaction is complete
-    QTcpSocket socket;
-    socket.connectToHost("0.0.0.0", 8080);
+void Client::request_new_msg(int group_id) {
+    this->connectToHost("0.0.0.0", 8080);
 
-    if (socket.waitForConnected()) {
+    if (this->waitForConnected()) {
         std::cout << "Connected to server!" << std::endl;
     } else {
-        std::cerr << "Could not connect: " << socket.errorString().toStdString() << std::endl;
+        std::cerr << "Could not connect: " << this->errorString().toStdString() << std::endl;
         return;
     }
 
+    // Send group_id
+    emit readyRead();
+    QByteArray arr;
+    QDataStream ds(&arr, QIODevice::WriteOnly);
+    ds << group_id;
+    this->write(arr);
+    this->flush();
+
+    // Now wait for ready read from server
     QByteArray message;
-    while(socket.waitForReadyRead()) {
-        message.append(socket.readAll());
+    while(this->waitForReadyRead()) {
+        message.append(this->readAll());
+        std::cout << "received some data: " << message.toStdString() << std::endl;
+
     }
 
     // There's gotta be a better way to do this
     QString msg = QString::fromStdString(message.toStdString());
     new_message = msg;
-    mutex.unlock(); // Done reading data
 }
 
 QString Client::get_msg() {

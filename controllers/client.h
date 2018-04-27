@@ -4,7 +4,7 @@
 #include <QtNetwork>
 #include <iostream>
 
-class Client : public QObject
+class Client : public QTcpSocket
 {
     Q_OBJECT
 public:
@@ -12,7 +12,7 @@ public:
     ~Client() {}
 
 public slots:
-    void request_new_msg();
+    void request_new_msg(int);
     QString get_msg();
 
 private:
