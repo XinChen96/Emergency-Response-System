@@ -396,7 +396,6 @@ int MainController::get_user_id(QString user) {
 //updates response item in the database
 bool MainController::update_response(Response* resp) {
     db_m = new Response_DB(dbPath);
-    db_m->create_table();
 
     db_m->update_value(resp);
 

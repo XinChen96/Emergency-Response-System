@@ -707,6 +707,7 @@ void MainWindow::on_selectTheGroup_clicked() {
 
         if (temp_resp != nullptr) {
             ui->enterRole->setText(temp_resp->emergency_response);
+            id_value = temp_resp->id;
             is_updating = true;
         }
 
@@ -727,6 +728,9 @@ void MainWindow::on_setRole_clicked() {
     Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
 
     if (is_updating) {
+        temp_resp->id = id_value;
+
+        std::cout << temp_resp->id << " value\n";
         ctrl->update_response(temp_resp); //update in database
         is_updating = false;
     } else {

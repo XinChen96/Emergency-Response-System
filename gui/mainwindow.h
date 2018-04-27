@@ -202,6 +202,7 @@ private:
     QString sim_name = "";
     QString active_sim = "";
     bool is_updating = false;
+    int id_value = -1;
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };
