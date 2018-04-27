@@ -700,6 +700,14 @@ void MainWindow::on_selectTheGroup_clicked() {
 
         ui->selLabel2->setText(temp2);
 
+        Emergency* temp_em = ctrl->select_emergency(emergencyName);
+        Response* temp_resp = ctrl->select_response(temp_em, gr_temp);
+
+        if (temp_resp != nullptr) {
+            ui->enterRole->setText(temp_resp->emergency_response);
+            is_updating = true;
+        }
+
         ui->stackedWidget->setCurrentIndex(18);
 
         delete gr_temp;
@@ -716,7 +724,12 @@ void MainWindow::on_setRole_clicked() {
     // TODO: change back to group_ID
     Response* temp_resp = new Response(group_ID, em_id, value); //construct response item
 
-    ctrl->add_response(temp_resp); //add to database
+    if (is_updating) {
+        ctrl->update_response(temp_resp); //update in database
+        is_updating = false;
+    } else {
+        ctrl->add_response(temp_resp); //add to databas
+    }
 
     ui->enterRole->clear(); //clear box
 
