@@ -141,6 +141,8 @@ private slots:
 
     void on_notifMenu_clicked();
 
+    void on_messagesEP_clicked();
+
     //index 16 View/Delete Users page
     //Push button clicked
     void on_backDeleteUser_clicked();

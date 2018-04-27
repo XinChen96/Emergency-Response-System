@@ -1211,3 +1211,7 @@ void MainWindow::on_backMapG_clicked()
 void MainWindow::on_notifMenu_clicked() {
     ui->stackedWidget->setCurrentIndex(21);
 }
+
+void MainWindow::on_messagesEP_clicked() {
+
+}
