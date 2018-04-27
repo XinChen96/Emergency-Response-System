@@ -70,7 +70,7 @@ private slots:
 
     //index 3 Main Menu for Emergency Planner
     void on_backMapEP_clicked();
-    void on_commEP_clicked();
+    //void on_commEP_clicked();
     void on_groupEP_clicked();
     void on_protocolEP_clicked();
     void on_deleteEP_clicked();
@@ -132,7 +132,9 @@ private slots:
     void on_availGroups_clicked();
 
     void on_backToMenA_clicked();
+    void on_backToMapA_clicked();
     void on_checkNot_clicked();
+    void on_backMapG_clicked();
 
     void on_startSim_clicked();
     void on_stopSim_clicked();
@@ -175,6 +177,7 @@ private slots:
 
     void on_update_instructions_btn_clicked();
 
+
 private:
     Ui::MainWindow *ui;
 
@@ -198,6 +201,7 @@ private:
     bool sim_active = false;
     QString sim_name = "";
     QString active_sim = "";
+    bool is_updating = false;
 
 //http://www.instructables.com/id/How-to-make-Arduino-Police-Lights/
 };
