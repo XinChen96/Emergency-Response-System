@@ -115,7 +115,7 @@ bool MainController::delete_row(db_table table, QString selectedId){
     case group:
         groupId = selectedId.toInt();
         db_m = new Group_DB(dbPath);
-        deleteSuccess = db_m->delete_row(groupId)&&((Group_DB*)db_m)->remove_from_group("userGroupId",groupId);;
+        deleteSuccess = db_m->delete_row(groupId)&&((Group_DB*)db_m)->remove_from_group("groupId",groupId);
         delete db_m;
         return deleteSuccess;
         break;
