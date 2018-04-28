@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>807</width>
-    <height>483</height>
+    <width>885</width>
+    <height>527</height>
    </rect>
   </property>
   <property name="font">
@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -88,8 +88,8 @@
               </property>
               <property name="font">
                <font>
-                <family>Arial Black</family>
-                <pointsize>25</pointsize>
+                <family>Helvetica</family>
+                <pointsize>24</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -112,8 +112,8 @@
              <widget class="QLabel" name="motto">
               <property name="font">
                <font>
-                <family>Arial</family>
-                <pointsize>20</pointsize>
+                <family>Helvetica</family>
+                <pointsize>24</pointsize>
                </font>
               </property>
               <property name="styleSheet">
@@ -159,6 +159,12 @@
            <layout class="QVBoxLayout" name="inputLayout">
             <item>
              <widget class="QLineEdit" name="enterUsername">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="placeholderText">
                <string>Enter Username</string>
               </property>
@@ -176,7 +182,8 @@
                 </property>
                 <property name="font">
                  <font>
-                  <family>Arial Hebrew</family>
+                  <family>Helvetica</family>
+                  <pointsize>14</pointsize>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -210,7 +217,8 @@
                 </property>
                 <property name="font">
                  <font>
-                  <family>Arial Hebrew Scholar</family>
+                  <family>Helvetica</family>
+                  <pointsize>14</pointsize>
                  </font>
                 </property>
                 <property name="styleSheet">
@@ -244,6 +252,12 @@
             </item>
             <item>
              <widget class="QPushButton" name="breakIn">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>BREAK IN</string>
               </property>
@@ -370,6 +384,7 @@
                <property name="font">
                 <font>
                  <family>Helvetica</family>
+                 <pointsize>14</pointsize>
                 </font>
                </property>
                <item>
@@ -396,6 +411,7 @@
                  <property name="font">
                   <font>
                    <family>Helvetica</family>
+                   <pointsize>14</pointsize>
                   </font>
                  </property>
                  <property name="placeholderText">
@@ -408,6 +424,7 @@
                  <property name="font">
                   <font>
                    <family>Helvetica</family>
+                   <pointsize>14</pointsize>
                   </font>
                  </property>
                  <property name="placeholderText">
@@ -422,6 +439,7 @@
                <property name="font">
                 <font>
                  <family>Helvetica</family>
+                 <pointsize>14</pointsize>
                 </font>
                </property>
                <property name="placeholderText">
@@ -473,6 +491,12 @@
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="font">
+                  <font>
+                   <family>Helvetica</family>
+                   <pointsize>14</pointsize>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Cancel</string>
                  </property>
@@ -485,6 +509,12 @@
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>Helvetica</family>
+                   <pointsize>14</pointsize>
+                  </font>
                  </property>
                  <property name="text">
                   <string>Submit</string>
@@ -587,6 +617,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -605,7 +636,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>20</pointsize>
+              <pointsize>24</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -647,6 +678,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>24</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Messages</string>
           </property>
@@ -660,6 +697,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>24</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Manage Responder Groups</string>
           </property>
@@ -672,6 +715,12 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>24</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>Simulations</string>
@@ -688,6 +737,12 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>24</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Create Emergency Protocols</string>
             </property>
@@ -700,6 +755,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>24</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>View Protocols</string>
@@ -718,6 +779,12 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>24</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>View / Delete User</string>
             </property>
@@ -730,6 +797,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>24</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Logout</string>
@@ -869,6 +942,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
            <widget class="QPushButton" name="backRGroupMember">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>&lt; Back to Responder Group</string>
             </property>
@@ -885,7 +964,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>20</pointsize>
+              <pointsize>24</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -912,6 +991,7 @@
               <property name="font">
                <font>
                 <family>Helvetica</family>
+                <pointsize>14</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -929,6 +1009,7 @@
               <property name="font">
                <font>
                 <family>Helvetica</family>
+                <pointsize>14</pointsize>
                </font>
               </property>
              </widget>
@@ -939,6 +1020,12 @@
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
              <widget class="QPushButton" name="addMember">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>&lt;&lt; Add</string>
               </property>
@@ -946,6 +1033,12 @@
             </item>
             <item>
              <widget class="QPushButton" name="removeMember">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
               <property name="text">
                <string>Remove &gt;&gt;</string>
               </property>
@@ -960,6 +1053,7 @@
               <property name="font">
                <font>
                 <family>Helvetica</family>
+                <pointsize>14</pointsize>
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
@@ -973,7 +1067,14 @@
              </widget>
             </item>
             <item>
-             <widget class="QTableView" name="responderCol"/>
+             <widget class="QTableView" name="responderCol">
+              <property name="font">
+               <font>
+                <family>Helvetica</family>
+                <pointsize>14</pointsize>
+               </font>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -988,6 +1089,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Reload Tables</string>
@@ -1015,6 +1122,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1041,6 +1149,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1059,7 +1168,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>20</pointsize>
+              <pointsize>24</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -1078,12 +1187,25 @@
          </layout>
         </item>
         <item>
-         <widget class="QTableView" name="rGroupTableView"/>
+         <widget class="QTableView" name="rGroupTableView">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>14</pointsize>
+           </font>
+          </property>
+         </widget>
         </item>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <widget class="QLineEdit" name="enterRGroupName">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="placeholderText">
              <string>Enter new group's name </string>
             </property>
@@ -1094,6 +1216,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -1107,6 +1230,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_5">
           <item>
            <widget class="QPushButton" name="refreshRGroup">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Reload Table</string>
             </property>
@@ -1138,6 +1267,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="manageRGroupMember">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Manage Group Members</string>
             </property>
@@ -1148,6 +1283,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -1163,6 +1299,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="deleteRGroup">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Delete Group</string>
             </property>
@@ -2453,18 +2595,14 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <property name="text">
-             <string>  &lt;   </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="backToMapG">
-            <property name="styleSheet">
-             <string notr="true">color: white</string>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
             </property>
             <property name="text">
-             <string>Back to Map</string>
+             <string>  &lt; Back to Map</string>
             </property>
            </widget>
           </item>
@@ -2486,7 +2624,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>20</pointsize>
+              <pointsize>24</pointsize>
               <weight>75</weight>
               <bold>true</bold>
              </font>
@@ -2509,6 +2647,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>24</pointsize>
+           </font>
+          </property>
           <property name="text">
            <string>Notifications</string>
           </property>
@@ -2521,6 +2665,12 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <pointsize>24</pointsize>
+           </font>
           </property>
           <property name="text">
            <string>Messages</string>
@@ -2536,6 +2686,12 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>24</pointsize>
+             </font>
             </property>
             <property name="text">
              <string>Logout</string>
@@ -2833,6 +2989,11 @@
          <layout class="QHBoxLayout" name="deleteUserTitle">
           <item>
            <widget class="QPushButton" name="backDeleteUser">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+             </font>
+            </property>
             <property name="text">
              <string>&lt; Back to Menu</string>
             </property>
@@ -2849,7 +3010,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>20</pointsize>
+              <pointsize>24</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -2882,6 +3043,12 @@
           </item>
           <item>
            <widget class="QComboBox" name="identityDeleteUser">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <item>
              <property name="text">
               <string>All Users</string>
@@ -2924,6 +3091,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
+            <pointsize>14</pointsize>
            </font>
           </property>
          </widget>
@@ -2932,6 +3100,12 @@
          <layout class="QHBoxLayout" name="deleteUserBot">
           <item>
            <widget class="QPushButton" name="reloadDeleteUser">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Reload Table</string>
             </property>
@@ -2955,7 +3129,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>12</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="styleSheet">
@@ -2968,6 +3142,12 @@
           </item>
           <item>
            <widget class="QPushButton" name="deleteUser">
+            <property name="font">
+             <font>
+              <family>Helvetica</family>
+              <pointsize>14</pointsize>
+             </font>
+            </property>
             <property name="text">
              <string>Delete</string>
             </property>
