@@ -32,8 +32,8 @@
 class MainController {
 public:
     //MainController() : dbPath("../db.sqlite") {}
-    MainController() : dbPath("/mnt/cs205/db.sqlite") {} //Ben's db path
-    //MainController() : dbPath("/Users/chenxin/db.sqlite") {} //Chen's db path
+    //MainController() : dbPath("/mnt/cs205/db.sqlite") {} //Ben's db path
+    MainController() : dbPath("/Volumes/cs205/db.sqlite") {} //Chen's db path
     //MainController() : dbPath("/mnt/205_Database/db.sqlite") {} //Joe's db path
 
     ~MainController();
@@ -77,7 +77,7 @@ public:
     int get_group_id(QString);
     int find_group(int);
     bool update_response(Response*);
-
+    int cnt_group_member(int);
 private:
 
     Client *c = nullptr;

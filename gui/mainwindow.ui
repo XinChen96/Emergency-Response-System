@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>8</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -519,6 +519,9 @@
                  <property name="text">
                   <string>Submit</string>
                  </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
                 </widget>
                </item>
               </layout>
@@ -817,121 +820,88 @@
        <layout class="QVBoxLayout" name="verticalLayout_6">
         <item>
          <widget class="QWidget" name="widget" native="true">
-          <widget class="QWidget" name="layoutWidget_14">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>7</y>
-             <width>741</width>
-             <height>61</height>
-            </rect>
-           </property>
-           <layout class="QHBoxLayout" name="titleEP_2">
-            <item>
-             <widget class="QPushButton" name="backToMenG">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>Helvetica</family>
-               </font>
-              </property>
-              <property name="text">
-               <string>&lt;- Back to Menu</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="optionsEP_2">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="font">
-               <font>
-                <family>Helvetica</family>
-                <pointsize>20</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">color: white</string>
-              </property>
-              <property name="text">
-               <string>View Incoming Instructions  </string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-          <widget class="QTableView" name="instructions_table_view">
-           <property name="geometry">
-            <rect>
-             <x>20</x>
-             <y>120</y>
-             <width>731</width>
-             <height>281</height>
-            </rect>
-           </property>
-          </widget>
-          <widget class="QComboBox" name="selectGroup_2">
-           <property name="geometry">
-            <rect>
-             <x>300</x>
-             <y>80</y>
-             <width>251</width>
-             <height>31</height>
-            </rect>
-           </property>
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-          </widget>
-          <widget class="QLabel" name="label_4">
-           <property name="geometry">
-            <rect>
-             <x>200</x>
-             <y>90</y>
-             <width>111</width>
-             <height>16</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Select Group:</string>
-           </property>
-          </widget>
-          <widget class="QWidget" name="verticalLayoutWidget_9">
-           <property name="geometry">
-            <rect>
-             <x>-1</x>
-             <y>409</y>
-             <width>771</width>
-             <height>32</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_5">
-            <item>
-             <widget class="QPushButton" name="update_instructions_btn">
-              <property name="text">
-               <string>Update Instructions</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          <layout class="QVBoxLayout" name="verticalLayout_22">
+           <item>
+            <layout class="QHBoxLayout" name="titleEP_2">
+             <item>
+              <widget class="QPushButton" name="backToMenG">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Helvetica</family>
+                </font>
+               </property>
+               <property name="text">
+                <string>&lt;- Back to Menu</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="optionsEP_2">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>Helvetica</family>
+                 <pointsize>20</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color: white</string>
+               </property>
+               <property name="text">
+                <string>View Incoming Instructions  </string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QComboBox" name="selectGroup_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Select Group:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QTableView" name="instructions_table_view"/>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QPushButton" name="update_instructions_btn">
+               <property name="text">
+                <string>Update Instructions</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -1315,158 +1285,122 @@
        </layout>
       </widget>
       <widget class="QWidget" name="simulationPage">
-       <widget class="QWidget" name="layoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>20</y>
-          <width>761</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_14">
-         <item>
-          <widget class="QPushButton" name="backToSim">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Back</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="simLabel">
-           <property name="font">
-            <font>
-             <pointsize>20</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color: white</string>
-           </property>
-           <property name="text">
-            <string>Simulations</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QComboBox" name="selectSim">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>130</y>
-          <width>751</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <property name="whatsThis">
-         <string>Select from list</string>
-        </property>
-       </widget>
-       <widget class="QWidget" name="horizontalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>70</y>
-          <width>751</width>
-          <height>31</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_11">
-         <item>
-          <widget class="QLabel" name="selectLabel">
-           <property name="font">
-            <font>
-             <pointsize>14</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:white</string>
-           </property>
-           <property name="text">
-            <string>Select a Simulation:</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="verticalLayoutWidget">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>250</y>
-          <width>681</width>
-          <height>181</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_14">
-         <item>
-          <widget class="QPushButton" name="viewBut">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>View...</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="createBut">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>Create New</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
-       <widget class="QWidget" name="verticalLayoutWidget_11">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>180</y>
-          <width>291</width>
-          <height>41</height>
-         </rect>
-        </property>
-        <layout class="QVBoxLayout" name="verticalLayout_9">
-         <item>
-          <widget class="QLabel" name="errorText2">
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-             <italic>true</italic>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">color:black</string>
-           </property>
-           <property name="text">
-            <string/>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout_26">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <widget class="QPushButton" name="backToSim">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Back</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="simLabel">
+            <property name="font">
+             <font>
+              <pointsize>20</pointsize>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color: white</string>
+            </property>
+            <property name="text">
+             <string>Simulations</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QLabel" name="selectLabel">
+            <property name="font">
+             <font>
+              <pointsize>14</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:white</string>
+            </property>
+            <property name="text">
+             <string>Select a Simulation:</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QComboBox" name="selectSim">
+          <property name="whatsThis">
+           <string>Select from list</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_9">
+          <item>
+           <widget class="QLabel" name="errorText2">
+            <property name="font">
+             <font>
+              <pointsize>9</pointsize>
+              <italic>true</italic>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">color:black</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <widget class="QPushButton" name="viewBut">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>View...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="createBut">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Create New</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="createNewPage">
        <widget class="QWidget" name="layoutWidget_2">
