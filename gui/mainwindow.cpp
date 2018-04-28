@@ -64,6 +64,9 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     }
 
+    //hide break in button, but hes not gone
+    ui->breakIn->setVisible(false);
+
 }
 
 MainWindow::~MainWindow()
@@ -799,7 +802,7 @@ void MainWindow::on_rGroupTableView_clicked(const QModelIndex &index)
 {
     QString alert;
 
-    alert = "Group ["+readSelectedCell(1,ui->rGroupTableView)+"] selected";
+    alert = "Group "+readSelectedCell(1,ui->rGroupTableView)+" selected";
     ui->selectAlertRGroup->setText(alert);
     ui->selectAlertRGroup->setStyleSheet("color: white;");
     ui->manageRGroupMember->setEnabled(true);
