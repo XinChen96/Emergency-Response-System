@@ -596,6 +596,7 @@ QString MainWindow::readSelectedCell(int selectedCol,QTableView* selectedTable)
 void MainWindow::display_messages(QSqlRelationalTableModel* table_model, QTableView* table_view, int group) {
     table_model = new QSqlRelationalTableModel(this, ctrl->get_DB(user));
     table_model->setTable("instructions");
+    std::cout << "This is the group that it is filtering by: " << group << std::endl;
     QString filter = QString("group_id=%1").arg(group);
     table_model->setFilter(filter);
     table_model->select();
@@ -1190,7 +1191,7 @@ void MainWindow::on_messageG_clicked() {
 }
 
 void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
-    ctrl->update_instructions(group_ID);
+    //TODO: set the correct id here
     display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
 }
 
