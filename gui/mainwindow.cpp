@@ -796,11 +796,9 @@ void MainWindow::on_addRGroup_clicked()
 
 void MainWindow::on_rGroupTableView_clicked(const QModelIndex &index)
 {
-    QString alert;
-    std::cout << readSelectedCell(0,ui->rGroupTableView).toInt() << std::endl;
-    int memberCnt = ctrl->cnt_group_member(readSelectedCell(0,ui->rGroupTableView).toInt());
 
-    alert = "Group "+readSelectedCell(1,ui->rGroupTableView)+" ("+ memberCnt +" members) selected";
+    int memberCnt = ctrl->cnt_group_member(readSelectedCell(0,ui->rGroupTableView).toInt());
+    QString alert = "Group "+readSelectedCell(1,ui->rGroupTableView)+" ("+ QString::number(memberCnt) +" members) selected";
     ui->selectAlertRGroup->setText(alert);
     ui->selectAlertRGroup->setStyleSheet("color: white;");
     ui->manageRGroupMember->setEnabled(true);
