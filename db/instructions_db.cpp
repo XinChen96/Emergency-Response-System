@@ -52,7 +52,10 @@ Instruction* Instructions_DB::get_instruction(int group_id) {
     query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions) AND group_id=:group_id;");
     query->bindValue(":group_id", group_id);
     query->exec();
-    query->next();
-    Instruction *in = new Instruction(query->value(0).toString(), query->value(1).toInt());
-    return in;
+    if(query->next()) {
+        Instruction *in = new Instruction(query->value(0).toString(), query->value(1).toInt());
+        return in;
+    } else {
+        return nullptr;
+    }
 }
