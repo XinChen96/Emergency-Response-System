@@ -26,10 +26,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->mapContainer->addWidget(webview);
     ui->stackedWidget->setCurrentIndex(0);
 
-    //***
-    //TO ADD: add in all items to combo box from existing database
-    //***
-
     //Adds in all items to combo box / GUI from existing database
 
     std::vector<QString> sim_db = ctrl->get_Sim_DBItems(); //gets all simulation names from database
