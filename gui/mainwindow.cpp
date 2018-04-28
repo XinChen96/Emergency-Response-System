@@ -1230,6 +1230,7 @@ void MainWindow::on_pushButton_4_clicked()
     QString instruction = ui->instruction_box_4->toPlainText(); // Get instructions
     int group_id = ctrl->get_group_id(group);
     ctrl->add_instruction(instruction, group_id);
+    ui->instruction_box_4->clear();
 }
 
 void MainWindow::on_backToSelEm_5_clicked()

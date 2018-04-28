@@ -36,8 +36,9 @@ void Server::get_group_id() {
 
 void Server::send_instruction() {
     db = new Instructions_DB(db_path);
-    Instruction *i = ((Instructions_DB*)db)->get_instruction(1);
-
+    std::cout << "group_id: " << group_id << std::endl;
+    Instruction *i = ((Instructions_DB*)db)->get_instruction(group_id);
+    std::cout << i->instruction.toStdString() << "blablabla" << std::endl;
     QByteArray arr;
     QDataStream str(&arr, QIODevice::WriteOnly);
     str << i->instruction;

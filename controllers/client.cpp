@@ -4,6 +4,7 @@ Client::Client(QObject *parent) : QTcpSocket(parent) {}
 
 // TODO: implement custom ip addresses
 void Client::request_new_msg(int group_id) {
+    // TODO: store server ip address so that users can connect to the same server
     this->connectToHost("0.0.0.0", 8080);
 
     if (this->waitForConnected()) {

@@ -12,7 +12,6 @@ void Instructions_DB::create_row(DBItem* instr) {
 
     query = new QSqlQuery(db);
     query->prepare(insert_cmd);
-    std::cout << "in the create method: " << in->instruction.toStdString() << in->group_id << std::endl;
     query->bindValue(":instruction", in->instruction);
     query->bindValue(":group_id", in->group_id);
     query->exec();
@@ -35,7 +34,7 @@ void Instructions_DB::update_value(DBItem* instr) {
 
 void Instructions_DB::add_planner_instruction(DBItem* instr) {
     Instruction *in = ((Instruction*)instr);
-    std::cout << "almost there: " << in->instruction.toStdString() << in->group_id << std::endl;
+    std::cout << "add planner instruction: " << in->instruction.toStdString() << in->group_id << std::endl;
     query = new QSqlQuery(db);
     query->prepare("INSERT INTO plannerInstructions (instruction, group_id, date) VALUES (:instruction, :group_id, DATE('now'));");
     query->bindValue(":instruction", in->instruction);
@@ -49,7 +48,8 @@ void Instructions_DB::add_planner_instruction(DBItem* instr) {
 Instruction* Instructions_DB::get_instruction(int group_id) {
     query = new QSqlQuery(db);
     // Select the newest entry in the table for a specific group
-    query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions) AND group_id=:group_id;");
+    // TODO: get the actual correct working group_id not just the most recent message
+    query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions);");
     query->bindValue(":group_id", group_id);
     query->exec();
     if(query->next()) {
