@@ -402,3 +402,17 @@ bool MainController::update_response(Response* resp) {
     return true;
 }
 
+// Method to add instructions to planner database
+void MainController::add_instruction(QString instr, int group_id) {
+    db_m = new Instructions_DB(dbPath);
+    Instruction *in = new Instruction(instr, group_id);
+    ((Instructions_DB*)db_m)->add_planner_instruction(in);
+    delete db_m;
+}
+
+// Method to get a group id based on a group's username
+int MainController::get_group_id(QString name) {
+    db_m = new Group_DB(dbPath);
+    int id = ((Group_DB*)db_m)->get_group_id(name);
+    return id;
+}

@@ -235,3 +235,14 @@ vector<Group*> Group_DB::get_user_groups(int user_id) {
     return group_list;
 }
 
+int Group_DB::get_group_id(QString name) {
+    query = new QSqlQuery(db);
+    query->prepare("SELECT DISTINCT id FROM groups WHERE groupName=:name;");
+    query->bindValue(":name", name);
+    query->exec();
+    query->next();
+    int id = query->value(0).toInt();
+    delete query;
+    return id;
+}
+

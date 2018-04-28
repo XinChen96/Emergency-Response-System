@@ -1213,5 +1213,24 @@ void MainWindow::on_notifMenu_clicked() {
 }
 
 void MainWindow::on_messagesEP_clicked() {
+    std::vector<Group*> group_list = ctrl->get_groups();
 
+    for(int i = 0; i < group_list.size(); i++) {
+        ui->select_group_box_4->addItem(group_list[i]->name);
+        delete group_list[i];
+    }
+    ui->stackedWidget->setCurrentIndex(23);
+}
+
+void MainWindow::on_pushButton_4_clicked()
+{
+    QString group = ui->select_group_box_4->currentText(); // Get current group
+    QString instruction = ui->instruction_box_4->toPlainText(); // Get instructions
+    int group_id = ctrl->get_group_id(group);
+    ctrl->add_instruction(instruction, group_id);
+}
+
+void MainWindow::on_backToSelEm_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }

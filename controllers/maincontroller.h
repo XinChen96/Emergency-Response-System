@@ -73,7 +73,8 @@ public:
     int get_user_id(QString);
     void update_instructions(int);
     int check_role(QString);
-    void add_instruction(int);
+    void add_instruction(QString, int);
+    int get_group_id(QString);
     int find_group(int);
     bool update_response(Response*);
 

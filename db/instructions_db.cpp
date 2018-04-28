@@ -35,7 +35,7 @@ void Instructions_DB::update_value(DBItem* instr) {
 
 void Instructions_DB::add_planner_instruction(DBItem* instr) {
     Instruction *in = ((Instruction*)instr);
-
+    std::cout << "almost there: " << in->instruction.toStdString() << in->group_id << std::endl;
     query = new QSqlQuery(db);
     query->prepare("INSERT INTO plannerInstructions (instruction, group_id, date) VALUES (:instruction, :group_id, DATE('now'));");
     query->bindValue(":instruction", in->instruction);
@@ -43,8 +43,6 @@ void Instructions_DB::add_planner_instruction(DBItem* instr) {
     query->bindValue(":group_id", in->group_id);
     query->exec();
     delete query;
-    delete in;
-    delete instr;
 }
 
 // Get the most recent instruction for a group id

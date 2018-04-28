@@ -181,6 +181,9 @@ private slots:
 
     void on_update_instructions_btn_clicked();
 
+    void on_pushButton_4_clicked();
+
+    void on_backToSelEm_5_clicked();
 
 private:
     Ui::MainWindow *ui;
