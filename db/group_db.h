@@ -32,6 +32,8 @@ public:
     vector<Group*> get_user_groups(int);
     int get_group_id(QString);
 
+    int cnt_group_member(int);
+
     QString create_groups_cmd;
     QString insert_groups_cmd;
     QString delete_usergroups_cmd,delete_groups_cmd,delete_users_cmd;

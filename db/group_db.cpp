@@ -246,3 +246,22 @@ int Group_DB::get_group_id(QString name) {
     return id;
 }
 
+int Group_DB::cnt_group_member(int groupId) {
+    int memberCnt = 0;
+    std::cout << "Group_DB: cnt_group_member: " << groupId << std::endl;
+    query = new QSqlQuery(db);
+    query->prepare("SELECT * FROM userGroups WHERE group_id=:group_id;");
+    query->bindValue(":group_id", groupId);
+    query->exec();
+
+    while (query->next()) {
+
+        memberCnt++;
+        std::cout << "Group_DB: cnt_group_member: couting " << memberCnt << std::endl;
+    }
+    std::cout << "Group_DB: cnt_group_member: cnt finished" << memberCnt << std::endl;
+
+    delete query;
+    return memberCnt;
+}
+

@@ -416,3 +416,12 @@ int MainController::get_group_id(QString name) {
     int id = ((Group_DB*)db_m)->get_group_id(name);
     return id;
 }
+
+// Method to count member in a group
+int MainController::cnt_group_member(int groupId) {
+    std::cout << "Maincontroller: cnt_group_member" <<groupId << std::endl;
+    db_m = new Group_DB(dbPath);
+    int cnt = ((Group_DB*)db_m)->cnt_group_member(groupId);
+    delete db_m;
+    return cnt;
+}
