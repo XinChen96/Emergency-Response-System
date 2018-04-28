@@ -600,11 +600,13 @@ void MainWindow::display_messages(QSqlRelationalTableModel* table_model, QTableV
     QString filter = QString("group_id=%1").arg(group);
     table_model->setFilter(filter);
     table_model->select();
-    table_model->sort(3, Qt::DescendingOrder); // Sort with most recent message first
+    table_model->sort(3, Qt::AscendingOrder); // Sort with most recent message first
 
     table_model->setHeaderData(1, Qt::Horizontal, tr("Instruction"));
     table_model->setHeaderData(2, Qt::Horizontal, tr("Date"));
+    table_view->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     table_view->setModel(table_model);
+    table_view->setColumnWidth(2, table_view->columnWidth(2) / 4);
     table_view->hideColumn(0);
     table_view->hideColumn(2);
 }
@@ -1177,6 +1179,7 @@ void MainWindow::on_rGroupMemberCol_clicked(const QModelIndex &index)
 
 void MainWindow::on_messageG_clicked() {
     // Populate group box
+    ui->selectGroup_2->clear();
     std::vector<Group*> group_list = ctrl->get_user_groups(user_ID);
     group_ID = group_list[0]->id;
     for(int i = 0; i < group_list.size(); i++) {
@@ -1188,7 +1191,6 @@ void MainWindow::on_messageG_clicked() {
 }
 
 void MainWindow::on_selectGroup_2_activated(const QString &arg1) {
-    std::cout << group_ID << std::endl;
     ctrl->update_instructions(group_ID);
     display_messages(instructionGroupTable, ui->instructions_table_view, group_ID);
 }
@@ -1213,6 +1215,7 @@ void MainWindow::on_notifMenu_clicked() {
 }
 
 void MainWindow::on_messagesEP_clicked() {
+    ui->select_group_box_4->clear();
     std::vector<Group*> group_list = ctrl->get_groups();
 
     for(int i = 0; i < group_list.size(); i++) {
@@ -1233,4 +1236,9 @@ void MainWindow::on_pushButton_4_clicked()
 void MainWindow::on_backToSelEm_5_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+}
+
+void MainWindow::on_backToMenG_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(13);
 }
