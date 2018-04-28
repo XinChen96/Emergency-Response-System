@@ -30,6 +30,7 @@ void Client::request_new_msg(int group_id) {
     std::cout << "here it is" << std::endl;
     // There's gotta be a better way to do this
     QString msg = QString::fromStdString(message.toStdString());
+    msg.remove(QRegExp("[^a-zA-Z^!^.\\d\\s]"));
     new_message = msg;
 }
 
