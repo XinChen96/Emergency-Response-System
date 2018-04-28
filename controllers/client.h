@@ -17,7 +17,6 @@ public slots:
 
 private:
     QString new_message;
-    QMutex mutex;
 };
 
 #endif // CLIENT_H

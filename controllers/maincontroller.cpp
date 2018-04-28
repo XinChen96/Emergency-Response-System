@@ -370,9 +370,8 @@ void MainController::update_instructions(int group_id) {
     m.unlock();
     db_m = new Instructions_DB(dbPath);
     QString msg = c->get_msg();
-    std::cout << msg.toStdString() << std::endl;
-    std::cout << group_id << std::endl;
-    db_m->create_row(new Instruction(msg, group_id));
+    Instruction *in = new Instruction(msg, group_id);
+    db_m->create_row(in);
     delete db_m;
 }
 

@@ -24,10 +24,8 @@ void Server::incoming_request() {
 
 void Server::get_group_id() {
     QByteArray message;
-    while(sock->waitForReadyRead()) {
-        std::cout << "from socket: " << sock->readAll().toStdString() << std::endl;
-        message.append(sock->readAll());
-    }
+
+    message.append(sock->readAll());
 
     QDataStream str(&message, QIODevice::ReadOnly);
     int group_id;
@@ -39,6 +37,7 @@ void Server::get_group_id() {
 void Server::send_instruction() {
     db = new Instructions_DB(db_path);
     Instruction *i = ((Instructions_DB*)db)->get_instruction(1);
+
     QByteArray arr;
     QDataStream str(&arr, QIODevice::WriteOnly);
     str << i->instruction;

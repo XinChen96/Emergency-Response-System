@@ -19,16 +19,15 @@ void Client::request_new_msg(int group_id) {
     QDataStream ds(&arr, QIODevice::WriteOnly);
     ds << group_id;
     this->write(arr);
-    this->flush();
 
     // Now wait for ready read from server
     QByteArray message;
     while(this->waitForReadyRead()) {
         message.append(this->readAll());
         std::cout << "received some data: " << message.toStdString() << std::endl;
-
     }
 
+    std::cout << "here it is" << std::endl;
     // There's gotta be a better way to do this
     QString msg = QString::fromStdString(message.toStdString());
     new_message = msg;

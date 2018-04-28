@@ -1,7 +1,7 @@
 #include "instructions_db.h"
 #include <iostream>
 void Instructions_DB::generate_sql_queries() {
-    create_cmd += "CREATE TABLE IF NOT EXISTS instructions (id integer PRIMARY KEY, instruction text NOT NULL, group_id integer NOT NULL, date text NOT NULL, FOREIGN KEY(group_id) REFERENCES groups.id);";
+    create_cmd += "CREATE TABLE IF NOT EXISTS instructions (id integer PRIMARY KEY, instruction text NOT NULL, group_id integer NOT NULL, date text NOT NULL, FOREIGN KEY(group_id) REFERENCES groups(id), UNIQUE(instruction, group_id));";
     insert_cmd += "INSERT INTO instructions (instruction, group_id, date) VALUES (:instruction, :group_id, DATE('now'));";
     update_cmd += "UPDATE instructions SET instruction=:instruction, group_id=:group_id WHERE id=:id;";
     drop_cmd += "DROP TABLE IF EXISTS instructions;";
@@ -12,10 +12,12 @@ void Instructions_DB::create_row(DBItem* instr) {
 
     query = new QSqlQuery(db);
     query->prepare(insert_cmd);
+    std::cout << "in the create method: " << in->instruction.toStdString() << in->group_id << std::endl;
     query->bindValue(":instruction", in->instruction);
     query->bindValue(":group_id", in->group_id);
     query->exec();
     delete query;
+    delete in;
 }
 
 void Instructions_DB::update_value(DBItem* instr) {
@@ -42,6 +44,7 @@ void Instructions_DB::add_planner_instruction(DBItem* instr) {
     query->exec();
     delete query;
     delete in;
+    delete instr;
 }
 
 // Get the most recent instruction for a group id
@@ -53,8 +56,5 @@ Instruction* Instructions_DB::get_instruction(int group_id) {
     query->exec();
     query->next();
     Instruction *in = new Instruction(query->value(0).toString(), query->value(1).toInt());
-    std::cout << in->instruction.toStdString() << std::endl;
     return in;
 }
-
-
