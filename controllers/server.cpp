@@ -4,7 +4,7 @@ Server::Server(QObject *parent) : QTcpServer(parent) {
     if(!this->listen(QHostAddress::Any, 8080)) std::cout << "Could not start server." << std::endl;
     else std::cout << "Server running on " << this->serverAddress().toString().toStdString() << " on port " << this->serverPort() << std::endl;
     connect(this, SIGNAL(newConnection()), this, SLOT(incoming_request()));
-    connect(this, SIGNAL(group_received()), SLOT(send_instruction()));
+    connect(this, SIGNAL(group_received(int)), SLOT(send_instruction(int)));
 
     db_path = "/mnt/cs205/db.sqlite";
 }
@@ -23,22 +23,24 @@ void Server::incoming_request() {
 }
 
 void Server::get_group_id() {
-    QByteArray message;
+    //QByteArray message;
 
-    message.append(sock->readAll());
-
-    QDataStream str(&message, QIODevice::ReadOnly);
+    QDataStream in(sock);
+    in.startTransaction();
     int group_id;
-    str >> group_id;
-    std::cout << "group id of incoming request: " << group_id << std::endl;
-    emit group_received();
+    if(in.commitTransaction()) {
+        in >> group_id;
+
+        std::cout << "got this from the socket: " << group_id << std::endl;
+    } else {
+        std::cerr << "failed to commit transaction." << std::endl;
+    }
+    emit group_received(group_id);
 }
 
-void Server::send_instruction() {
+void Server::send_instruction(int group_id) {
     db = new Instructions_DB(db_path);
-    std::cout << "group_id: " << group_id << std::endl;
     Instruction *i = ((Instructions_DB*)db)->get_instruction(group_id);
-    std::cout << i->instruction.toStdString() << "blablabla" << std::endl;
     QByteArray arr;
     QDataStream str(&arr, QIODevice::WriteOnly);
     str << i->instruction;

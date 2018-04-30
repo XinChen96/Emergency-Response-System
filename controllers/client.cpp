@@ -16,6 +16,7 @@ void Client::request_new_msg(int group_id) {
 
     // Send group_id
     emit readyRead();
+    std::cout << "Id to be sent to server: " << group_id << std::endl;
     QByteArray arr;
     QDataStream ds(&arr, QIODevice::WriteOnly);
     ds << group_id;

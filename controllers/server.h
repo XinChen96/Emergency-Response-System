@@ -15,13 +15,13 @@ public:
     explicit Server(QObject *parent = nullptr);
 
 signals:
-    void group_received();
+    void group_received(int);
 
 public slots:
     void incoming_request();
     void get_group_id();
     void conn_closed();
-    void send_instruction();
+    void send_instruction(int);
 
 private:
     QTcpServer *server = nullptr;

@@ -49,7 +49,7 @@ Instruction* Instructions_DB::get_instruction(int group_id) {
     query = new QSqlQuery(db);
     // Select the newest entry in the table for a specific group
     // TODO: get the actual correct working group_id not just the most recent message
-    query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions);");
+    query->prepare("SELECT instruction, group_id FROM plannerInstructions WHERE id=(SELECT MAX(id) FROM plannerInstructions WHERE group_id=:group_id);");
     query->bindValue(":group_id", group_id);
     query->exec();
     if(query->next()) {
