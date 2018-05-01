@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>7</number>
+       <number>11</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -1349,7 +1349,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -1377,7 +1377,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>270</x>
@@ -1405,7 +1405,7 @@
          </item>
         </layout>
        </widget>
-       <widget class="QWidget" name="">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
           <x>40</x>
@@ -2120,8 +2120,8 @@
        <widget class="QWidget" name="horizontalLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>70</x>
-          <y>380</y>
+          <x>110</x>
+          <y>410</y>
           <width>641</width>
           <height>51</height>
          </rect>
@@ -2158,8 +2158,8 @@
        <widget class="QWidget" name="gridLayoutWidget_3">
         <property name="geometry">
          <rect>
-          <x>40</x>
-          <y>200</y>
+          <x>80</x>
+          <y>220</y>
           <width>693</width>
           <height>131</height>
          </rect>
@@ -2808,8 +2808,8 @@
        <widget class="QWidget" name="gridLayoutWidget_5">
         <property name="geometry">
          <rect>
-          <x>140</x>
-          <y>190</y>
+          <x>150</x>
+          <y>230</y>
           <width>481</width>
           <height>131</height>
          </rect>
@@ -2820,6 +2820,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -2835,6 +2837,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
@@ -2863,8 +2867,8 @@
        <widget class="QWidget" name="verticalLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>220</x>
-          <y>360</y>
+          <x>230</x>
+          <y>380</y>
           <width>351</width>
           <height>61</height>
          </rect>
@@ -3253,8 +3257,8 @@
        <widget class="QWidget" name="verticalLayoutWidget_7">
         <property name="geometry">
          <rect>
-          <x>210</x>
-          <y>380</y>
+          <x>230</x>
+          <y>400</y>
           <width>341</width>
           <height>61</height>
          </rect>
@@ -3351,8 +3355,8 @@
        <widget class="QWidget" name="gridLayoutWidget_6">
         <property name="geometry">
          <rect>
-          <x>90</x>
-          <y>190</y>
+          <x>110</x>
+          <y>220</y>
           <width>591</width>
           <height>151</height>
          </rect>
@@ -3363,6 +3367,8 @@
            <property name="font">
             <font>
              <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
             </font>
            </property>
            <property name="styleSheet">
