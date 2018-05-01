@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>885</width>
-    <height>527</height>
+    <width>840</width>
+    <height>522</height>
    </rect>
   </property>
   <property name="font">
@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>23</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -187,7 +187,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(0, 122, 255);color: white;</string>
+                 <string notr="true">background-color: white;</string>
                 </property>
                 <property name="text">
                  <string>Login</string>
@@ -222,7 +222,7 @@
                  </font>
                 </property>
                 <property name="styleSheet">
-                 <string notr="true">background-color: rgb(0, 122, 255);color: white;</string>
+                 <string notr="true">background-color: white;</string>
                 </property>
                 <property name="text">
                  <string>Register</string>
@@ -684,7 +684,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
-            <pointsize>24</pointsize>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="styleSheet">
@@ -706,7 +706,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
-            <pointsize>24</pointsize>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="styleSheet">
@@ -728,7 +728,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
-            <pointsize>24</pointsize>
+            <pointsize>14</pointsize>
            </font>
           </property>
           <property name="text">
@@ -749,7 +749,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>24</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -768,7 +768,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>24</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -791,7 +791,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>24</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -810,7 +810,7 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>24</pointsize>
+              <pointsize>14</pointsize>
              </font>
             </property>
             <property name="text">
@@ -2626,7 +2626,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
-            <pointsize>24</pointsize>
+            <pointsize>15</pointsize>
            </font>
           </property>
           <property name="text">
@@ -2645,7 +2645,7 @@
           <property name="font">
            <font>
             <family>Helvetica</family>
-            <pointsize>24</pointsize>
+            <pointsize>15</pointsize>
            </font>
           </property>
           <property name="text">
@@ -2666,8 +2666,11 @@
             <property name="font">
              <font>
               <family>Helvetica</family>
-              <pointsize>24</pointsize>
+              <pointsize>15</pointsize>
              </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">ui-&gt;centralWidget-&gt;setStyleSheet(&quot;QWidget[objectName='centralWidget'] { border-image:url(:/images/Login.jpg)0 0 0 0 stretch stretch}&quot;);</string>
             </property>
             <property name="text">
              <string>Logout</string>
@@ -7656,6 +7659,9 @@
             <font>
              <pointsize>13</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
            </property>
            <property name="text">
             <string>Select Group:</string>
