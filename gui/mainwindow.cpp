@@ -600,7 +600,7 @@ void MainWindow::display_messages(QSqlRelationalTableModel* table_model, QTableV
     QString filter = QString("group_id=%1").arg(group);
     table_model->setFilter(filter);
     table_model->select();
-    table_model->sort(3, Qt::AscendingOrder); // Sort with most recent message first
+    table_model->sort(0, Qt::DescendingOrder); // Sort with most recent message first
 
     table_model->setHeaderData(1, Qt::Horizontal, tr("Instruction"));
     table_model->setHeaderData(2, Qt::Horizontal, tr("Date"));

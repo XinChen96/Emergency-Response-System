@@ -24,7 +24,6 @@ public slots:
     void send_instruction(int);
 
 private:
-    QTcpServer *server = nullptr;
     QTcpSocket *sock = nullptr;
     DB_Manager *db = nullptr;
     int group_id;

@@ -32,9 +32,9 @@
 class MainController {
 public:
     //MainController() : dbPath("../db.sqlite") {}
-    //MainController() : dbPath("/mnt/cs205/db.sqlite") {} //Ben's db path
+    MainController() : dbPath("/mnt/cs205/db.sqlite") {} //Ben's db path
     //MainController() : dbPath("/Volumes/cs205/db.sqlite") {} //Chen's db path
-    MainController() : dbPath("/mnt/205_Database/db.sqlite") {} //Joe's db path
+    //MainController() : dbPath("/mnt/205_Database/db.sqlite") {} //Joe's db path
 
     ~MainController();
 
