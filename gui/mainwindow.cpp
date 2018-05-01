@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
             sim_active = true;
         }
     }
+    ui->centralWidget->setStyleSheet("QWidget[objectName='centralWidget'] { border-image:url(:/images/Login.jpg)0 0 0 0 stretch stretch}");
 
     //hide break in button, but hes not gone
     ui->breakIn->setVisible(false);
@@ -114,6 +115,9 @@ void MainWindow::login(){
         ui->loginAlert->setText("");
         user_ID = ctrl->get_user_id(ui->enterUsername->text());
 
+        ui->centralWidget->setStyleSheet("QWidget[objectName='centralWidget'] { border-image:url(:/images/Background.jpg)0 0 0 0 stretch stretch}");
+
+
     }else{
         ui->enterUsername->clear();
         ui->loginAlert->setStyleSheet("background-color:rgb(245, 215, 110)");
@@ -124,9 +128,16 @@ void MainWindow::login(){
         ui->alerts->setVisible(false);
         ctrl->start_server();
 
+
+    } else if (userRole == civilian) {
+        ui->alerts->setVisible(true);
+        ui->messageG->setVisible(false);
+        ctrl->start_client();
     } else {
         ui->alerts->setVisible(true);
+        ui->messageG->setVisible(true);
         ctrl->start_client();
+
     }
 }
 
@@ -279,6 +290,7 @@ void MainWindow::on_logoutEP_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->enterUsername->clear();
     ui->notArea->clear();
+    ui->centralWidget->setStyleSheet("QWidget[objectName='centralWidget'] { border-image:url(:/images/Login.jpg)0 0 0 0 stretch stretch}");
 }
 
 void MainWindow::on_simulationsButton_clicked() {
@@ -466,6 +478,7 @@ void MainWindow::on_logoutG_clicked()
     ui->stackedWidget->setCurrentIndex(0);
     ui->enterUsername->clear();
     ui->notArea->clear();
+    ui->centralWidget->setStyleSheet("QWidget[objectName='centralWidget'] { border-image:url(:/images/Login.jpg)0 0 0 0 stretch stretch}");
 }
 
 void MainWindow::on_createEm_clicked() {
@@ -1236,7 +1249,7 @@ void MainWindow::on_pushButton_4_clicked()
 
 void MainWindow::on_backToSelEm_5_clicked()
 {
-    ui->stackedWidget->setCurrentIndex(2);
+    ui->stackedWidget->setCurrentIndex(3);
 }
 
 void MainWindow::on_backToMenG_clicked()
