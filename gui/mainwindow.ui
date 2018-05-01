@@ -7660,6 +7660,9 @@
              <pointsize>13</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">color:white</string>
+           </property>
            <property name="text">
             <string>Select Group:</string>
            </property>
