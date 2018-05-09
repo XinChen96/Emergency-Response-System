@@ -127,15 +127,21 @@ void MainWindow::login(){
     if(userRole == 2) { // Planner
         ui->alerts->setVisible(false);
         ctrl->start_server();
+        ui->logout->setVisible(false);
+        ui->menu->setVisible(true);
 
 
     } else if (userRole == civilian) {
         ui->alerts->setVisible(true);
         ui->messageG->setVisible(false);
+        ui->menu->setVisible(false);
+        ui->logout->setVisible(true);
         ctrl->start_client();
     } else {
         ui->alerts->setVisible(true);
         ui->messageG->setVisible(true);
+        ui->menu->setVisible(true);
+        ui->logout->setVisible(true);
         ctrl->start_client();
 
     }
@@ -1255,4 +1261,12 @@ void MainWindow::on_backToSelEm_5_clicked()
 void MainWindow::on_backToMenG_clicked()
 {
     ui->stackedWidget->setCurrentIndex(13);
+}
+
+void MainWindow::on_logout_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->enterUsername->clear();
+    ui->notArea->clear();
+    ui->centralWidget->setStyleSheet("QWidget[objectName='centralWidget'] { border-image:url(:/images/Login.jpg)0 0 0 0 stretch stretch}");
 }

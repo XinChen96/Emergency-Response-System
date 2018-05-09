@@ -187,6 +187,8 @@ private slots:
 
     void on_backToMenG_clicked();
 
+    void on_logout_clicked();
+
 private:
     Ui::MainWindow *ui;
 

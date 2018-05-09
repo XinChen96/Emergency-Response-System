@@ -29,7 +29,7 @@
        <string notr="true"/>
       </property>
       <property name="currentIndex">
-       <number>23</number>
+       <number>13</number>
       </property>
       <widget class="QWidget" name="loginForm">
        <layout class="QVBoxLayout" name="verticalLayout_11">
@@ -595,6 +595,19 @@
             </property>
             <property name="text">
              <string>Notifications</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="logout">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Logout</string>
             </property>
            </widget>
           </item>
@@ -3832,7 +3845,7 @@
          <string notr="true"/>
         </property>
         <property name="currentIndex">
-         <number>21</number>
+         <number>15</number>
         </property>
         <widget class="QWidget" name="loginForm_3">
          <layout class="QVBoxLayout" name="verticalLayout_53">
